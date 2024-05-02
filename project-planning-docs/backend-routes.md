@@ -1,7 +1,7 @@
-# LITTLE Z
+# LITTLE TRIO YUMSPOT
 ## Database Schema Design
 
-![Little Z Database Schema Design]()
+![Little Trio YumSpot Database Schema Design]()
 
 ## API Documentation
 
