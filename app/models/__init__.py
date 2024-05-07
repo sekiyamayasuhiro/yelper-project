@@ -1,3 +1,5 @@
-from .db import db
+from .db import db, environment, SCHEMA
 from .user import User
-from .db import environment, SCHEMA
+from .business import Business
+from .review import Review
+from .image import Image
