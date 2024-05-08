@@ -26,5 +26,5 @@ class Business(db.Model):
 
     # Relationships
     owner = db.relationship('User', back_populates='businesses')
-    reviews = db.relationship('Reviews', back_populates='business')
+    reviews = db.relationship('Review', back_populates='business')
     images = db.relationship('Image', back_populates='business')
