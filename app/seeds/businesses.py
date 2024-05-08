@@ -25,7 +25,7 @@ def seed_businesses():
         state='CA',
         country='USA',
         postal_code='94110',
-        category='Restaurants - Noodles',
+        category='Restaurants',
         phone_number='415-123-0000',
         website='www.ramennag.com',
         description='Welcome to Ramen Nag!',

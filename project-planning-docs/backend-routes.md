@@ -24,6 +24,72 @@ Returns all the businesses
   * Headers:
     * Content-Type: application/json
   * Body:
+      ```json
+    {
+      'Businesses':
+          [
+            {
+              "address": "123 Hello St",
+              "category": "Gyms",
+              "city": "San Mateo",
+              "country": "USA",
+              "created_at": "Wed, 08 May 2024 03:24:56 GMT",
+              "description": "Welcome to Lazy Gym!",
+              "id": 1,
+              "lat": 1,
+              "lng": 10,
+              "name": "Lazy Gym",
+              "owner_id": 1,
+              "phone_number": "415-123-4567",
+              "postal_code": 94403,
+              "price": "3.00",
+              "state": "CA",
+              "updated_at": "Wed, 08 May 2024 03:24:56 GMT",
+              "website": "www.lazygym.com"
+            },
+            {
+              "address": "123 Hi St",
+              "category": "Restaurants",
+              "city": "San Francisco",
+              "country": "USA",
+              "created_at": "Wed, 08 May 2024 03:24:56 GMT",
+              "description": "Welcome to Ramen Nag!",
+              "id": 2,
+              "lat": 1,
+              "lng": 10,
+              "name": "Ramen Nag",
+              "owner_id": 2,
+              "phone_number": "415-123-0000",
+              "postal_code": 94110,
+              "price": "2.00",
+              "state": "CA",
+              "updated_at": "Wed, 08 May 2024 03:24:56 GMT",
+              "website": "www.ramennag.com"
+            },
+            {
+              "address": "123 High St",
+              "category": "Coffee",
+              "city": "San Francisco",
+              "country": "USA",
+              "created_at": "Wed, 08 May 2024 03:24:56 GMT",
+              "description": "Welcome to Pink Bottle!",
+              "id": 3,
+              "lat": 1,
+              "lng": 10,
+              "name": "Pink Bottle",
+              "owner_id": 3,
+              "phone_number": "415-123-1111",
+              "postal_code": 94110,
+              "price": "1.00",
+              "state": "CA",
+              "updated_at": "Wed, 08 May 2024 03:24:56 GMT",
+              "website": "www.pinkbottle.com"
+              }
+
+          ]
+    }
+
+    ```
 
 ### Get details of a Business by id
 Returns the details of a business specified by its id.
