@@ -11,7 +11,14 @@ class BusinessForm(FlaskForm):
     postal_code = StringField('Postal Code', validators=[DataRequired(), Length(min=5, max=5, message='Postal code must be 5 digits')])
     lat = DecimalField('Latitude', places=6, validators=[Optional(), NumberRange(min=-90.0, max=90.0)])
     lng = DecimalField('Longitude', places=6, validators=[Optional(), NumberRange(min=-180.0, max=180.0)])
-    category = StringField('Category', validators=[DataRequired()])
+    category = SelectField('Category',
+                            choices=[
+                                ('', 'All Categories'),
+                                ('Restaurant', 'Restaurant'),
+                                ('Coffee', 'Coffee'),
+                                ('Gym', 'Gym'),
+                                ('Salon', 'Salon')],
+                            validators=[Optional()])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10, message='Phone number must be 10 digits')])
     website = StringField('Website', validators=[Optional(), URL(message='Please provide a valid URL.')])
     description = TextAreaField('Description', validators=[DataRequired(), Length(max=1000)])
