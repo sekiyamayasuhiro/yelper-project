@@ -6,9 +6,16 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
+import businessReducer from "./business";
+import reviewReducer from "./review";
+import imageReducer from "./image";
+
 
 const rootReducer = combineReducers({
   session: sessionReducer,
+  businessState: businessReducer,
+  reviewState: reviewReducer,
+  imageState: imageReducer
 });
 
 let enhancer;
