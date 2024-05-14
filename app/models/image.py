@@ -13,6 +13,16 @@ class Image(db.Model):
     created_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
     updated_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "business_id": self.business_id,
+            "url": self.url,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat()
+        }
+
     # Relationship
     user = db.relationship('User', back_populates='images')
     business = db.relationship('Business', back_populates='images')
