@@ -106,24 +106,23 @@ def create_review_for_business(business_id):
     if not business:
         return jsonify({'message': 'Business could not be found'}), 404
 
-    form = ReviewForm()
+    review_data = request.json
+    required_fields = ['rating', 'review_text']
+    missing_fields = [field for field in required_fields if field not in review_data]
 
-    if request.is_json:
-        data = request.get_json()
-        form = ReviewForm(data=data)
+    if missing_fields:
+        error_messages = {field: f'{field} is required' for field in missing_fields}
+        return jsonify({'errors': error_messages}), 400
 
-    if form.validate_on_submit():
-        new_review = Review(
-            user_id=current_user.id,
-            business_id=business_id,
-            rating=form.rating.data,
-            review_text=form.review_text.data
-        )
-        db.session.add(new_review)
-        db.session.commit()
-        return jsonify(new_review.to_dict()), 201
-    else:
-        return jsonify(form.errors), 400
+    new_review = Review(
+        user_id=current_user.id,
+        business_id=business_id,
+        rating=review_data['rating'],
+        review_text=review_data['review_text']
+    )
+    db.session.add(new_review)
+    db.session.commit()
+    return jsonify(new_review.to_dict()), 201
 
 # Get all images by a business' id
 @business_routes.route('/<int:business_id>/images', methods=['GET'])
@@ -143,26 +142,25 @@ def get_images_by_business(business_id):
 @login_required
 def create_image_for_business(business_id):
     """
-    Creates an image for a business by logged-in user.
+    Creates an image for a business by a logged-in user.
     """
     business = Business.query.get(business_id)
     if not business:
         return jsonify({'message': 'Business could not be found'}), 404
 
-    form = ImageForm()
+    image_data = request.json
+    required_fields = ['url']
+    missing_fields = [field for field in required_fields if field not in image_data]
 
-    if request.is_json:
-        data = request.get_json()
-        form = ImageForm(data=data)
+    if missing_fields:
+        error_messages = {field: f'{field} is required' for field in missing_fields}
+        return jsonify({'errors': error_messages}), 400
 
-    if form.validate_on_submit():
-        new_image = Image(
-            user_id=current_user.id,
-            business_id=business_id,
-            url=form.url.data,
-        )
-        db.session.add(new_image)
-        db.session.commit()
-        return jsonify(new_image.to_dict()), 201
-    else:
-        return jsonify(form.errors), 400
+    new_image = Image(
+        user_id=current_user.id,
+        business_id=business_id,
+        url=image_data['url']
+    )
+    db.session.add(new_image)
+    db.session.commit()
+    return jsonify(new_image.to_dict()), 201
