@@ -58,7 +58,7 @@ def create_business():
     new_business = Business(**business_data)
     db.session.add(new_business)
     db.session.commit()
-    return jsonify({'message': 'Success'}), 201
+    return jsonify(new_business.to_dict()), 201
 
 
 # Edit business by id
@@ -79,7 +79,7 @@ def edit_business(business_id):
         setattr(business, key, val)
 
     db.session.commit()
-    return jsonify({'message': 'Success'})
+    return jsonify(business.to_dict())
 
 ###
 # Get all reviews by the business' id
