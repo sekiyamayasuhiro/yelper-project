@@ -46,33 +46,6 @@ def update_review(review_id):
     db.session.commit()
     return jsonify(review.to_dict()), 200
 
-# @review_routes.route('/<int:review_id>', methods=['PUT'])
-# @login_required
-# def update_review(review_id):
-#     """
-#     Updates a review owned by the logged-in user.
-#     """
-#     review = Review.query.get(review_id)
-
-#     if review is None:
-#         return jsonify({'message': 'Review could not be found'}), 404
-
-#     if review.user_id != current_user.id:
-#         return jsonify({'message': 'Unauthorized'}), 403
-
-#     form = ReviewForm()
-
-#     if request.is_json:
-#         data = request.get_json()
-#         form = ReviewForm(data=data)
-
-#     if form.validate_on_submit():
-#         form.populate_obj(review)
-#         db.session.commit()
-#         return jsonify(review.to_dict()), 200
-#     else:
-#         return jsonify(form.errors), 400
-
 # Delete a review
 @review_routes.route('/<int:review_id>', methods=['DELETE'])
 @login_required
