@@ -8,7 +8,7 @@ function Navigation({ isLoaded }) {
 
   return (
     <div className="navigation">
-      <Link to="/"><img id="app-logo" alt="Little Z Logo" /></Link>
+      <Link to="/"><img id="app-logo" alt="Little Trio YumSpot Logo" /></Link>
 
       <div>
         {isLoaded && sessionUser && <Link to="/businesses/new" className="create-business-link">Create a New Business</Link>}
