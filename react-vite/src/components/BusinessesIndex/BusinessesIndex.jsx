@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllBusinesses } from '../../redux/business.js';
-import SearchBar from '../SearchBar';
+// import SearchBar from '../SearchBar';
 
 const BusinessesIndex = () => {
     const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const BusinessesIndex = () => {
 
     return (
         <div>
-            <SearchBar />
+            {/* <SearchBar /> */}
             <div className="businesses-container">
                 {
                     isLoaded && businesses.map(({ id, previewImage, name, city, state, price, avgRating }) => (

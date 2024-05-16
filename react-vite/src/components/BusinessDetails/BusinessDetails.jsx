@@ -5,11 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getBusinessDetailsById } from '../../redux/business.js'
 import { getReviewsByBusinessId } from '../../redux/review.js'
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem.jsx';
-import CreateReviewFormModal from '../CreateReviewFormModal';
-import UpdateReviewFormModal from '../UpdateReviewFormModal';
-import DeleteReviewModal from '../DeleteReviewModal';
-import CreateImageFormModal from '../CreateImageFormModal';
-import ViewAllImagesModal from '../ViewAllImagesModal';
+// import CreateReviewFormModal from '../CreateReviewFormModal';
+// import UpdateReviewFormModal from '../UpdateReviewFormModal';
+// import DeleteReviewModal from '../DeleteReviewModal';
+// import CreateImageFormModal from '../CreateImageFormModal';
+// import ViewAllImagesModal from '../ViewAllImagesModal';
 
 
 const BusinessDetails = () => {
@@ -62,17 +62,17 @@ const BusinessDetails = () => {
                 <pre className="description-content">{business.description}</pre>
             </div>
 
-            <button>
+            {/* <button>
                 <OpenModalMenuItem
                     itemText="Add more images"
                     modalComponent={<CreateImageFormModal businessId={businessId} />} />
-            </button>
+            </button> */}
 
-            <button>
+            {/* <button>
                 <OpenModalMenuItem
                     itemText="View all Images"
                     modalComponent={<ViewAllImagesModal businessId={businessId} />} />
-            </button>
+            </button> */}
 
             <hr />
 
