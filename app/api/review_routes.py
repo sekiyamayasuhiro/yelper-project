@@ -14,8 +14,6 @@ def get_current_user_reviews():
     """
     reviews = Review.query.filter(Review.user_id == current_user.id).all()
     return jsonify([review.to_dict() for review in reviews]), 200
-# Get all reviews by the business' id
-# Create a review for a business based on the business' id
 
 # Update a review
 @review_routes.route('/<int:review_id>', methods=['PUT'])
