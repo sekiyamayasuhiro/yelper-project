@@ -4,10 +4,10 @@ import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import BusinessesIndex from '../components/BusinessesIndex';
 import CreateBusinessForm from '../components/CreateBusinessForm';
-// import ManageBusinesses from '../components/ManageBusinesses';
+import ManageBusinesses from '../components/ManageBusinesses';
 import BusinessDetails from '../components/BusinessDetails';
 import UpdateBusinessForm from '../components/UpdateBusinessForm';
-// import ManageReviews from '../components/ManageReviews';
+import ManageReviews from '../components/ManageReviews';
 
 
 export const router = createBrowserRouter([
@@ -26,10 +26,10 @@ export const router = createBrowserRouter([
             path: "new",
             element: <CreateBusinessForm />
           },
-          // {
-          //   path: "current",
-          //   element: <ManageBusinesses />
-          // },
+          {
+            path: "current",
+            element: <ManageBusinesses />
+          },
           {
             path: ":businessId",
             element: <BusinessDetails />
@@ -40,10 +40,10 @@ export const router = createBrowserRouter([
           }
         ]
       },
-      // {
-      //   path: "reviews/current",
-      //   element: <ManageReviews />
-      // },
+      {
+        path: "reviews/current",
+        element: <ManageReviews />
+      },
       {
         path: "login",
         element: <LoginFormPage />,
