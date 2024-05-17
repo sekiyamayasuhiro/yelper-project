@@ -7,7 +7,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import SignupFormModal from "../SignupFormModal";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
-function Navigation({ isLoaded }) {
+function Navigation() {
   const sessionUser = useSelector(state => state.session.user);
 
   let sessionLinks

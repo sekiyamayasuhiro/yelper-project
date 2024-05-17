@@ -8,7 +8,7 @@ import UpdateReviewFormModal from '../UpdateReviewFormModal';
 
 const ManageReviews = () => {
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.session.user);
+    // const sessionUser = useSelector(state => state.session.user);
     const reviews = useSelector(state => Object.values(state.reviewState) ? Object.values(state.reviewState) : []);
 
     useEffect(() => {
