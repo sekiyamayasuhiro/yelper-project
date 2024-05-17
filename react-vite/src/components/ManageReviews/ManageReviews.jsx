@@ -1,18 +1,19 @@
 import { FaStar } from "react-icons/fa";
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getReviewsByCurrentUser } from '../../redux/review.js';
+import { getReviewsByBusinessId } from '../../redux/review.js';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import UpdateReviewFormModal from '../UpdateReviewFormModal';
 // import DeleteReviewModal from '../DeleteReviewModal';
 
 const ManageReviews = () => {
     const dispatch = useDispatch();
-    // const sessionUser = useSelector(state => state.session.user);
+    const userId = useSelector(state => state.session.user.id);
+
     const reviews = useSelector(state => Object.values(state.reviewState) ? Object.values(state.reviewState) : []);
 
     useEffect(() => {
-        dispatch(getReviewsByCurrentUser());
+        dispatch(getReviewsByBusinessId(userId))
     }, [dispatch]);
 
     return (
