@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getReviewsByCurrentUser } from '../../redux/review.js';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import UpdateReviewFormModal from '../UpdateReviewFormModal';
-// import DeleteReviewModal from '../DeleteReviewModal';
+import DeleteReviewModal from '../DeleteReviewModal';
 
 const ManageReviews = () => {
     const dispatch = useDispatch();
@@ -33,14 +33,14 @@ const ManageReviews = () => {
                                 modalComponent={UpdateReviewFormModal} reviewId={id} />
                         </button>
                     </div>
-{/*
+
                     <div>
                         <button>
                             <OpenModalMenuItem
                                 itemText="Delete"
                                 modalComponent={DeleteReviewModal} reviewId={id} />
                         </button>
-                    </div> */}
+                    </div>
                 </div>))}
             </div>
         </div>
