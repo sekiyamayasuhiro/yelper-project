@@ -39,26 +39,7 @@ const ViewAllImagesModal = ({ businessId }) => {
             <button onClick={closeModal}>Close Modal</button>
         </div>
 
-
     );
-
-    // return (
-    //     <div>
-    //         {isLoaded ? (
-    //             images.length > 0 ? (
-    //                 images.map(({ id, url }) => (
-    //                     <div key={id}>
-    //                         <img src={url} alt={`Picture with id:${id}`} />
-    //                     </div>
-    //                 ))
-    //             ) : (
-    //                 <p>No images found.</p>
-    //             )
-    //         ) : (
-    //             <p>Loading...</p>
-    //         )}
-    //     </div>
-    // );
 
 };
 
