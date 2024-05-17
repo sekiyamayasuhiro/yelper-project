@@ -5,8 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getBusinessDetailsById } from '../../redux/business.js'
 import { getReviewsByBusinessId } from '../../redux/review.js'
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem.jsx';
-// import CreateReviewFormModal from '../CreateReviewFormModal';
-// import UpdateReviewFormModal from '../UpdateReviewFormModal';
+import CreateReviewFormModal from '../CreateReviewFormModal';
+import UpdateReviewFormModal from '../UpdateReviewFormModal';
 // import DeleteReviewModal from '../DeleteReviewModal';
 // import CreateImageFormModal from '../CreateImageFormModal';
 // import ViewAllImagesModal from '../ViewAllImagesModal';
@@ -20,7 +20,7 @@ const BusinessDetails = () => {
     const reviews = useSelector(state => Object.values(state.reviewState) ? Object.values(state.reviewState) : []);
     const sessionUser = useSelector(state => state.session.user);
 
-    console.log(business);
+    // console.log(business);
 
     useEffect(() => {
         dispatch(getBusinessDetailsById(businessId))
@@ -112,11 +112,11 @@ const BusinessDetails = () => {
                                         modalComponent={<UpdateReviewFormModal reviewId={id} sessionUser={sessionUser} businessId={businessId} />} />
                                 </button>
 
-                                <button>
+                                {/* <button>
                                     <OpenModalMenuItem
                                         itemText="Delete"
                                         modalComponent={<DeleteReviewModal reviewId={id} />} />
-                                </button>
+                                </button> */}
                             </>
                         )}
                     </div>

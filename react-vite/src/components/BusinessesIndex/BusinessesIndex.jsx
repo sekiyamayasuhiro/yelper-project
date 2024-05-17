@@ -18,6 +18,7 @@ const BusinessesIndex = () => {
     return (
         <div>
             {/* <SearchBar /> */}
+            {businesses.length === 0 && <h3>No Result Found</h3>}
             <div className="businesses-container">
                 {
                     isLoaded && businesses.map(({ id, previewImage, name, city, state, price, avgRating }) => (

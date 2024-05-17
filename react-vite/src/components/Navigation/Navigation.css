@@ -1,3 +1,60 @@
 .profile-dropdown {
   position: absolute;
 }
+
+#app-logo {
+  height: 50px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+}
+
+.navbar {
+  border: 5px solid black;
+  height: 200px;
+
+
+
+}
+
+
+.session-user {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+}
+
+.session-user a {
+  text-decoration: none;
+  color: black;
+}
+
+.login-signup {
+  display: flex;
+  justify-content: space-around;
+  width: 200px;
+}
+
+.login-signup button {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+.signup button {
+  background-color: red;
+}
+
+.login button {
+  background-color: darkgray
+}
+
+.price .category {
+  list-style: none;
+}

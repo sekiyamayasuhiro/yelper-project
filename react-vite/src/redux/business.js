@@ -4,7 +4,7 @@ import { csrfFetch } from './csrf';
 const LOAD_BUSINESSES = 'business/LOAD_BUSINESSES';
 const ADD_BUSINESS = 'business/ADD_BUSINESS';
 const REMOVE_BUSINESS = 'business/REMOVE_BUSINESS';
-
+const NO_RESULT = '/business/NO_RESULT'
 
 const loadBusinesses = (businesses) => {
     return {
@@ -12,8 +12,6 @@ const loadBusinesses = (businesses) => {
         businesses
     }
 }
-
-
 
 const addBusiness = (business) => {
     return {
@@ -29,12 +27,12 @@ const removeBusiness = (id) => {
     }
 }
 
-export const getAllBusinesses = () => async (dispatch) => {
-    const response = await fetch(`/api/businesses`);
-
+export const getAllBusinesses = (searchParams) => async (dispatch) => {
+    const queryParams = new URLSearchParams(searchParams).toString()
+    const response = await fetch(`/api/businesses/search?${queryParams}`)
     if (response.ok) {
-        const businessesData = await response.json();
-        dispatch(loadBusinesses(businessesData.Businesses));
+        const data = await response.json()
+        dispatch(loadBusinesses(data))
     }
 }
 
