@@ -55,10 +55,12 @@ def create_business():
         return jsonify({'errors': error_messages}), 400
 
     business_data['owner_id'] = current_user.id
+    print('line 58', current_user.id)
     new_business = Business(**business_data)
     db.session.add(new_business)
     db.session.commit()
     return jsonify(new_business.to_dict()), 201
+    # return jsonify({'message': 'Success'})
 
 
 # Edit business by id

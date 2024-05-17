@@ -5,15 +5,12 @@ const LOAD_BUSINESSES = 'business/LOAD_BUSINESSES';
 const ADD_BUSINESS = 'business/ADD_BUSINESS';
 const REMOVE_BUSINESS = 'business/REMOVE_BUSINESS';
 
-
 const loadBusinesses = (businesses) => {
     return {
         type: LOAD_BUSINESSES,
         businesses
     }
 }
-
-
 
 const addBusiness = (business) => {
     return {
@@ -29,12 +26,12 @@ const removeBusiness = (id) => {
     }
 }
 
-export const getAllBusinesses = () => async (dispatch) => {
-    const response = await fetch(`/api/businesses`);
-
+export const getAllBusinesses = (searchParams) => async (dispatch) => {
+    const queryParams = new URLSearchParams(searchParams).toString()
+    const response = await fetch(`/api/businesses/search?${queryParams}`)
     if (response.ok) {
-        const businessesData = await response.json();
-        dispatch(loadBusinesses(businessesData.Businesses));
+        const data = await response.json()
+        dispatch(loadBusinesses(data))
     }
 }
 
@@ -117,6 +114,7 @@ const BusinessReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_BUSINESSES: {
             const newState = {};
+            console.log(action.businesses, 'line 134')
             action.businesses.forEach(business => { newState[business.id] = business });
             return newState;
         }
