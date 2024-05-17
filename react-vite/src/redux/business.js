@@ -4,6 +4,7 @@ import { csrfFetch } from './csrf';
 const LOAD_BUSINESSES = 'business/LOAD_BUSINESSES';
 const ADD_BUSINESS = 'business/ADD_BUSINESS';
 const REMOVE_BUSINESS = 'business/REMOVE_BUSINESS';
+const NO_RESULT = '/business/NO_RESULT'
 
 const loadBusinesses = (businesses) => {
     return {
@@ -114,7 +115,6 @@ const BusinessReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_BUSINESSES: {
             const newState = {};
-            console.log(action.businesses, 'line 134')
             action.businesses.forEach(business => { newState[business.id] = business });
             return newState;
         }

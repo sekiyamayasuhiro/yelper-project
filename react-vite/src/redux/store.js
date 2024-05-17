@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   session: sessionReducer,
   businessState: businessReducer,
   reviewState: reviewReducer,
-  imageState: imageReducer
+  imageState: imageReducer,
 });
 
 let enhancer;

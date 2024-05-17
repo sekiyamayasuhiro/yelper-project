@@ -37,13 +37,14 @@ export const router = createBrowserRouter([
           {
             path: ":businessId/edit",
             element: <UpdateBusinessForm />
-          }
+          },
+          {
+            path: ":businessId/reviews",
+            element: <ManageReviews />
+          },
         ]
       },
-      {
-        path: "reviews/current",
-        element: <ManageReviews />
-      },
+
       {
         path: "login",
         element: <LoginFormPage />,

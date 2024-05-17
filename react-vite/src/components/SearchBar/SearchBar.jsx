@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './SearchBar.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getAllBusinesses} from '../../redux/business'
 
 
@@ -10,8 +10,6 @@ function SearchBar() {
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [category, setCategory] = useState('')
-
-
 
     const prices = ['$', '$$', '$$$', '$$$$']
     const categories = ['Restaurant', 'Coffee', 'Gym', 'Salon']
@@ -55,6 +53,7 @@ function SearchBar() {
 
                 </div>
                 <button>Search</button>
+                {/* { businesses !== null || businesses !== undefined && Object.keys(businesses).length === 0 && 'No result'} */}
             </form>
         </div>
 
