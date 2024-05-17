@@ -8,9 +8,6 @@ const CreateImageFormModal = ({ businessId }) => {
     const dispatch = useDispatch();
 
     const [imageUrl1, setImageUrl1] = useState("");
-    // const [imageUrl2, setImageUrl2] = useState('');
-    // const [imageUrl3, setImageUrl3] = useState('');
-    // const [imageUrl4, setImageUrl4] = useState('');
 
     const [validationErrors, setValidationErrors] = useState({});
 
@@ -18,15 +15,14 @@ const CreateImageFormModal = ({ businessId }) => {
         const resetForm = () => {
             setValidationErrors({});
             setImageUrl1("");
-            // setImageUrl2('');
-            // setImageUrl3('');
-            // setImageUrl4('');
         };
 
         return () => {
             resetForm();
         };
     }, []);
+
+    console.log("Business ID:", businessId);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -58,9 +54,6 @@ const CreateImageFormModal = ({ businessId }) => {
                 })
             );
         }
-        // if (imageUrl2.length) { await dispatch(createImage({ business_id: businessId, url: imageUrl2, preview: false })); }
-        // if (imageUrl3.length) { await dispatch(createImage({ business_id: businessId, url: imageUrl3, preview: false })); }
-        // if (imageUrl4.length) { await dispatch(createImage({ business_id: businessId, url: imageUrl4, preview: false })); }
 
         closeModal();
     };
@@ -70,6 +63,11 @@ const CreateImageFormModal = ({ businessId }) => {
             <form onSubmit={handleSubmit}>
                 <section>
                     <h2>Add more photos for the business</h2>
+                    <h3>
+                        Dear users: We apologize for the inconvenience, soon we
+                        will be implementing a feature to upload picture files!
+                        - Yelper Team
+                    </h3>
 
                     <input
                         type="text"
@@ -83,33 +81,11 @@ const CreateImageFormModal = ({ businessId }) => {
                             {validationErrors.imageUrl1}
                         </div>
                     )}
-
-                    {/* <input
-                        type="text"
-                        name="image-url-2"
-                        value={imageUrl2}
-                        onChange={e => setImageUrl2(e.target.value)}
-                        placeholder="Image URL" />
-                    {validationErrors.imageUrl2 && <div className="errors">{validationErrors.imageUrl2}</div>}
-
-                    <input
-                        type="text"
-                        name="image-url-3"
-                        value={imageUrl3}
-                        onChange={e => setImageUrl3(e.target.value)}
-                        placeholder="Image URL" />
-                    {validationErrors.imageUrl3 && <div className="errors">{validationErrors.imageUrl3}</div>}
-
-                    <input
-                        type="text"
-                        name="image-url-4"
-                        value={imageUrl4}
-                        onChange={e => setImageUrl4(e.target.value)}
-                        placeholder="Image URL" />
-                    {validationErrors.imageUrl4 && <div className="errors">{validationErrors.imageUrl4}</div>} */}
                 </section>
 
-                <button type="submit">Add Your Image</button>
+                <button type="submit" disabled={!imageUrl1}>
+                    Add Your Image
+                </button>
             </form>
         </div>
     );

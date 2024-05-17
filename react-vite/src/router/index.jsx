@@ -38,10 +38,10 @@ export const router = createBrowserRouter([
                         path: ":businessId/edit",
                         element: <UpdateBusinessForm />,
                     },
-                    {
-                        path: ":businessId/add-image",
-                        element: <CreateImageFormModal />,
-                    },
+                    // {
+                    //     path: ":businessId/add-image",
+                    //     element: <CreateImageFormModal />,
+                    // },
                 ],
             },
             {
