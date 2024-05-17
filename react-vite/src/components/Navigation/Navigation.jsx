@@ -30,7 +30,7 @@ function Navigation({ isLoaded }) {
 
     <div className="navbar">
       <div className="header">
-        <Link to="/"><img id="app-logo" alt="Little Z Logo" src='logo.jpg' /></Link>
+        <Link to="/"><img id="app-logo" alt="App Logo" src='logo.jpg' /></Link>
         <SearchBar />
         {sessionUser && (
           <div className="session-user">
