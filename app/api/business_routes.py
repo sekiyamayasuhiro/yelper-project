@@ -58,7 +58,7 @@ def create_business():
     new_business = Business(**business_data)
     db.session.add(new_business)
     db.session.commit()
-    return jsonify({'message': 'Success'}), 201
+    return jsonify(new_business.to_dict()), 201
 
 
 # Edit business by id
@@ -79,7 +79,7 @@ def edit_business(business_id):
         setattr(business, key, val)
 
     db.session.commit()
-    return jsonify({'message': 'Success'})
+    return jsonify(business.to_dict())
 
 ###
 # Get all reviews by the business' id
@@ -164,3 +164,28 @@ def create_image_for_business(business_id):
     db.session.add(new_image)
     db.session.commit()
     return jsonify(new_image.to_dict()), 201
+
+# Search businesses
+@business_routes.route('/search', methods=['GET'])
+def search_businesses():
+    """
+    Search businesses by name, category, and/or price level.
+    """
+    name = request.args.get('name', type=str)
+    category = request.args.get('category', type=str)
+    price_level = request.args.get('price_level', type=int)
+
+    search_filter = Business.query
+
+    if name:
+        search_filter = search_filter.filter(Business.name.ilike(f'%{name}%'))
+
+    if category:
+        search_filter = search_filter.filter_by(category=category)
+
+    if price_level:
+        search_filter = search_filter.filter_by(price=price_level)
+
+    results = search_filter.all()
+
+    return jsonify([business.to_dict() for business in results]), 200

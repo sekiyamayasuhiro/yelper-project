@@ -13,6 +13,8 @@ const loadBusinesses = (businesses) => {
     }
 }
 
+
+
 const addBusiness = (business) => {
     return {
         type: ADD_BUSINESS,
