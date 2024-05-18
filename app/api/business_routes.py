@@ -177,7 +177,7 @@ def search_businesses():
     """
     name = request.args.get('name', type=str)
     category = request.args.get('category', type=str)
-    price_level = request.args.get('price_level', type=int)
+    price = request.args.get('price', type=int)
 
     search_filter = Business.query
 
@@ -187,8 +187,8 @@ def search_businesses():
     if category:
         search_filter = search_filter.filter_by(category=category)
 
-    if price_level:
-        search_filter = search_filter.filter_by(price=price_level)
+    if price:
+        search_filter = search_filter.filter_by(price=price)
 
     results = search_filter.all()
 
