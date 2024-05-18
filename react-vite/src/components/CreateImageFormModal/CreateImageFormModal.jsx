@@ -22,8 +22,6 @@ const CreateImageFormModal = ({ businessId }) => {
         };
     }, []);
 
-    console.log("Business ID:", businessId);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 

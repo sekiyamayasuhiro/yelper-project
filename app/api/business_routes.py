@@ -47,7 +47,8 @@ def delete_business(business_id):
 @business_routes.route('/', methods=['POST'])
 def create_business():
     business_data = request.json
-    required_fields = ['name', 'address', 'city', 'state', 'country', 'postal_code', 'lat', 'lng', 'category', 'phone_number', 'website', 'description', 'price']
+    # required_fields = ['name', 'address', 'city', 'state', 'country', 'postal_code', 'lat', 'lng', 'category', 'phone_number', 'website', 'description', 'price']
+    required_fields = ['name', 'address', 'city', 'state', 'country', 'postal_code', 'category', 'phone_number', 'website', 'description', 'price']
     missing_fields = [field for field in required_fields if not business_data.get(field)]
 
     if missing_fields:

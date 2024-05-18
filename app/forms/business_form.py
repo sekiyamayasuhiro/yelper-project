@@ -9,8 +9,8 @@ class BusinessForm(FlaskForm):
     state = StringField('State', validators=[DataRequired()])
     country = StringField('Country', validators=[DataRequired()])
     postal_code = StringField('Postal Code', validators=[DataRequired(), Length(min=5, max=5, message='Postal code must be 5 digits')])
-    lat = DecimalField('Latitude', places=6, validators=[Optional(), NumberRange(min=-90.0, max=90.0)])
-    lng = DecimalField('Longitude', places=6, validators=[Optional(), NumberRange(min=-180.0, max=180.0)])
+    # lat = DecimalField('Latitude', places=6, validators=[Optional(), NumberRange(min=-90.0, max=90.0)])
+    # lng = DecimalField('Longitude', places=6, validators=[Optional(), NumberRange(min=-180.0, max=180.0)])
     category = SelectField('Category',
                             choices=[
                                 ('', 'All Categories'),
@@ -20,7 +20,7 @@ class BusinessForm(FlaskForm):
                                 ('Salon', 'Salon')],
                             validators=[Optional()])
     phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=10, message='Phone number must be 10 digits')])
-    website = StringField('Website', validators=[Optional(), URL(message='Please provide a valid URL.')])
+    website = StringField('Website', validators=[DataRequired(), URL(message='Please provide a valid URL.')])
     description = TextAreaField('Description', validators=[DataRequired(), Length(max=1000)])
     price = SelectField('Price Level',
                         choices=[
