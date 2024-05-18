@@ -3,7 +3,6 @@ import { csrfFetch } from "./csrf";
 const LOAD_BUSINESSES = "business/LOAD_BUSINESSES";
 const ADD_BUSINESS = "business/ADD_BUSINESS";
 const REMOVE_BUSINESS = "business/REMOVE_BUSINESS";
-const NO_RESULT = "/business/NO_RESULT";
 
 const loadBusinesses = (businesses) => {
     return {
