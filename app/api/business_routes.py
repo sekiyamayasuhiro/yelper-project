@@ -56,7 +56,7 @@ def create_business():
         return jsonify({'errors': error_messages}), 400
 
     business_data['owner_id'] = current_user.id
-    print('line 58', current_user.id)
+
     new_business = Business(**business_data)
     db.session.add(new_business)
     db.session.commit()
@@ -193,3 +193,14 @@ def search_businesses():
     results = search_filter.all()
 
     return jsonify([business.to_dict() for business in results]), 200
+
+# Get current owner's businesses
+@business_routes.route('/user_businesses', methods=['GET'])
+@login_required
+def get_businesses_by_current_user():
+    """
+    Fetch all businesses owned by the logged-in user.
+    """
+    current_user_id = current_user.id
+    businesses = Business.query.filter(Business.owner_id == current_user_id).all()
+    return jsonify([business.to_dict() for business in businesses]), 200

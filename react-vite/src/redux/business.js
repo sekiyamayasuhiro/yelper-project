@@ -59,11 +59,11 @@ export const getBusinessDetailsById = (businessId) => async (dispatch) => {
 };
 
 export const getBusinessesByCurrentUser = () => async (dispatch) => {
-    const response = await csrfFetch(`/api/businesses/current`);
+    const response = await csrfFetch(`/api/businesses/user_businesses`);
 
     if (response.ok) {
         const businessData = await response.json();
-        dispatch(loadBusinesses(businessData.Businesses));
+        dispatch(loadBusinesses(businessData));
     }
 };
 

@@ -27,7 +27,6 @@ const ViewAllImagesModal = ({ businessId }) => {
                 images.map(({ id, url, user_id }) => {
                     const isImagePoster =
                         sessionUser && user_id && sessionUser.id === user_id;
-                    console.log("Is Image Poster:", isImagePoster);
 
                     return (
                         <div key={id}>
