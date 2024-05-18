@@ -11,8 +11,6 @@ const CreateBusinessForm = () => {
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
     const [postalCode, setPostalCode] = useState("");
-    // const [lat, setLat] = useState("");
-    // const [lng, setLng] = useState("");
     const [category, setCategory] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [website, setWebsite] = useState("");
@@ -35,8 +33,6 @@ const CreateBusinessForm = () => {
             setState("");
             setCountry("");
             setPostalCode("");
-            // setLat("");
-            // setLng("");
             setCategory("");
             setPhoneNumber("");
             setWebsite("");
@@ -102,8 +98,6 @@ const CreateBusinessForm = () => {
             state,
             country,
             postal_code: postalCode,
-            // lat: lat ? parseFloat(lat) : null,
-            // lng: lng ? parseFloat(lng) : null,
             category,
             phone_number: phoneNumber,
             website,
@@ -231,38 +225,6 @@ const CreateBusinessForm = () => {
                         onChange={(e) => setPostalCode(e.target.value)}
                         placeholder="Postal Code"
                     />
-
-                    {/* <div className="label-container">
-                        <label>Lat</label>
-                        {validationErrors.lat && (
-                            <span className="errors">
-                                {validationErrors.lat}
-                            </span>
-                        )}
-                    </div>
-                    <input
-                        type="number"
-                        name="lat"
-                        value={lat}
-                        onChange={(e) => setLat(e.target.value)}
-                        placeholder="Latitude (Optional)"
-                    />
-
-                    <div className="label-container">
-                        <label>Lng</label>
-                        {validationErrors.lng && (
-                            <span className="errors">
-                                {validationErrors.lng}
-                            </span>
-                        )}
-                    </div>
-                    <input
-                        type="number"
-                        name="lng"
-                        value={lng}
-                        onChange={(e) => setLng(e.target.value)}
-                        placeholder="Longitude (Optional)"
-                    /> */}
 
                     <div className="label-container">
                         <label>Category</label>
