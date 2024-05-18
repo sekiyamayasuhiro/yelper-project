@@ -1,11 +1,9 @@
-div video {
-    /* border: 5px solid black; */
+/* div video {
     width: 1875px;
     height: 500px;
 }
 
 .business-list {
-    /* border: 5px solid black; */
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     gap: 20px;
@@ -18,7 +16,7 @@ div video {
     background-color: #fff;
     border-radius: 8px;
     padding: 16px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transition 0.2s, box-shadow 0.2s;
     display: flex;
     flex-direction: column;
@@ -27,22 +25,32 @@ div video {
 
 .business-card:hover {
     transform: translateY(-px);
-    box-shadow: 0 8px 16px rgba(0,0,0,.20);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .business-name {
     font-size: 1.5em;
     margin-bottom: 8px;
     color: #333;
-
 }
 
 .business-card a {
     text-decoration: none;
-
 }
 
 .price-category {
     font-size: 15px;
     color: grey;
+} */
+
+.business-card {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transition 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
