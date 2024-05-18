@@ -27,6 +27,7 @@ const ManageReviews = () => {
             <div className="review-container-manage-reviews">
                 {reviews.map(({ id, rating, review_text }) => (
                     <div key={id}>
+
                         <span>{rating}</span>
                         <FaStar />
                         <div>{review_text}</div>
