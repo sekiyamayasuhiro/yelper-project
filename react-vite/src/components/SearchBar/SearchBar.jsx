@@ -32,6 +32,8 @@ function SearchBar() {
         dispatch(getAllBusinesses({ name, price, category }, navigate));
     };
 
+    console.log("PRICE FILTAAAAAAAAAA", price);
+
     return (
         <div>
             <form className="search-bar" onSubmit={handleSubmit}>
@@ -47,15 +49,18 @@ function SearchBar() {
                         <span>
                             Category
                             <div className="category">
-                                {categories.map((category, index) => (
+                                {categories.map((cat, index) => (
                                     <button
                                         key={index}
-                                        value={category}
+                                        value={cat}
                                         onClick={() =>
-                                            handleToggle("category", category)
+                                            handleToggle("category", cat)
+                                        }
+                                        className={
+                                            category === cat ? "active" : ""
                                         }
                                     >
-                                        {category}
+                                        {cat}
                                     </button>
                                 ))}
                             </div>
@@ -63,17 +68,24 @@ function SearchBar() {
                         <span>
                             Price
                             <div className="price">
-                                {Object.entries(prices).map(([key, val]) => (
-                                    <button
-                                        key={key}
-                                        value={key}
-                                        onClick={() =>
-                                            handleToggle("price", key)
-                                        }
-                                    >
-                                        {val}
-                                    </button>
-                                ))}
+                                {Object.entries(prices).map(([key, val]) => {
+                                    return (
+                                        <button
+                                            key={key}
+                                            value={key}
+                                            onClick={() =>
+                                                handleToggle("price", key)
+                                            }
+                                            className={
+                                                price === Number(key)
+                                                    ? "active"
+                                                    : ""
+                                            }
+                                        >
+                                            {val}
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </span>
                     </div>
