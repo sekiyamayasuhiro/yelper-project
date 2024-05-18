@@ -138,6 +138,7 @@ def get_images_by_business(business_id):
         return jsonify({'message': 'Business could not be found'}), 404
 
     images = Image.query.filter(Image.business_id == business_id).all()
+
     return jsonify([image.to_dict() for image in images]), 200
 
 # Create an image for a business based on the business' id

@@ -9,7 +9,7 @@ import CreateReviewFormModal from "../CreateReviewFormModal";
 import UpdateReviewFormModal from "../UpdateReviewFormModal";
 import DeleteReviewModal from "../DeleteReviewModal";
 import CreateImageFormModal from "../CreateImageFormModal";
-// import ViewAllImagesModal from "../ViewAllImagesModal";
+import ViewAllImagesModal from "../ViewAllImagesModal";
 
 const BusinessDetails = () => {
     const { businessId } = useParams();
@@ -101,11 +101,14 @@ const BusinessDetails = () => {
                 />
             </button>
 
-            {/* <button>
+            <button>
                 <OpenModalMenuItem
                     itemText="View all Images"
-                    modalComponent={<ViewAllImagesModal businessId={businessId} />} />
-            </button> */}
+                    modalComponent={
+                        <ViewAllImagesModal businessId={businessId} />
+                    }
+                />
+            </button>
 
             <hr />
 
@@ -187,11 +190,16 @@ const BusinessDetails = () => {
                                             />
                                         </button>
 
-                                        {/* <button>
-                                    <OpenModalMenuItem
-                                        itemText="Delete"
-                                        modalComponent={<DeleteReviewModal reviewId={id} />} />
-                                </button> */}
+                                        <button>
+                                            <OpenModalMenuItem
+                                                itemText="Delete"
+                                                modalComponent={
+                                                    <DeleteReviewModal
+                                                        reviewId={id}
+                                                    />
+                                                }
+                                            />
+                                        </button>
                                     </>
                                 )}
                             </div>
