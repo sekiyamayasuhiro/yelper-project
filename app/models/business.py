@@ -1,4 +1,6 @@
 from .db import db, environment, SCHEMA
+from sqlalchemy.sql import func
+from .review import Review
 
 class Business(db.Model):
     __tablename__ = 'businesses'
@@ -47,5 +49,10 @@ class Business(db.Model):
             'description': self.description,
             'price': self.price,
             'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'updated_at': self.updated_at,
+            "BusinessImages": [image.to_dict() for image in self.images],
+            "avgRating": self.avg_rating()
         }
+    def avg_rating(self):
+        average = db.session.query(func.avg(Review.rating)).filter(Review.business_id == self.id).scalar()
+        return float(average) if average else None

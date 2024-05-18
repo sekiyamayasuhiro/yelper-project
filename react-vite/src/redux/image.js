@@ -30,7 +30,6 @@ export const getImagesByBusinessId = (businessId) => async (dispatch) => {
 
     if (response.ok) {
         const imagesData = await response.json();
-        console.log(imagesData);
         dispatch(loadImages(imagesData));
     }
 };
