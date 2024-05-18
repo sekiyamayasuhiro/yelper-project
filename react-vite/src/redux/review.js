@@ -35,10 +35,11 @@ export const getReviewsByBusinessId = (businessId) => async (dispatch) => {
 }
 
 export const getReviewsByCurrentUser = () => async (dispatch) => {
-    const response = await csrfFetch(`api/reviews/current`);
+    const response = await csrfFetch(`/api/reviews/current`);
 
     if (response.ok) {
         const reviewData = await response.json();
+        console.log(reviewData, 'line42')
         dispatch(loadReviews(reviewData));
     }
 };

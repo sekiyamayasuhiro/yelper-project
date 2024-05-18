@@ -3,7 +3,6 @@ import { csrfFetch } from "./csrf";
 const LOAD_BUSINESSES = "business/LOAD_BUSINESSES";
 const ADD_BUSINESS = "business/ADD_BUSINESS";
 const REMOVE_BUSINESS = "business/REMOVE_BUSINESS";
-const NO_RESULT = "/business/NO_RESULT";
 
 const loadBusinesses = (businesses) => {
     return {
@@ -59,11 +58,11 @@ export const getBusinessDetailsById = (businessId) => async (dispatch) => {
 };
 
 export const getBusinessesByCurrentUser = () => async (dispatch) => {
-    const response = await csrfFetch(`/api/businesses/current`);
+    const response = await csrfFetch(`/api/businesses/user_businesses`);
 
     if (response.ok) {
         const businessData = await response.json();
-        dispatch(loadBusinesses(businessData.Businesses));
+        dispatch(loadBusinesses(businessData));
     }
 };
 
