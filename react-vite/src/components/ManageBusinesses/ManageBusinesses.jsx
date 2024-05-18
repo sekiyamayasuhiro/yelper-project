@@ -19,6 +19,13 @@ const ManageBusinesses = () => {
         dispatch(getBusinessesByCurrentUser());
     }, [dispatch]);
 
+    const defaultimage =
+        "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
+
+    const priceToDollarSign = (price) => "$".repeat(price);
+
+    console.log("LOOK HERE =>>>>:", businesses);
+
     return (
         <div>
             <div className="manage-businesses-header">
@@ -32,58 +39,69 @@ const ManageBusinesses = () => {
                 {businesses.map(
                     ({
                         id,
-                        previewImage,
+                        BusinessImages,
                         name,
                         city,
                         state,
                         price,
                         avgRating,
-                    }) => (
-                        <span
-                            key={id}
-                            className="business-manage-businesses"
-                            title={`This is the tooltip: ${name}`}
-                        >
-                            <Link to={`/businesses/${id}`}>
-                                <img src={previewImage} alt={name} />
+                    }) => {
+                        const imageUrl =
+                            BusinessImages && BusinessImages.length > 0
+                                ? BusinessImages[0].url
+                                : defaultimage;
 
-                                <div className="business-details-manage-businesses">
-                                    <span>
-                                        {city}, {state}
-                                    </span>
-                                    <span>
-                                        {avgRating ? (
-                                            <>
-                                                <FaStar />{" "}
-                                                {parseInt(avgRating)?.toFixed(
-                                                    1
-                                                )}
-                                            </>
-                                        ) : (
-                                            "New>"
-                                        )}
-                                    </span>
-                                </div>
-                                <span>${parseFloat(price)?.toFixed(2)}</span>
-                            </Link>
+                        const priceSigns = priceToDollarSign(price);
 
-                            <div>
-                                <Link to={`/businesses/${id}/edit`}>
-                                    <button>Update</button>
+                        return (
+                            <span
+                                key={id}
+                                className="business-manage-businesses"
+                                title={`This is the tooltip: ${name}`}
+                            >
+                                <Link to={`/businesses/${id}`}>
+                                    <img src={imageUrl} alt={name} />
+
+                                    <div className="business-details-manage-businesses">
+                                        <div> {name} </div>
+                                        <span>
+                                            {city}, {state}
+                                        </span>
+                                        <span>
+                                            {avgRating ? (
+                                                <>
+                                                    <FaStar />{" "}
+                                                    {avgRating.toFixed(2)}
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <FaStar />
+                                                    {" 0.00 (New)"}
+                                                </>
+                                            )}
+                                        </span>
+                                    </div>
+                                    <span>{priceSigns}</span>
                                 </Link>
-                                <button>
-                                    <OpenModalMenuItem
-                                        itemText="Delete"
-                                        modalComponent={
-                                            <DeleteBusinessModal
-                                                businessId={id}
-                                            />
-                                        }
-                                    />
-                                </button>
-                            </div>
-                        </span>
-                    )
+
+                                <div>
+                                    <Link to={`/businesses/${id}/edit`}>
+                                        <button>Update</button>
+                                    </Link>
+                                    <button>
+                                        <OpenModalMenuItem
+                                            itemText="Delete"
+                                            modalComponent={
+                                                <DeleteBusinessModal
+                                                    businessId={id}
+                                                />
+                                            }
+                                        />
+                                    </button>
+                                </div>
+                            </span>
+                        );
+                    }
                 )}
             </div>
         </div>
