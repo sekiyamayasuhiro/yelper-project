@@ -30,7 +30,7 @@ export const getReviewsByBusinessId = (businessId) => async (dispatch) => {
 
     if (response.ok) {
         const reviewsData = await response.json();
-        dispatch(loadReviews(reviewsData.Reviews));
+        dispatch(loadReviews(reviewsData));
     }
 }
 
@@ -39,7 +39,7 @@ export const getReviewsByCurrentUser = () => async (dispatch) => {
 
     if (response.ok) {
         const reviewData = await response.json();
-        dispatch(loadReviews(reviewData.Reviews));
+        dispatch(loadReviews(reviewData));
     }
 };
 
