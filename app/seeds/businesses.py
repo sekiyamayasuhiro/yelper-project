@@ -12,9 +12,9 @@ def seed_businesses():
         country='USA',
         postal_code='94403',
         category='Gym',
-        phone_number='415-123-4567',
+        phone_number='4151234567',
         website='www.lazygym.com',
-        description='Welcome to Lazy Gym!',
+        description='Welcome to Lazy Gym! Welcome to Lazy Gym! Welcome to Lazy Gym!',
         price=3
     )
     ramen = Business(
@@ -26,9 +26,9 @@ def seed_businesses():
         country='USA',
         postal_code='94110',
         category='Restaurant',
-        phone_number='415-123-0000',
+        phone_number='4151230000',
         website='www.ramennag.com',
-        description='Welcome to Ramen Nag!',
+        description='Welcome to Ramen Nag! Welcome to Ramen Nag! Welcome to Ramen Nag!',
         price=2
     )
     coffee = Business(
@@ -40,9 +40,9 @@ def seed_businesses():
         country='USA',
         postal_code='94110',
         category='Coffee',
-        phone_number='415-123-1111',
+        phone_number='4151231111',
         website='www.pinkbottle.com',
-        description='Welcome to Pink Bottle!',
+        description='Welcome to Pink Bottle! Welcome to Pink Bottle! Welcome to Pink Bottle!',
         price=1
     )
 

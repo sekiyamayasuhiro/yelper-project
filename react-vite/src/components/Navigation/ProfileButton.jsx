@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-import { Link } from "react-router-dom";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -51,8 +51,10 @@ function ProfileButton() {
             <>
               <li>{user.username}</li>
               <li>{user.email}</li>
-              <Link to='/businesses/current'>Manage Business</Link>
-              <Link to='reviews/current'>Manage Reviews</Link>
+
+              <div><Link to="/businesses/current">Manage Businesses</Link></div>
+              <div><Link to="/reviews/current">Manage Reviews</Link></div>
+
               <li>
                 <button onClick={logout}>Log Out</button>
               </li>
