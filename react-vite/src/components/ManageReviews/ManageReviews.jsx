@@ -1,10 +1,11 @@
 import { FaStar } from "react-icons/fa";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getReviewsByBusinessId } from "../../redux/review.js";
+import { getReviewsByBusinessId, getReviewsByCurrentUser } from "../../redux/review.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import UpdateReviewFormModal from "../UpdateReviewFormModal";
-// import DeleteReviewModal from '../DeleteReviewModal';
+import DeleteReviewModal from '../DeleteReviewModal';
+
 
 const ManageReviews = () => {
     const dispatch = useDispatch();
