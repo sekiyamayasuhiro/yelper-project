@@ -1,4 +1,5 @@
 
+import { FaStar } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,18 +26,17 @@ const BusinessesIndex = () => {
             {businesses.length === 0 && <h3>No Result Found</h3>}
             <div className="business-list">
                 {
-                    isLoaded && businesses.map(({id, name, price, category}) => (
+                    isLoaded && businesses.map(({ id, name, price, category, avgRating }) => (
                         <div key={id} className="business-card" title={`This is the tooltip: ${name}`}>
                             <Link to={`/businesses/${id}`}>
                                 <h2 className="business-name">{name}</h2>
-                                <p>**Average rating and num reviews here**</p>
+                                <p>{avgRating ? (<><FaStar /> {parseFloat(avgRating?.toFixed(1))}</>) : "New"}</p>
                                 <p className="price-category">{price} {category}</p>
                                 {<img src='https://via.placeholder.com/300' alt={name} />}
-                                {/* <div className="business-details">
-                                    <span>{city}, {state}</span>
-                                    <span>{avgRating ? (<><FaStar /> {parseFloat(avgRating?.toFixed(1))}</>) : "New"}</span>
-                                </div>
-                                <span>${parseFloat(price)?.toFixed(2)}</span> */}
+
+                                {/* <span>{city}, {state}</span> */}
+
+                                {/* <span>${parseFloat(price)?.toFixed(2)}</span> */}
                             </Link>
                         </div>
                     ))
