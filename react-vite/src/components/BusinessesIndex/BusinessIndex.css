@@ -9,7 +9,7 @@ div video {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
     gap: 20px;
-    padding: 200px;
+    padding: 250px;
     background-color: #f9f9f9;
 }
 
