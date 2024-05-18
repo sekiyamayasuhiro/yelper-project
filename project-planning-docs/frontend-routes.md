@@ -15,7 +15,8 @@
 ### Business Details Page
 * Display the details for this specific Business
     * `GET /api/businesses/:business_id`
-* Display a `Write a Review` button (Link to `/reviews/new`)
+* Display a `Write a Review` button (Using `CreateReviewModalForm`)
+    * `POST /api/businesses/:business_id/reviews`
 * Display all reviews that belong to this business
     * `GET /api/businesses/:business_id/reviews`
     * Every Review comes with `Update` button (Using `UpdateReviewModalForm`)
@@ -33,11 +34,6 @@
 
 
 ㅤ
-## `/reviews/new`
-### Create a New Review
-`POST /api/businesses/:business_id/reviews`
-
-
 ㅤ
 ## `/businesses/new`
 ### Create a New Business
@@ -60,7 +56,7 @@
 ### Manage Reviews
 * Get all the reviews that belong to the current user
     * `GET /api/reviews/current`
-* Update the review that belongs to the current user (Using `UpdateReviewModalForm`)
+* Update the review that belongs to the current user (Using `UpdateReviewFormModal`)
     * `PUT /api/reviews/:review_id`
 * Delete the review that belongs to the current user (Using `DeleteReviewModal`)
     * `DELETE /api/reviews/:review_id`
