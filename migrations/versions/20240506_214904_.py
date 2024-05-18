@@ -33,7 +33,7 @@ def upgrade():
     sa.Column('lat', sa.Integer(), nullable=True),
     sa.Column('lng', sa.Integer(), nullable=True),
     sa.Column('category', sa.String(), nullable=True),
-    sa.Column('phone_number', sa.Integer(), nullable=True),
+    sa.Column('phone_number', sa.BigInteger(), nullable=True),
     sa.Column('website', sa.String(), nullable=True),
     sa.Column('description', sa.String(), nullable=True),
     sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=True),

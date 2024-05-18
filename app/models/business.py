@@ -20,7 +20,7 @@ class Business(db.Model):
     lat = db.Column(db.Integer, nullable=True)
     lng = db.Column(db.Integer, nullable=True)
     category = db.Column(db.String)
-    phone_number = db.Column(db.Integer)
+    phone_number = db.Column(db.BigInteger)
     website = db.Column(db.String)
     description = db.Column(db.String)
     price = db.Column(db.Numeric(10, 2))
