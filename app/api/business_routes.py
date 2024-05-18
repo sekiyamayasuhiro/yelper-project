@@ -47,7 +47,8 @@ def delete_business(business_id):
 @business_routes.route('/', methods=['POST'])
 def create_business():
     business_data = request.json
-    required_fields = ['name', 'address', 'city', 'state', 'country', 'postal_code', 'lat', 'lng', 'category', 'phone_number', 'website', 'description', 'price']
+    # required_fields = ['name', 'address', 'city', 'state', 'country', 'postal_code', 'lat', 'lng', 'category', 'phone_number', 'website', 'description', 'price']
+    required_fields = ['name', 'address', 'city', 'state', 'country', 'postal_code', 'category', 'phone_number', 'website', 'description', 'price']
     missing_fields = [field for field in required_fields if not business_data.get(field)]
 
     if missing_fields:
@@ -137,6 +138,7 @@ def get_images_by_business(business_id):
         return jsonify({'message': 'Business could not be found'}), 404
 
     images = Image.query.filter(Image.business_id == business_id).all()
+
     return jsonify([image.to_dict() for image in images]), 200
 
 # Create an image for a business based on the business' id
