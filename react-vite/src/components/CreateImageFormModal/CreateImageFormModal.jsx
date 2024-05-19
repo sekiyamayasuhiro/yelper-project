@@ -66,7 +66,6 @@ const CreateImageFormModal = ({ businessId }) => {
                         will be implementing a feature to upload picture files!
                         - Yelper Team
                     </h3>
-
                     <input
                         type="text"
                         name="image-url-1"

@@ -32,18 +32,17 @@ const UpdateReviewFormModal = ({ reviewId, userId, businessId }) => {
     };
 
     return (
-        <div className="update-review-form-modal">
-            <h1>How was your visit?</h1>
-
-            <form onSubmit={handleSubmit}>
-
+        <div className="update-review-container">
+            <h2 className='update-review-title'>Edit Review</h2>
+            <form onSubmit={handleSubmit} className='review-content'>
+                <div>
                 <textarea
                     rows="5"
                     placeholder="Update your review here..."
                     value={review}
                     onChange={e => setReview(e.target.value)}>
                 </textarea>
-
+                </div>
                 <div className="review-stars">
                     {[1, 2, 3, 4, 5].map((star) => {
                         const isFilled = star <= (hoverRating || rating);
@@ -60,8 +59,7 @@ const UpdateReviewFormModal = ({ reviewId, userId, businessId }) => {
                     })}
                     <span className="stars-text">Stars</span>
                 </div>
-
-                <button type="submit">Update Your Review</button>
+                <button type="submit" disabled={rating ===0 || review.length < 10}>Update Your Review</button>
             </form>
         </div>
     );
