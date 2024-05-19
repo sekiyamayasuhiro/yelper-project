@@ -8,6 +8,8 @@ import CreateImageFormModal from "../CreateImageFormModal";
 import ViewAllImagesModal from "../ViewAllImagesModal";
 import LoadReviews from "../LoadReviews/LoadReviews.jsx";
 import CreateReviewFormModal from "../CreateReviewFormModal/CreateReviewFormModal.jsx";
+import UpdateReviewFormModal from "../UpdateReviewFormModal/UpdateReviewFormModal.jsx";
+import { FaStar } from "react-icons/fa"
 
 const BusinessDetails = () => {
     const { businessId } = useParams();
@@ -20,19 +22,14 @@ const BusinessDetails = () => {
     const business = useSelector((state) =>
         state.businessState[businessId] ? state.businessState[businessId] : []
     );
-    const avgRating = (arr) => {
-        const validRatings  = arr.map(review => review.rating).filter(rating => typeof rating === 'number' && !isNaN(rating))
-        if (validRatings.length === 0) {
-            return 'New'
-        }
-        const sum = validRatings.reduce((acc, rating) => acc + rating, 0);
-        const avg = sum / validRatings.length
-        return avg
-    }
+    const isOwner = +userId === +businessId
+    const hasPostedReview = reviews.find(review => review.user_id === userId)
+
+    const defaultImage ="https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
 
     const handleClick = () => {
         alert("Feature coming soon")
-      }
+    }
 
     useEffect(() => {
         dispatch(getBusinessDetailsById(businessId)).then(() =>
@@ -43,14 +40,6 @@ const BusinessDetails = () => {
         );
     }, [dispatch, businessId]);
 
-
-    const bigPictureUrl = business.Image?.find(
-        (image) => image.preview === true
-    ).url;
-    const smallPictures = business.Image?.filter(
-        (image) => image.preview === false
-    );
-
     return (
         <div className="business-details-page">
             {isLoaded && (
@@ -58,21 +47,13 @@ const BusinessDetails = () => {
                     <div id="details">
                     <div className="business-image-container">
                         <img
-                            className="big-picture"
-                            src={bigPictureUrl}
+                            className="business-image"
+                            src={business.BusinessImages && business.BusinessImages.length > 0 ? business.BusinessImages[0].url : defaultImage}
                             alt="Big Picture"
                         />
-                        {smallPictures?.map(({ id, url }) => (
-                            <img
-                                key={id}
-                                className="small-picture"
-                                src={url}
-                                alt="Small Picture"
-                            />
-                        ))}
                     </div>
             <h1>{business.name}</h1>
-            <p>**AvgRating: {avgRating(reviews)}** {`(${reviews.length} ${reviews.length !== 0 && reviews.length === 1 ? 'Review' : reviews.length > 1 ? 'Reviews' : 'New' })`}</p>
+            <p><FaStar /> {business.avgRating} {`(${reviews.length} ${reviews.length !== 0 && reviews.length === 1 ? 'Review' : reviews.length > 1 ? 'Reviews' : 'New' })`}</p>
             <p>{business.price} {business.category}</p>
                         <button>
                             <OpenModalMenuItem
@@ -81,12 +62,23 @@ const BusinessDetails = () => {
                             />
                         </button>
                         <div>
-                            <button>
-                                <OpenModalMenuItem
-                                    itemText='Write a review'
-                                    modalComponent={<CreateReviewFormModal businessId={businessId} userId={userId} />}
-                                />
-                            </button>
+                            {!isOwner && (
+                                hasPostedReview ?
+                                (<button>
+                                    <OpenModalMenuItem
+                                        itemText='Edit review'
+                                        modalComponent={<UpdateReviewFormModal  reviewId={hasPostedReview?.id} userId={userId} businessId={businessId}/>}
+                                    />
+                                </button>) : (
+                                <button>
+                                    <OpenModalMenuItem
+                                        itemText='Write a review'
+                                        modalComponent={<CreateReviewFormModal businessId={businessId} userId={userId} />}
+                                        />
+                                </button>
+                                )
+                                )
+                            }
                             <button onClick={handleClick}>Add photo</button></div>
                         <div className="business-details">
                             <div>{business.website}</div>
@@ -109,18 +101,13 @@ const BusinessDetails = () => {
             </div>
                     </div>
                     <h4>Overall rating</h4>
-                    <p>**AvgRating: {avgRating(reviews)}**</p>
-                    <p>{business.BusinessReviews?.length} reviews</p>
-
-
-
                 </div>
             )}
 
 
 
 
-            <LoadReviews businessId={business.id}/>
+            <LoadReviews businessId={business.id} userId={userId}/>
 
 
             <hr />
