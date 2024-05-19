@@ -6,6 +6,7 @@ import LoginFormModal from "../LoginFormModal";
 import SearchBar from "../SearchBar/SearchBar";
 import SignupFormModal from "../SignupFormModal";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import { getAllBusinesses } from "../../redux/business";
 
 function Navigation() {
     const dispatch = useDispatch();

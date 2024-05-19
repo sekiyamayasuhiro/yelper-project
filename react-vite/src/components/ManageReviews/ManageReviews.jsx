@@ -10,7 +10,7 @@ import DeleteReviewModal from '../DeleteReviewModal';
 
 const ManageReviews = () => {
     const dispatch = useDispatch();
-    const sessionUser = useSelector((state) => state.session.user);
+    // const sessionUser = useSelector((state) => state.session.user);
     const reviews = useSelector((state) =>
         Object.values(state.reviewState) ? Object.values(state.reviewState) : []
     );
@@ -26,19 +26,21 @@ const ManageReviews = () => {
             </div>
 
             <div className="review-container-manage-reviews">
-                {reviews.map(({ id, rating, review_text }) => (
+                {reviews.map(({ id, rating, review_text, user_id, business_id, name, category, address }) => (
                     <div key={id}>
+
+                        <p>{name}</p>
+                        <p>{category}</p>
+                        <p>{address}</p>
 
                         <span>{rating}</span>
                         <FaStar />
                         <div>{review_text}</div>
-
                         <div>
                             <button>
                                 <OpenModalMenuItem
                                     itemText="Update"
-                                    modalComponent={UpdateReviewFormModal}
-                                    reviewId={id}
+                                    modalComponent={<UpdateReviewFormModal reviewId={id} userId={user_id} businessId={business_id} />}
                                 />
                             </button>
                         </div>
@@ -47,8 +49,7 @@ const ManageReviews = () => {
                             <button>
                                 <OpenModalMenuItem
                                     itemText="Delete"
-                                    modalComponent={DeleteReviewModal}
-                                    reviewId={id}
+                                    modalComponent={<DeleteReviewModal reviewId={id}/>}
                                 />
                             </button>
                         </div>

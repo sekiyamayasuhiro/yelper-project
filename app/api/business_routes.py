@@ -96,7 +96,11 @@ def get_reviews_by_business(business_id):
         return jsonify({'message': 'Business could not be found'}), 404
 
     reviews = Review.query.filter(Review.business_id == business_id).all()
-    return jsonify([review.to_dict() for review in reviews]), 200
+    # return jsonify([review.to_dict() for review in reviews]), 200 // Yasu code
+    """
+    Modify return -Hazel
+    """
+    return jsonify([{**review.to_dict(), 'yelper_name': review.user.username.capitalize()} for review in reviews]), 200
 
 # Create a review for a business based on the business' id
 @business_routes.route('/<int:business_id>/reviews', methods=['POST'])
