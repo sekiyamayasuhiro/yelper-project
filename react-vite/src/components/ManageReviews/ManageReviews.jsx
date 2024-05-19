@@ -1,6 +1,7 @@
 import { FaStar } from "react-icons/fa";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { getReviewsByCurrentUser } from "../../redux/review.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import UpdateReviewFormModal from "../UpdateReviewFormModal";
@@ -27,9 +28,11 @@ const ManageReviews = () => {
             <div className="review-container-manage-reviews">
                 {reviews.map(({ id, rating, review_text, user_id, business_id, name, category, address }) => (
                     <div key={id}>
+
                         <p>{name}</p>
                         <p>{category}</p>
                         <p>{address}</p>
+
                         <span>{rating}</span>
                         <FaStar />
                         <div>{review_text}</div>

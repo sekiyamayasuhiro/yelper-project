@@ -7,6 +7,9 @@ Create Date: 2024-05-06 21:49:04.204554
 """
 from alembic import op
 import sqlalchemy as sa
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
 
 
 # revision identifiers, used by Alembic.
@@ -30,7 +33,7 @@ def upgrade():
     sa.Column('lat', sa.Integer(), nullable=True),
     sa.Column('lng', sa.Integer(), nullable=True),
     sa.Column('category', sa.String(), nullable=True),
-    sa.Column('phone_number', sa.Integer(), nullable=True),
+    sa.Column('phone_number', sa.BigInteger(), nullable=True),
     sa.Column('website', sa.String(), nullable=True),
     sa.Column('description', sa.String(), nullable=True),
     sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=True),
@@ -66,6 +69,14 @@ def upgrade():
         batch_op.add_column(sa.Column('first_name', sa.String(), nullable=True))
         batch_op.add_column(sa.Column('last_name', sa.String(), nullable=True))
 
+    if environment == "production":
+        op.execute(f"ALTER TABLE businesses SET SCHEMA {SCHEMA};")
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 

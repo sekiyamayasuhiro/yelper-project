@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import LoginFormModal from "../LoginFormModal";
@@ -9,7 +9,14 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { getAllBusinesses } from "../../redux/business";
 
 function Navigation() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const sessionUser = useSelector((state) => state.session.user);
+
+    const handleClick = () => {
+        dispatch(getAllBusinesses());
+        navigate("/");
+    };
 
     let sessionLinks;
 
@@ -41,7 +48,7 @@ function Navigation() {
     return (
         <div className="navbar">
             <div className="header">
-                <Link to="/">
+                <Link to="/" onClick={handleClick}>
                     <img id="app-logo" alt="App Logo" src="logo.jpg" />
                 </Link>
                 <SearchBar />
