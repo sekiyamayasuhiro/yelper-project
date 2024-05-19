@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_login import login_required, current_user
-from app.models import db, Review
+from app.models import db, Review, Business
 from app.forms import ReviewForm
 
 review_routes = Blueprint('reviews', __name__)
@@ -12,8 +12,12 @@ def get_current_user_reviews():
     """
     Fetches all reviews of the logged-in user.
     """
-    reviews = Review.query.filter(Review.user_id == current_user.id).all()
-    return jsonify([review.to_dict() for review in reviews]), 200
+    data = Review.query.filter(Review.user_id == current_user.id).all()
+    # return jsonify([review.to_dict() for review in reviews]), 200
+
+    print(data)
+    reviews = [{**review.to_dict(), 'name': review.business.name, 'category': review.business.category, 'address': review.business.city + " " + review.business.state} for review in data]
+    return jsonify(reviews)
 
 # Update a review
 @review_routes.route('/<int:review_id>', methods=['PUT'])
