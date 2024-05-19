@@ -22,9 +22,9 @@ function Navigation() {
 
     if (sessionUser) {
         sessionLinks = (
-            <li>
+            <div>
                 <ProfileButton user={sessionUser} />
-            </li>
+            </div>
         );
     } else {
         sessionLinks = (
@@ -56,9 +56,6 @@ function Navigation() {
                     <div className="session-user">
                         <div>
                             <Link to="businesses/new">Create Business</Link>
-                        </div>
-                        <div>
-                            <Link>Write a Review</Link>
                         </div>
                         <div>
                             <Link to="businesses/current">
