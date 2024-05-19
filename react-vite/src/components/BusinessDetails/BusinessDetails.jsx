@@ -1,29 +1,38 @@
-import { FaStar } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBusinessDetailsById } from "../../redux/business.js";
 import { getReviewsByBusinessId } from "../../redux/review.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem.jsx";
-import CreateReviewFormModal from "../CreateReviewFormModal";
-import UpdateReviewFormModal from "../UpdateReviewFormModal";
-import DeleteReviewModal from "../DeleteReviewModal";
 import CreateImageFormModal from "../CreateImageFormModal";
 import ViewAllImagesModal from "../ViewAllImagesModal";
+import LoadReviews from "../LoadReviews/LoadReviews.jsx";
+import CreateReviewFormModal from "../CreateReviewFormModal/CreateReviewFormModal.jsx";
 
 const BusinessDetails = () => {
     const { businessId } = useParams();
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
+    const userId = useSelector((state) => state.session?.user?.id);
+    const reviews = useSelector((state) =>
+        Object.values(state?.reviewState) ? Object.values(state?.reviewState) : []
+    );
     const business = useSelector((state) =>
         state.businessState[businessId] ? state.businessState[businessId] : []
     );
-    const reviews = useSelector((state) =>
-        Object.values(state.reviewState) ? Object.values(state.reviewState) : []
-    );
-    const sessionUser = useSelector((state) => state.session.user);
+    const avgRating = (arr) => {
+        const validRatings  = arr.map(review => review.rating).filter(rating => typeof rating === 'number' && !isNaN(rating))
+        if (validRatings.length === 0) {
+            return 'New'
+        }
+        const sum = validRatings.reduce((acc, rating) => acc + rating, 0);
+        const avg = sum / validRatings.length
+        return avg
+    }
 
-    // console.log(business);
+    const handleClick = () => {
+        alert("Feature coming soon")
+      }
 
     useEffect(() => {
         dispatch(getBusinessDetailsById(businessId)).then(() =>
@@ -34,15 +43,6 @@ const BusinessDetails = () => {
         );
     }, [dispatch, businessId]);
 
-    const isOwner =
-        sessionUser && business.Owner && sessionUser.id === business.Owner.id;
-    const noReviews = reviews.length === 0;
-    const isLoggedIn = !!sessionUser;
-    const hasPostedReview = reviews.some(
-        (review) =>
-            review.user_id === sessionUser?.id &&
-            review.business_id == businessId
-    );
 
     const bigPictureUrl = business.Image?.find(
         (image) => image.preview === true
@@ -56,18 +56,6 @@ const BusinessDetails = () => {
             {isLoaded && (
                 <div className="business-details-section">
                     <div id="details">
-                        <h1>{business.name}</h1>
-                        <div>{business.address}</div>
-                        <div>
-                            {business.city}, {business.state},{" "}
-                            {business.country}
-                        </div>
-                        <div>
-                            {business.postal_code}, {business.category},{" "}
-                            {business.phone_number}, {business.website}
-                        </div>
-                    </div>
-
                     <div className="business-image-container">
                         <img
                             className="big-picture"
@@ -83,16 +71,29 @@ const BusinessDetails = () => {
                             />
                         ))}
                     </div>
-                </div>
-            )}
-
-            <div className="description">
-                <pre className="description-content">
-                    {business.description}
-                </pre>
-            </div>
-
-            <button>
+            <h1>{business.name}</h1>
+            <p>**AvgRating: {avgRating(reviews)}** {`(${reviews.length} ${reviews.length !== 0 && reviews.length === 1 ? 'Review' : reviews.length > 1 ? 'Reviews' : 'New' })`}</p>
+            <p>{business.price} {business.category}</p>
+                        <button>
+                            <OpenModalMenuItem
+                                itemText="View all Images"
+                                modalComponent={<ViewAllImagesModal businessId={businessId} />}
+                            />
+                        </button>
+                        <div>
+                            <button>
+                                <OpenModalMenuItem
+                                    itemText='Write a review'
+                                    modalComponent={<CreateReviewFormModal businessId={businessId} userId={userId} />}
+                                />
+                            </button>
+                            <button onClick={handleClick}>Add photo</button></div>
+                        <div className="business-details">
+                            <div>{business.website}</div>
+                            <div>{business.phone_number}</div>
+                            <div>{business.address} {business.city} {business.state} {business.postal_code}</div>
+                        </div>
+                        <button>
                 <OpenModalMenuItem
                     itemText="Add more images"
                     modalComponent={
@@ -100,111 +101,34 @@ const BusinessDetails = () => {
                     }
                 />
             </button>
+                        <h3>About the Business</h3>
+                        <div className="description">
+                <pre className="description-content">
+                    {business.description}
+                </pre>
+            </div>
+                    </div>
+                    <h4>Overall rating</h4>
+                    <p>**AvgRating: {avgRating(reviews)}**</p>
+                    <p>{business.BusinessReviews?.length} reviews</p>
 
-            <button>
-                <OpenModalMenuItem
-                    itemText="View all Images"
-                    modalComponent={
-                        <ViewAllImagesModal businessId={businessId} />
-                    }
-                />
-            </button>
+
+
+                </div>
+            )}
+
+
+
+
+            <LoadReviews businessId={business.id}/>
+
 
             <hr />
 
-            <div className="review-section">
-                {noReviews ? (
-                    "New"
-                ) : business.numReviews > 0 ? (
-                    <span>
-                        <FaStar />
-                        {parseInt(business.avgStarRating)?.toFixed(1)}
-                    </span>
-                ) : null}
-                {business.numReviews > 0 && (
-                    <span>
-                        •
-                        {business.numReviews === 1
-                            ? "1 review"
-                            : `${business.numReviews}reviews`}
-                    </span>
-                )}
-            </div>
 
-            {noReviews && isLoggedIn && !isOwner && (
-                <div>Be the first to post a review!</div>
-            )}
 
-            {sessionUser && !isOwner && !hasPostedReview && (
-                <button>
-                    <OpenModalMenuItem
-                        itemText="Post Your Review"
-                        modalComponent={
-                            <CreateReviewFormModal
-                                businessId={businessId}
-                                sessionUser={sessionUser}
-                            />
-                        }
-                    />
-                </button>
-            )}
 
-            {isLoaded &&
-                reviews
-                    .reverse()
-                    .map(({ id, rating, review_text, createdAt, User }) => {
-                        const date = new Date(createdAt);
-                        const month = date.toLocaleString("default", {
-                            month: "long",
-                        });
-                        const year = date.getFullYear();
-                        const isReviewer =
-                            sessionUser && User && sessionUser.id === User.id;
 
-                        return (
-                            <div key={id}>
-                                <div>
-                                    {User
-                                        ? User.firstName
-                                        : sessionUser.firstName}
-                                </div>
-                                <div>{`${month} ${year}`}</div>
-                                <span>{rating}</span>
-                                <FaStar />
-                                <div>{review_text}</div>
-
-                                {sessionUser && isReviewer && (
-                                    <>
-                                        <button>
-                                            <OpenModalMenuItem
-                                                itemText="Update"
-                                                modalComponent={
-                                                    <UpdateReviewFormModal
-                                                        reviewId={id}
-                                                        sessionUser={
-                                                            sessionUser
-                                                        }
-                                                        businessId={businessId}
-                                                    />
-                                                }
-                                            />
-                                        </button>
-
-                                        <button>
-                                            <OpenModalMenuItem
-                                                itemText="Delete"
-                                                modalComponent={
-                                                    <DeleteReviewModal
-                                                        reviewId={id}
-                                                    />
-                                                }
-                                            />
-                                        </button>
-                                    </>
-                                )}
-                            </div>
-                        );
-                    })}
         </div>
     );
 };

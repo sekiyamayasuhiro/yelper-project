@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { createNewReview, getReviewsByBusinessId } from '../../redux/review.js';
 import { getBusinessDetailsById } from '../../redux/business.js';
 
-const CreateReviewFormModal = ({ businessId, sessionUser }) => {
+const CreateReviewFormModal = ({ businessId, userId }) => {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const [review, setReview] = useState('');
@@ -17,7 +17,7 @@ const CreateReviewFormModal = ({ businessId, sessionUser }) => {
         e.preventDefault();
 
         const newReviewFormData = {
-            user_id: sessionUser.id,
+            user_id: userId,
             business_id: businessId,
             rating,
             review_text: review

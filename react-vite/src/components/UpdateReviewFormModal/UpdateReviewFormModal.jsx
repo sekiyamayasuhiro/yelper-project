@@ -3,9 +3,9 @@ import { FaStar } from 'react-icons/fa';
 import { useModal } from '../../context/Modal';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateReview } from '../../redux/review.js';
+import { updateReview, getReviewsByCurrentUser } from '../../redux/review.js';
 
-const UpdateReviewFormModal = ({ reviewId, sessionUser, businessId }) => {
+const UpdateReviewFormModal = ({ reviewId, userId, businessId }) => {
 
     const { closeModal } = useModal();
     const dispatch = useDispatch();
@@ -18,13 +18,15 @@ const UpdateReviewFormModal = ({ reviewId, sessionUser, businessId }) => {
 
         const updatedReviewFormData = {
             id: reviewId,
-            user_id: sessionUser.id,
+            user_id: userId,
             business_id: businessId,
             rating,
             review_text: review
         };
 
-        await dispatch(updateReview(updatedReviewFormData));
+        await dispatch(updateReview(updatedReviewFormData)).then(() => {
+            dispatch(getReviewsByCurrentUser())
+        })
 
         closeModal();
     };
