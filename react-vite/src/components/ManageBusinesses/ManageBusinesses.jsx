@@ -14,6 +14,11 @@ const ManageBusinesses = () => {
             ? Object.values(state.businessState)
             : []
     );
+    const reviews = useSelector((state) =>
+        Object.values(state?.reviewState)
+            ? Object.values(state?.reviewState)
+            : []
+    );
 
     useEffect(() => {
         dispatch(getBusinessesByCurrentUser());
@@ -21,8 +26,6 @@ const ManageBusinesses = () => {
 
     const defaultimage =
         "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
-
-    const priceToDollarSign = (price) => "$".repeat(price);
 
     console.log("LOOK HERE =>>>>:", businesses);
 
@@ -44,14 +47,13 @@ const ManageBusinesses = () => {
                         city,
                         state,
                         price,
+                        category,
                         avgRating,
                     }) => {
                         const imageUrl =
                             BusinessImages && BusinessImages.length > 0
                                 ? BusinessImages[0].url
                                 : defaultimage;
-
-                        const priceSigns = priceToDollarSign(price);
 
                         return (
                             <span
@@ -64,9 +66,9 @@ const ManageBusinesses = () => {
 
                                     <div className="business-details-manage-businesses">
                                         <div> {name} </div>
-                                        <span>
+                                        <div>
                                             {city}, {state}
-                                        </span>
+                                        </div>
                                         <span>
                                             {avgRating ? (
                                                 <>
@@ -76,12 +78,26 @@ const ManageBusinesses = () => {
                                             ) : (
                                                 <>
                                                     <FaStar />
-                                                    {" 0.00 (New)"}
+                                                    {"0.00"}
                                                 </>
                                             )}
                                         </span>
+                                        <span>
+                                            {" "}
+                                            {`(${reviews.length} ${
+                                                reviews.length !== 0 &&
+                                                reviews.length === 1
+                                                    ? "Review"
+                                                    : reviews.length > 1
+                                                    ? "Reviews"
+                                                    : "No Reviews"
+                                            })`}
+                                        </span>
                                     </div>
-                                    <span>{priceSigns}</span>
+                                    {/* <span>{priceSigns}</span> */}
+                                    <div className="price-category">{`${"$".repeat(
+                                        price
+                                    )} - ${category}`}</div>
                                 </Link>
 
                                 <div>

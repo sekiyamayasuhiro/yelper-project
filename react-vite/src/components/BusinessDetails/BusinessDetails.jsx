@@ -62,7 +62,7 @@ const BusinessDetails = () => {
                         </div>
                         <h1>{business.name}</h1>
                         <p>
-                            <FaStar /> {business.avgRating || 0}{" "}
+                            <FaStar /> {business.avgRating || 0.0}{" "}
                             {`(${reviews.length} ${
                                 reviews.length !== 0 && reviews.length === 1
                                     ? "Review"
@@ -71,9 +71,12 @@ const BusinessDetails = () => {
                                     : "No Reviews"
                             })`}
                         </p>
-                        <p>
-                            {business.price} {business.category}
-                        </p>
+                        <p className="price-category">{`${"$".repeat(
+                            business.price.toString()
+                        )} - ${business.category}`}</p>
+                        {/* <p>
+                            {business.price} {business.category} {"HELLO"}
+                        </p> */}
                         <button>
                             <OpenModalMenuItem
                                 itemText="View all Images"

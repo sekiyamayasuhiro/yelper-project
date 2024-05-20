@@ -60,12 +60,12 @@ const BusinessesIndex = () => {
                                             {avgRating ? (
                                                 <>
                                                     <FaStar />{" "}
-                                                    {avgRating.toFixed(1)}
+                                                    {avgRating.toFixed(2)}
                                                 </>
                                             ) : (
                                                 <>
                                                     <FaStar />
-                                                    {" 0.00 (New)"}
+                                                    {" 0.00 (No Reviews)"}
                                                 </>
                                             )}
                                         </p>
