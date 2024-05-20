@@ -8,7 +8,8 @@ import ManageBusinesses from "../components/ManageBusinesses";
 import BusinessDetails from "../components/BusinessDetails";
 import UpdateBusinessForm from "../components/UpdateBusinessForm";
 import ManageReviews from "../components/ManageReviews";
-import CreateImageFormModal from "../components/CreateImageFormModal";
+// import CreateImageFormModal from "../components/CreateImageFormModal";
+import CreateReviewFormModal from "../components/CreateReviewFormModal";
 
 export const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
                     //     element: <CreateImageFormModal />,
                     // },
                 ],
+            },
+            {
+                path: 'reviews/new',
+                element: <CreateReviewFormModal />
             },
             {
                 path: "reviews/current",
