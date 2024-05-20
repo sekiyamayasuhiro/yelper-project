@@ -81,10 +81,3 @@
     background-color: red;
     cursor: pointer;
 }
-
-.category-button:hover,
-.price-button:hover,
-.search-button:hover {
-    background-color: pink;
-    cursor: pointer;
-}
