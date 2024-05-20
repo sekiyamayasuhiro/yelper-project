@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBusinesses } from "../../redux/business.js";
-import { getImagesByBusinessId } from "../../redux/image.js";
+// import { getImagesByBusinessId } from "../../redux/image.js";
 import "./BusinessIndex.css";
 import { FaStar } from "react-icons/fa";
 
@@ -15,11 +15,11 @@ const BusinessesIndex = () => {
             : []
     );
 
-    const reviews = useSelector((state) =>
-        Object.values(state?.reviewState)
-            ? Object.values(state?.reviewState)
-            : []
-    );
+    // const reviews = useSelector((state) =>
+    //     Object.values(state?.reviewState)
+            // ? Object.values(state?.reviewState)
+    //         : []
+    // );
 
     useEffect(() => {
         dispatch(getAllBusinesses()).then(() => setIsLoaded(true));
@@ -43,7 +43,7 @@ const BusinessesIndex = () => {
                             category,
                             BusinessImages,
                             avgRating,
-                            numReviews
+
                         }) => {
                             const imageUrl =
                                 BusinessImages && BusinessImages.length > 0

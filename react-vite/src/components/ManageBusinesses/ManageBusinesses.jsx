@@ -8,7 +8,7 @@ import DeleteBusinessModal from "../DeleteBusinessModal";
 
 const ManageBusinesses = () => {
     const dispatch = useDispatch();
-    const sessionUser = useSelector((state) => state.session.user);
+    // const sessionUser = useSelector((state) => state.session.user);
     const businesses = useSelector((state) =>
         Object.values(state.businessState)
             ? Object.values(state.businessState)

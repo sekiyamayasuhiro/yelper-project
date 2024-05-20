@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./SearchBar.css";
 import { useDispatch } from "react-redux";
 import { getAllBusinesses } from "../../redux/business";

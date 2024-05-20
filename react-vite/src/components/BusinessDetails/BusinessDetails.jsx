@@ -8,7 +8,7 @@ import CreateImageFormModal from "../CreateImageFormModal";
 import ViewAllImagesModal from "../ViewAllImagesModal";
 import LoadReviews from "../LoadReviews/LoadReviews.jsx";
 import CreateReviewFormModal from "../CreateReviewFormModal/CreateReviewFormModal.jsx";
-import UpdateReviewFormModal from "../UpdateReviewFormModal/UpdateReviewFormModal.jsx";
+// import UpdateReviewFormModal from "../UpdateReviewFormModal/UpdateReviewFormModal.jsx";
 import { FaStar } from "react-icons/fa";
 
 const BusinessDetails = () => {
@@ -94,24 +94,24 @@ const BusinessDetails = () => {
                             />
                         </button>
                         <div>
-                            {!isOwner &&
-                                (hasPostedReview ? (
-                                    <button>
-                                        <OpenModalMenuItem
-                                            itemText="Edit review"
-                                            modalComponent={
-                                                <UpdateReviewFormModal
-                                                    reviewId={
-                                                        hasPostedReview?.id
-                                                    }
-                                                    userId={userId}
-                                                    businessId={businessId}
-                                                />
-                                            }
-                                        />
-                                    </button>
-                                ) : (
-                                    <button>
+                            {!isOwner && !hasPostedReview &&
+                                // (hasPostedReview ? (
+                                //     <button>
+                                //         <OpenModalMenuItem
+                                //             itemText="Edit review"
+                                //             modalComponent={
+                                //                 <UpdateReviewFormModal
+                                //                     reviewId={
+                                //                         hasPostedReview?.id
+                                //                     }
+                                //                     userId={userId}
+                                //                     businessId={businessId}
+                                //                 />
+                                //             }
+                                //         />
+                                //     </button>
+                                // ) : (
+                                    (<button>
                                         <OpenModalMenuItem
                                             itemText="Write a review"
                                             modalComponent={
@@ -122,7 +122,7 @@ const BusinessDetails = () => {
                                             }
                                         />
                                     </button>
-                                ))}
+                                )}
                             <button onClick={handleClick}>Add photo</button>
                         </div>
                         <div className="business-details">
