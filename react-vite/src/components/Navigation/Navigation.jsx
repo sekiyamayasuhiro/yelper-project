@@ -7,6 +7,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import SignupFormModal from "../SignupFormModal";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { getAllBusinesses } from "../../redux/business";
+import logo from "../../../public/logo.jpg";
 
 function Navigation() {
     const dispatch = useDispatch();
@@ -49,7 +50,7 @@ function Navigation() {
         <div className="navbar">
             <div className="header">
                 <Link to="/" onClick={handleClick}>
-                    <img id="app-logo" alt="App Logo" src="logo.jpg" />
+                    <img id="app-logo" alt="App Logo" src={logo} />
                 </Link>
                 <SearchBar />
                 {sessionUser && (
