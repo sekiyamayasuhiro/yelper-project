@@ -19,9 +19,9 @@ const UpdateBusinessForm = () => {
     const [city, setCity] = useState(business.city);
     const [state, setState] = useState(business.state);
     const [country, setCountry] = useState(business.country);
-    const [postalCode, setPostalCode] = useState(business.postalCode);
+    const [postalCode, setPostalCode] = useState(business.postal_code);
     const [category, setCategory] = useState(business.category);
-    const [phoneNumber, setPhoneNumber] = useState(business.phoneNumber);
+    const [phoneNumber, setPhoneNumber] = useState(business.phone_number);
     const [website, setWebsite] = useState(business.website);
     const [description, setDescription] = useState(business.description);
     const [price, setPrice] = useState(business.price);
