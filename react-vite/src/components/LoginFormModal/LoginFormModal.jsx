@@ -64,7 +64,7 @@ function LoginFormModal() {
                         />
                     </label>
                     {errors.email && (
-                        <p className="login-form-error">{errors.email}</p>
+                        <p className="form-error">{errors.email}</p>
                     )}
                 </div>
                 <div>
@@ -78,7 +78,7 @@ function LoginFormModal() {
                         />
                     </label>
                     {errors.password && (
-                        <p className="login-form-error">{errors.password}</p>
+                        <p className="form-error">{errors.password}</p>
                     )}
                 </div>
                 <div>

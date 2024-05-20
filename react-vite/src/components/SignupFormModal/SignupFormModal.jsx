@@ -64,7 +64,7 @@ function SignupFormModal() {
     return (
         <>
             <h1>Sign Up</h1>
-            {errors.server && <p>{errors.server}</p>}
+            {errors.server && <p className="form-error">{errors.server}</p>}
             <form onSubmit={handleSubmit}>
                 <label>
                     Email
@@ -75,7 +75,7 @@ function SignupFormModal() {
                         required
                     />
                 </label>
-                {errors.email && <p>{errors.email}</p>}
+                {errors.email && <p className="form-error">{errors.email}</p>}
                 <label>
                     Username
                     <input
@@ -85,7 +85,9 @@ function SignupFormModal() {
                         required
                     />
                 </label>
-                {errors.username && <p>{errors.username}</p>}
+                {errors.username && (
+                    <p className="form-error">{errors.username}</p>
+                )}
                 <label>
                     Password
                     <input
@@ -95,7 +97,9 @@ function SignupFormModal() {
                         required
                     />
                 </label>
-                {errors.password && <p>{errors.password}</p>}
+                {errors.password && (
+                    <p className="form-error">{errors.password}</p>
+                )}
                 <label>
                     Confirm Password
                     <input
@@ -105,7 +109,9 @@ function SignupFormModal() {
                         required
                     />
                 </label>
-                {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+                {errors.confirmPassword && (
+                    <p className="form-error">{errors.confirmPassword}</p>
+                )}
                 <button type="submit">Sign Up</button>
             </form>
         </>
