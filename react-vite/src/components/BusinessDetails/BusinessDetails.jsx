@@ -62,13 +62,13 @@ const BusinessDetails = () => {
                         </div>
                         <h1>{business.name}</h1>
                         <p>
-                            <FaStar /> {business.avgRating}{" "}
+                            <FaStar /> {business.avgRating || 0}{" "}
                             {`(${reviews.length} ${
                                 reviews.length !== 0 && reviews.length === 1
                                     ? "Review"
                                     : reviews.length > 1
                                     ? "Reviews"
-                                    : "New"
+                                    : "No Reviews"
                             })`}
                         </p>
                         <p>
