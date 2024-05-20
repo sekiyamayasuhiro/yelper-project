@@ -9,7 +9,7 @@ import ViewAllImagesModal from "../ViewAllImagesModal";
 import LoadReviews from "../LoadReviews/LoadReviews.jsx";
 import CreateReviewFormModal from "../CreateReviewFormModal/CreateReviewFormModal.jsx";
 import UpdateReviewFormModal from "../UpdateReviewFormModal/UpdateReviewFormModal.jsx";
-import { FaStar } from "react-icons/fa"
+import { FaStar } from "react-icons/fa";
 
 const BusinessDetails = () => {
     const { businessId } = useParams();
@@ -17,19 +17,22 @@ const BusinessDetails = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const userId = useSelector((state) => state.session?.user?.id);
     const reviews = useSelector((state) =>
-        Object.values(state?.reviewState) ? Object.values(state?.reviewState) : []
+        Object.values(state?.reviewState)
+            ? Object.values(state?.reviewState)
+            : []
     );
     const business = useSelector((state) =>
         state.businessState[businessId] ? state.businessState[businessId] : []
     );
-    const isOwner = +userId === +businessId
-    const hasPostedReview = reviews.find(review => review.user_id === userId)
+    const isOwner = +userId === +businessId;
+    const hasPostedReview = reviews.find((review) => review.user_id === userId);
 
-    const defaultImage ="https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
+    const defaultImage =
+        "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
 
     const handleClick = () => {
-        alert("Feature coming soon")
-    }
+        alert("Feature coming soon");
+    };
 
     useEffect(() => {
         dispatch(getBusinessDetailsById(businessId)).then(() =>
@@ -45,77 +48,108 @@ const BusinessDetails = () => {
             {isLoaded && (
                 <div className="business-details-section">
                     <div id="details">
-                    <div className="business-image-container">
-                        <img
-                            className="business-image"
-                            src={business.BusinessImages && business.BusinessImages.length > 0 ? business.BusinessImages[0].url : defaultImage}
-                            alt="Big Picture"
-                        />
-                    </div>
-            <h1>{business.name}</h1>
-            <p><FaStar /> {business.avgRating} {`(${reviews.length} ${reviews.length !== 0 && reviews.length === 1 ? 'Review' : reviews.length > 1 ? 'Reviews' : 'New' })`}</p>
-            <p>{business.price} {business.category}</p>
+                        <div className="business-image-container">
+                            <img
+                                className="business-image"
+                                src={
+                                    business.BusinessImages &&
+                                    business.BusinessImages.length > 0
+                                        ? business.BusinessImages[0].url
+                                        : defaultImage
+                                }
+                                alt="Big Picture"
+                            />
+                        </div>
+                        <h1>{business.name}</h1>
+                        <p>
+                            <FaStar /> {business.avgRating}{" "}
+                            {`(${reviews.length} ${
+                                reviews.length !== 0 && reviews.length === 1
+                                    ? "Review"
+                                    : reviews.length > 1
+                                    ? "Reviews"
+                                    : "New"
+                            })`}
+                        </p>
+                        <p>
+                            {business.price} {business.category}
+                        </p>
                         <button>
                             <OpenModalMenuItem
                                 itemText="View all Images"
-                                modalComponent={<ViewAllImagesModal businessId={businessId} />}
+                                modalComponent={
+                                    <ViewAllImagesModal
+                                        businessId={businessId}
+                                    />
+                                }
                             />
                         </button>
                         <div>
-                            {!isOwner && (
-                                hasPostedReview ?
-                                (<button>
-                                    <OpenModalMenuItem
-                                        itemText='Edit review'
-                                        modalComponent={<UpdateReviewFormModal  reviewId={hasPostedReview?.id} userId={userId} businessId={businessId}/>}
-                                    />
-                                </button>) : (
-                                <button>
-                                    <OpenModalMenuItem
-                                        itemText='Write a review'
-                                        modalComponent={<CreateReviewFormModal businessId={businessId} userId={userId} />}
+                            {!isOwner &&
+                                (hasPostedReview ? (
+                                    <button>
+                                        <OpenModalMenuItem
+                                            itemText="Edit review"
+                                            modalComponent={
+                                                <UpdateReviewFormModal
+                                                    reviewId={
+                                                        hasPostedReview?.id
+                                                    }
+                                                    userId={userId}
+                                                    businessId={businessId}
+                                                />
+                                            }
                                         />
-                                </button>
-                                )
-                                )
-                            }
-                            <button onClick={handleClick}>Add photo</button></div>
+                                    </button>
+                                ) : (
+                                    <button>
+                                        <OpenModalMenuItem
+                                            itemText="Write a review"
+                                            modalComponent={
+                                                <CreateReviewFormModal
+                                                    businessId={businessId}
+                                                    userId={userId}
+                                                />
+                                            }
+                                        />
+                                    </button>
+                                ))}
+                            <button onClick={handleClick}>Add photo</button>
+                        </div>
                         <div className="business-details">
                             <div>{business.website}</div>
                             <div>{business.phone_number}</div>
-                            <div>{business.address} {business.city} {business.state} {business.postal_code}</div>
+                            <div>
+                                {business.address} {business.city}{" "}
+                                {business.state} {business.postal_code}
+                            </div>
                         </div>
-                        <button>
-                <OpenModalMenuItem
-                    itemText="Add more images"
-                    modalComponent={
-                        <CreateImageFormModal businessId={businessId} />
-                    }
-                />
-            </button>
+                        {userId && (
+                            <button>
+                                <OpenModalMenuItem
+                                    itemText="Add more images"
+                                    modalComponent={
+                                        <CreateImageFormModal
+                                            businessId={businessId}
+                                        />
+                                    }
+                                />
+                            </button>
+                        )}
                         <h3>About the Business</h3>
                         <div className="description">
-                <pre className="description-content">
-                    {business.description}
-                </pre>
-            </div>
+                            <pre className="description-content">
+                                {business.description}
+                            </pre>
+                        </div>
                     </div>
                     <h4>Overall rating</h4>
                 </div>
             )}
 
-
-
-
-            <LoadReviews businessId={business.id} userId={userId}/>
-
+            <LoadReviews businessId={business.id} userId={userId} />
 
             <hr />
-
-
-
-
-
         </div>
     );
 };
