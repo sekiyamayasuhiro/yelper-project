@@ -3,8 +3,7 @@
     color: white;
 }
 
-.search-bar .category button:hover,
-.search-bar .price button:hover {
+.search-bar button:hover {
     background-color: pink;
     cursor: pointer;
 }
