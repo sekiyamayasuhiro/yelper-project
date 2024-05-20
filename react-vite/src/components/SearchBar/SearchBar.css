@@ -2,3 +2,9 @@
     background-color: red;
     color: white;
 }
+
+.search-bar .category button:hover,
+.search-bar .price button:hover {
+    background-color: pink;
+    cursor: pointer;
+}
