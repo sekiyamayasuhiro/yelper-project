@@ -21,14 +21,14 @@ const BusinessDetails = () => {
             ? Object.values(state?.reviewState)
             : []
     );
-    let numReviews
+    let numReviews;
     const reviewCount = reviews?.length;
     if (reviewCount === 0) {
-        numReviews = 'No Reviews yet'
+        numReviews = "No Reviews yet";
     } else if (reviewCount === 1) {
-        numReviews = '1 Review'
+        numReviews = "1 Review";
     } else {
-        numReviews = `${reviewCount} Reviews`
+        numReviews = `${reviewCount} Reviews`;
     }
 
     const business = useSelector((state) =>
@@ -40,9 +40,9 @@ const BusinessDetails = () => {
     const defaultImage =
         "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
 
-    const handleClick = () => {
-        alert("Feature coming soon");
-    };
+    // const handleClick = () => {
+    //     alert("Feature coming soon");
+    // };
 
     useEffect(() => {
         dispatch(getBusinessDetailsById(businessId)).then(() =>
@@ -72,10 +72,14 @@ const BusinessDetails = () => {
                         </div>
                         <h1>{business.name}</h1>
                         <p>
-                            {business?.avgRating? (
-                                <span><FaStar /> {business.avgRating}</span>
-                            ): ""} {`(${numReviews})`}
-
+                            {business?.avgRating ? (
+                                <span>
+                                    <FaStar /> {business.avgRating}
+                                </span>
+                            ) : (
+                                ""
+                            )}{" "}
+                            {`(${numReviews})`}
                         </p>
                         <p className="price-category">{`${"$".repeat(
                             business.price
@@ -83,18 +87,34 @@ const BusinessDetails = () => {
                         {/* <p>
                             {business.price} {business.category} {"HELLO"}
                         </p> */}
-                        <button>
-                            <OpenModalMenuItem
-                                itemText="View all Images"
-                                modalComponent={
-                                    <ViewAllImagesModal
-                                        businessId={businessId}
-                                    />
-                                }
-                            />
-                        </button>
                         <div>
-                            {!isOwner && !hasPostedReview &&
+                            <button>
+                                <OpenModalMenuItem
+                                    itemText="View all Images"
+                                    modalComponent={
+                                        <ViewAllImagesModal
+                                            businessId={businessId}
+                                        />
+                                    }
+                                />
+                            </button>
+                        </div>
+                        <div>
+                            {userId && (
+                                <button>
+                                    <OpenModalMenuItem
+                                        itemText="Add more images"
+                                        modalComponent={
+                                            <CreateImageFormModal
+                                                businessId={businessId}
+                                            />
+                                        }
+                                    />
+                                </button>
+                            )}
+                        </div>
+                        <div>
+                            {!isOwner && !hasPostedReview && (
                                 // (hasPostedReview ? (
                                 //     <button>
                                 //         <OpenModalMenuItem
@@ -111,19 +131,19 @@ const BusinessDetails = () => {
                                 //         />
                                 //     </button>
                                 // ) : (
-                                    (<button>
-                                        <OpenModalMenuItem
-                                            itemText="Write a review"
-                                            modalComponent={
-                                                <CreateReviewFormModal
-                                                    businessId={businessId}
-                                                    userId={userId}
-                                                />
-                                            }
-                                        />
-                                    </button>
-                                )}
-                            <button onClick={handleClick}>Add photo</button>
+                                <button>
+                                    <OpenModalMenuItem
+                                        itemText="Write a review"
+                                        modalComponent={
+                                            <CreateReviewFormModal
+                                                businessId={businessId}
+                                                userId={userId}
+                                            />
+                                        }
+                                    />
+                                </button>
+                            )}
+                            {/* <button onClick={handleClick}>Add photo</button> */}
                         </div>
                         <div className="business-details">
                             <div>{business.website}</div>
@@ -133,18 +153,6 @@ const BusinessDetails = () => {
                                 {business.state} {business.postal_code}
                             </div>
                         </div>
-                        {userId && (
-                            <button>
-                                <OpenModalMenuItem
-                                    itemText="Add more images"
-                                    modalComponent={
-                                        <CreateImageFormModal
-                                            businessId={businessId}
-                                        />
-                                    }
-                                />
-                            </button>
-                        )}
                         <h3>About the Business</h3>
                         <div className="description">
                             <pre className="description-content">
@@ -163,4 +171,4 @@ const BusinessDetails = () => {
     );
 };
 
-export default BusinessDetails
+export default BusinessDetails;
