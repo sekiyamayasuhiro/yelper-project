@@ -8,7 +8,7 @@ import CreateImageFormModal from "../CreateImageFormModal";
 import ViewAllImagesModal from "../ViewAllImagesModal";
 import LoadReviews from "../LoadReviews/LoadReviews.jsx";
 import CreateReviewFormModal from "../CreateReviewFormModal/CreateReviewFormModal.jsx";
-import UpdateReviewFormModal from "../UpdateReviewFormModal/UpdateReviewFormModal.jsx";
+// import UpdateReviewFormModal from "../UpdateReviewFormModal/UpdateReviewFormModal.jsx";
 import { FaStar } from "react-icons/fa";
 
 const BusinessDetails = () => {
@@ -21,6 +21,16 @@ const BusinessDetails = () => {
             ? Object.values(state?.reviewState)
             : []
     );
+    let numReviews
+    const reviewCount = reviews?.length;
+    if (reviewCount === 0) {
+        numReviews = 'No Reviews yet'
+    } else if (reviewCount === 1) {
+        numReviews = '1 Review'
+    } else {
+        numReviews = `${reviewCount} Reviews`
+    }
+
     const business = useSelector((state) =>
         state.businessState[businessId] ? state.businessState[businessId] : []
     );
@@ -62,14 +72,10 @@ const BusinessDetails = () => {
                         </div>
                         <h1>{business.name}</h1>
                         <p>
-                            <FaStar /> {business.avgRating || 0.0}{" "}
-                            {`(${reviews.length} ${
-                                reviews.length !== 0 && reviews.length === 1
-                                    ? "Review"
-                                    : reviews.length > 1
-                                    ? "Reviews"
-                                    : "No Reviews"
-                            })`}
+                            {business?.avgRating? (
+                                <span><FaStar /> {business.avgRating}</span>
+                            ): ""} {`(${numReviews})`}
+
                         </p>
                         <p className="price-category">{`${"$".repeat(
                             business.price
@@ -88,24 +94,24 @@ const BusinessDetails = () => {
                             />
                         </button>
                         <div>
-                            {!isOwner &&
-                                (hasPostedReview ? (
-                                    <button>
-                                        <OpenModalMenuItem
-                                            itemText="Edit review"
-                                            modalComponent={
-                                                <UpdateReviewFormModal
-                                                    reviewId={
-                                                        hasPostedReview?.id
-                                                    }
-                                                    userId={userId}
-                                                    businessId={businessId}
-                                                />
-                                            }
-                                        />
-                                    </button>
-                                ) : (
-                                    <button>
+                            {!isOwner && !hasPostedReview &&
+                                // (hasPostedReview ? (
+                                //     <button>
+                                //         <OpenModalMenuItem
+                                //             itemText="Edit review"
+                                //             modalComponent={
+                                //                 <UpdateReviewFormModal
+                                //                     reviewId={
+                                //                         hasPostedReview?.id
+                                //                     }
+                                //                     userId={userId}
+                                //                     businessId={businessId}
+                                //                 />
+                                //             }
+                                //         />
+                                //     </button>
+                                // ) : (
+                                    (<button>
                                         <OpenModalMenuItem
                                             itemText="Write a review"
                                             modalComponent={
@@ -116,7 +122,7 @@ const BusinessDetails = () => {
                                             }
                                         />
                                     </button>
-                                ))}
+                                )}
                             <button onClick={handleClick}>Add photo</button>
                         </div>
                         <div className="business-details">
@@ -157,4 +163,4 @@ const BusinessDetails = () => {
     );
 };
 
-export default BusinessDetails;
+export default BusinessDetails

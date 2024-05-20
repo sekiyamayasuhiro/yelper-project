@@ -20,19 +20,19 @@ function LoadReviews ({ businessId }) {
         return date.toLocaleDateString("en-US", options)
     }
 
-    let reviewSummary
-    const reviewCount = reviews.length;
+    let numReviews
+    const reviewCount = reviews?.length;
     if (reviewCount === 0) {
-        reviewSummary = 'No Reviews yet'
+        numReviews = 'No Reviews yet'
     } else if (reviewCount === 1) {
-        reviewSummary = '1 Review'
+        numReviews = '1 Review'
     } else {
-        reviewSummary = `${reviewCount} Reviews`
+        numReviews = `${reviewCount} Reviews`
     }
 
     return (
         <>
-            <div>{reviewSummary}</div>
+            <div>{numReviews}</div>
             <div className="reviews-container">
             {reviews.map(({id, rating, created_at, review_text, yelper_name}) => (
                 <div key={id}>

@@ -1,4 +1,4 @@
-import { useModal } from "../../context/Modal";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem.jsx";
@@ -6,7 +6,7 @@ import { getImagesByBusinessId } from "../../redux/image.js";
 import DeleteImageModal from "../DeleteImageModal";
 
 const ViewAllImagesModal = ({ businessId }) => {
-    const { closeModal } = useModal();
+    // const { closeModal } = useModal();
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
     const images = useSelector((state) =>

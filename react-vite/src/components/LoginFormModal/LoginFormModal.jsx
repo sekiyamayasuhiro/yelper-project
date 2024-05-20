@@ -28,21 +28,21 @@ function LoginFormModal() {
         }
     };
 
-    const handleDemoLogin = async (e) => {
-        e.preventDefault();
-        setErrors({});
-        const demoLogin = await dispatch(
-            thunkLogin({
-                email: "demo@aa.io",
-                password: "password",
-            })
-        );
-        if (demoLogin) {
-            setErrors(demoLogin);
-        } else {
-            closeModal();
-        }
-    };
+    // const handleDemoLogin = async (e) => {
+    //     e.preventDefault();
+    //     setErrors({});
+    //     const demoLogin = await dispatch(
+    //         thunkLogin({
+    //             email: "demo@aa.io",
+    //             password: "password",
+    //         })
+    //     );
+    //     if (demoLogin) {
+    //         setErrors(demoLogin);
+    //     } else {
+    //         closeModal();
+    //     }
+    // };
 
 
   const demoUser = () => {

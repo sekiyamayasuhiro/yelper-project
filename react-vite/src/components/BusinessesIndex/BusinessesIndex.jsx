@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBusinesses } from "../../redux/business.js";
-import { getImagesByBusinessId } from "../../redux/image.js";
+// import { getImagesByBusinessId } from "../../redux/image.js";
 import "./BusinessIndex.css";
 import { FaStar } from "react-icons/fa";
 
@@ -15,11 +15,11 @@ const BusinessesIndex = () => {
             : []
     );
 
-    const reviews = useSelector((state) =>
-        Object.values(state?.reviewState)
-            ? Object.values(state?.reviewState)
-            : []
-    );
+    // const reviews = useSelector((state) =>
+    //     Object.values(state?.reviewState)
+            // ? Object.values(state?.reviewState)
+    //         : []
+    // );
 
     useEffect(() => {
         dispatch(getAllBusinesses()).then(() => setIsLoaded(true));
@@ -43,6 +43,7 @@ const BusinessesIndex = () => {
                             category,
                             BusinessImages,
                             avgRating,
+
                         }) => {
                             const imageUrl =
                                 BusinessImages && BusinessImages.length > 0
@@ -66,25 +67,29 @@ const BusinessesIndex = () => {
                                             {avgRating ? (
                                                 <>
                                                     <FaStar />{" "}
-                                                    {avgRating.toFixed(2)}
+                                                    {/* {avgRating.toFixed(2)} */}
+                                                    {avgRating}
                                                 </>
                                             ) : (
                                                 <>
-                                                    <FaStar />
-                                                    {" 0.00"}
+                                                    {/* <FaStar />
+                                                    {" 0.00"} */}
+                                                    <p>No Reviews yet</p>
                                                 </>
+
+
                                             )}
                                         </span>
                                         <span>
-                                            {" "}
+                                            {/* {" "}
                                             {`(${reviews.length} ${
                                                 reviews.length !== 0 &&
                                                 reviews.length === 1
                                                     ? "Review"
                                                     : reviews.length > 1
                                                     ? "Reviews"
-                                                    : "No Reviews"
-                                            })`}
+                                                    : "No Reviews yet"
+                                            })`} */}
                                         </span>
                                         <p className="price-category">{`${"$".repeat(
                                             price

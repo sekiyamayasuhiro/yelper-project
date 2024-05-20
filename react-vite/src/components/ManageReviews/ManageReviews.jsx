@@ -6,7 +6,7 @@ import { getReviewsByCurrentUser } from "../../redux/review.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import UpdateReviewFormModal from "../UpdateReviewFormModal";
 import DeleteReviewModal from "../DeleteReviewModal";
-import LoadReviews from "../LoadReviews/LoadReviews.jsx";
+// import LoadReviews from "../LoadReviews/LoadReviews.jsx";
 
 const ManageReviews = () => {
     const dispatch = useDispatch();

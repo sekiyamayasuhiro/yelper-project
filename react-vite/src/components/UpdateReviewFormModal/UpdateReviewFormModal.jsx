@@ -72,7 +72,7 @@ const UpdateReviewFormModal = ({
                 </div>
                 <button
                     type="submit"
-                    disabled={rating === 0 || review.length < 10}
+                    disabled={rating === 0 || review?.length < 10}
                 >
                     Update Your Review
                 </button>

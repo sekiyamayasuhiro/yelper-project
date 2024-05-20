@@ -20,7 +20,8 @@ def get_business(business_id):
     if not data:
         return jsonify({'message': 'Business not found'}), 404
 
-    business = [{**business.to_dict(), 'BusinessReviews': [review.to_dict() for review in business.reviews], 'BusinessImages': [image.to_dict() for image in business.images]} for business in data]
+    numReviews = db.session.query(Review).filter(Review.business_id == business_id).count()
+    business = [{**business.to_dict(), 'BusinessReviews': [review.to_dict() for review in business.reviews], 'BusinessImages': [image.to_dict() for image in business.images], 'numReviews': numReviews} for business in data]
 
     return business[0]
 

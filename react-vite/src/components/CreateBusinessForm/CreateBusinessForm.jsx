@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewBusiness } from "../../redux/business.js";
-import { createImage } from "../../redux/image.js";
+// import { createImage } from "../../redux/image.js";
 
 const CreateBusinessForm = () => {
     const [name, setName] = useState("");
