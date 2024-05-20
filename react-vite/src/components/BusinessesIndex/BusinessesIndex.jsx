@@ -15,6 +15,12 @@ const BusinessesIndex = () => {
             : []
     );
 
+    const reviews = useSelector((state) =>
+        Object.values(state?.reviewState)
+            ? Object.values(state?.reviewState)
+            : []
+    );
+
     useEffect(() => {
         dispatch(getAllBusinesses()).then(() => setIsLoaded(true));
     }, [dispatch]);
@@ -56,7 +62,7 @@ const BusinessesIndex = () => {
                                         <span>
                                             {city}, {state}
                                         </span>
-                                        <p>
+                                        <span>
                                             {avgRating ? (
                                                 <>
                                                     <FaStar />{" "}
@@ -65,10 +71,21 @@ const BusinessesIndex = () => {
                                             ) : (
                                                 <>
                                                     <FaStar />
-                                                    {" 0.00 (No Reviews)"}
+                                                    {" 0.00"}
                                                 </>
                                             )}
-                                        </p>
+                                        </span>
+                                        <span>
+                                            {" "}
+                                            {`(${reviews.length} ${
+                                                reviews.length !== 0 &&
+                                                reviews.length === 1
+                                                    ? "Review"
+                                                    : reviews.length > 1
+                                                    ? "Reviews"
+                                                    : "No Reviews"
+                                            })`}
+                                        </span>
                                         <p className="price-category">{`${"$".repeat(
                                             price
                                         )} - ${category}`}</p>

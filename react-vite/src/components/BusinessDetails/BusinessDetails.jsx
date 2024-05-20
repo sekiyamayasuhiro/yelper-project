@@ -72,7 +72,7 @@ const BusinessDetails = () => {
                             })`}
                         </p>
                         <p className="price-category">{`${"$".repeat(
-                            business.price.toString()
+                            business.price
                         )} - ${business.category}`}</p>
                         {/* <p>
                             {business.price} {business.category} {"HELLO"}
