@@ -10,6 +10,7 @@ import LoadReviews from "../LoadReviews/LoadReviews.jsx";
 import CreateReviewFormModal from "../CreateReviewFormModal/CreateReviewFormModal.jsx";
 // import UpdateReviewFormModal from "../UpdateReviewFormModal/UpdateReviewFormModal.jsx";
 import { FaStar } from "react-icons/fa";
+import "./BusinessDetails.css";
 
 const BusinessDetails = () => {
     const { businessId } = useParams();
@@ -34,7 +35,8 @@ const BusinessDetails = () => {
     const business = useSelector((state) =>
         state.businessState[businessId] ? state.businessState[businessId] : []
     );
-    const isOwner = +userId === +businessId;
+    const ownerId = business?.owner_id;
+    const isOwner = +userId === +ownerId;
     const hasPostedReview = reviews.find((review) => review.user_id === userId);
 
     const defaultImage =
@@ -58,6 +60,7 @@ const BusinessDetails = () => {
             {isLoaded && (
                 <div className="business-details-section">
                     <div id="details">
+                        <h1>{business.name}</h1>
                         <div className="business-image-container">
                             <img
                                 className="business-image"
@@ -70,23 +73,6 @@ const BusinessDetails = () => {
                                 alt="Big Picture"
                             />
                         </div>
-                        <h1>{business.name}</h1>
-                        <p>
-                            {business?.avgRating ? (
-                                <span>
-                                    <FaStar /> {business.avgRating}
-                                </span>
-                            ) : (
-                                ""
-                            )}{" "}
-                            {`(${numReviews})`}
-                        </p>
-                        <p className="price-category">{`${"$".repeat(
-                            business.price
-                        )} - ${business.category}`}</p>
-                        {/* <p>
-                            {business.price} {business.category} {"HELLO"}
-                        </p> */}
                         <div>
                             <button>
                                 <OpenModalMenuItem
@@ -98,8 +84,6 @@ const BusinessDetails = () => {
                                     }
                                 />
                             </button>
-                        </div>
-                        <div>
                             {userId && (
                                 <button>
                                     <OpenModalMenuItem
@@ -113,6 +97,23 @@ const BusinessDetails = () => {
                                 </button>
                             )}
                         </div>
+                        <div>
+                            {business?.avgRating ? (
+                                <span>
+                                    <FaStar /> {business.avgRating}
+                                </span>
+                            ) : (
+                                ""
+                            )}{" "}
+                            {`(${numReviews})`}
+                        </div>
+                        <div className="price-category">{`${"$".repeat(
+                            business.price
+                        )} - ${business.category}`}</div>
+                        <br></br>
+                        {/* <p>
+                            {business.price} {business.category} {"HELLO"}
+                        </p> */}
                         <div>
                             {!isOwner && !hasPostedReview && (
                                 // (hasPostedReview ? (
@@ -146,12 +147,15 @@ const BusinessDetails = () => {
                             {/* <button onClick={handleClick}>Add photo</button> */}
                         </div>
                         <div className="business-details">
+                            <div>{business.address}</div>
+                            <div>
+                                {business.city}
+                                {", "} {business.state}
+                            </div>
+                            <div>{business.postal_code}</div>
+                            <br></br>
                             <div>{business.website}</div>
                             <div>{business.phone_number}</div>
-                            <div>
-                                {business.address} {business.city}{" "}
-                                {business.state} {business.postal_code}
-                            </div>
                         </div>
                         <h3>About the Business</h3>
                         <div className="description">
@@ -160,7 +164,7 @@ const BusinessDetails = () => {
                             </pre>
                         </div>
                     </div>
-                    <h4>Overall rating</h4>
+                    <h3>Overall rating</h3>
                 </div>
             )}
 
