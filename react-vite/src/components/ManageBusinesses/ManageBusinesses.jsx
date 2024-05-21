@@ -22,6 +22,8 @@ const ManageBusinesses = () => {
 
     useEffect(() => {
         dispatch(getBusinessesByCurrentUser());
+
+        //ADD REVIEW DISPATCH
     }, [dispatch]);
 
     const defaultimage =
@@ -82,7 +84,7 @@ const ManageBusinesses = () => {
                                                 </>
                                             )}
                                         </span>
-                                        <span>
+                                        {/* <span>
                                             {" "}
                                             {`(${reviews.length} ${
                                                 reviews.length !== 0 &&
@@ -92,7 +94,7 @@ const ManageBusinesses = () => {
                                                     ? "Reviews"
                                                     : "No Reviews"
                                             })`}
-                                        </span>
+                                        </span> */}
                                     </div>
                                     {/* <span>{priceSigns}</span> */}
                                     <div className="price-category">{`${"$".repeat(
