@@ -15,11 +15,11 @@ const ManageBusinesses = () => {
             ? Object.values(state.businessState)
             : []
     );
-    const reviews = useSelector((state) =>
-        Object.values(state?.reviewState)
-            ? Object.values(state?.reviewState)
-            : []
-    );
+    // const reviews = useSelector((state) =>
+    //     Object.values(state?.reviewState)
+    //         ? Object.values(state?.reviewState)
+    //         : []
+    // );
 
     useEffect(() => {
         dispatch(getBusinessesByCurrentUser());
