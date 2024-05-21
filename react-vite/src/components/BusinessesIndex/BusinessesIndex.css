@@ -14,6 +14,8 @@
     background: white;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
     margin-bottom: 10px;
+    text-decoration: none;
+    color: inherit;
 }
 
 .business-card img {
@@ -21,4 +23,10 @@
     height: 200px;
     object-fit: cover;
     border-radius: 8px;
+}
+
+.business-card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }

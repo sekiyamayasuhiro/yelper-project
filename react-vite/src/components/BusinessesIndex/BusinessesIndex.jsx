@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBusinesses } from "../../redux/business.js";
 // import { getImagesByBusinessId } from "../../redux/image.js";
-import "./BusinessIndex.css";
+import "./BusinessesIndex.css";
 import { FaStar } from "react-icons/fa";
 
 const BusinessesIndex = () => {
@@ -54,16 +54,13 @@ const BusinessesIndex = () => {
                                     ? BusinessImages[0].url
                                     : defaultimage;
                             return (
-                                <div
-                                    key={id}
+                                <Link
+                                    to={`/businesses/${id}`}
                                     className="business-card"
                                     title={`This is the tooltip: ${name}`}
                                 >
                                     <img src={imageUrl} alt={name} />
-                                    <Link
-                                        to={`/businesses/${id}`}
-                                        className="business-card-link"
-                                    >
+                                    <div className="business-card-content">
                                         <h2 className="business-name">
                                             {name}
                                         </h2>
@@ -80,22 +77,11 @@ const BusinessesIndex = () => {
                                                 <span>0.00</span>
                                             )}
                                         </div>
-                                        {/* <span>
-                                                {" "}
-                                                {`(${reviews.length} ${
-                                                    reviews.length !== 0 &&
-                                                    reviews.length === 1
-                                                        ? "Review"
-                                                        : reviews.length > 1
-                                                        ? "Reviews"
-                                                        : "No Reviews yet"
-                                                })`}
-                                        </span> */}
                                         <p className="price-category">{`${"$".repeat(
                                             price
                                         )} - ${category}`}</p>
-                                    </Link>
-                                </div>
+                                    </div>
+                                </Link>
                             );
                         }
                     )}
