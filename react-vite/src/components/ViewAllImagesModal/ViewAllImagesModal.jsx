@@ -1,9 +1,9 @@
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem.jsx";
 import { getImagesByBusinessId } from "../../redux/image.js";
 import DeleteImageModal from "../DeleteImageModal";
+import "./ViewAllImagesModal.css";
 
 const ViewAllImagesModal = ({ businessId }) => {
     // const { closeModal } = useModal();
@@ -22,7 +22,7 @@ const ViewAllImagesModal = ({ businessId }) => {
     }, [dispatch, businessId]);
 
     return (
-        <div>
+        <div className="view-all-images-modal">
             {isLoaded &&
                 images.map(({ id, url, user_id }) => {
                     const isImagePoster =
@@ -44,7 +44,6 @@ const ViewAllImagesModal = ({ businessId }) => {
                         </div>
                     );
                 })}
-
             {/* <button onClick={closeModal}>Close Modal</button> */}
         </div>
     );
