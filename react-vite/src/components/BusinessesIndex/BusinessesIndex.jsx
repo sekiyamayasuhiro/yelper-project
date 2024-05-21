@@ -17,7 +17,7 @@ const BusinessesIndex = () => {
 
     // const reviews = useSelector((state) =>
     //     Object.values(state?.reviewState)
-            // ? Object.values(state?.reviewState)
+    // ? Object.values(state?.reviewState)
     //         : []
     // );
 
@@ -30,6 +30,11 @@ const BusinessesIndex = () => {
 
     return (
         <div>
+            <h3>
+                Dear Users, much of the white space on the right will be taken
+                care of when Google Maps is integrated. We apologize. - Yelper
+                Team
+            </h3>
             {businesses.length === 0 && <h3>No Result Found</h3>}
             <div className="business-list">
                 {isLoaded &&
@@ -43,7 +48,6 @@ const BusinessesIndex = () => {
                             category,
                             BusinessImages,
                             avgRating,
-
                         }) => {
                             const imageUrl =
                                 BusinessImages && BusinessImages.length > 0
@@ -55,42 +59,38 @@ const BusinessesIndex = () => {
                                     className="business-card"
                                     title={`This is the tooltip: ${name}`}
                                 >
-                                    <Link to={`/businesses/${id}`}>
-                                        <img src={imageUrl} alt={name} />
+                                    <img src={imageUrl} alt={name} />
+                                    <Link
+                                        to={`/businesses/${id}`}
+                                        className="business-card-link"
+                                    >
                                         <h2 className="business-name">
                                             {name}
                                         </h2>
                                         <span>
                                             {city}, {state}
                                         </span>
-                                        <span>
+                                        <div>
+                                            <FaStar />
                                             {avgRating ? (
-                                                <>
-                                                    <FaStar />{" "}
-                                                    {/* {avgRating.toFixed(2)} */}
-                                                    {avgRating}
-                                                </>
+                                                <span>
+                                                    {avgRating.toFixed(2)}
+                                                </span>
                                             ) : (
-                                                <>
-                                                    {/* <FaStar />
-                                                    {" 0.00"} */}
-                                                    <p>No Reviews yet</p>
-                                                </>
-
-
+                                                <span>0.00</span>
                                             )}
-                                        </span>
-                                        <span>
-                                            {/* {" "}
-                                            {`(${reviews.length} ${
-                                                reviews.length !== 0 &&
-                                                reviews.length === 1
-                                                    ? "Review"
-                                                    : reviews.length > 1
-                                                    ? "Reviews"
-                                                    : "No Reviews yet"
-                                            })`} */}
-                                        </span>
+                                        </div>
+                                        {/* <span>
+                                                {" "}
+                                                {`(${reviews.length} ${
+                                                    reviews.length !== 0 &&
+                                                    reviews.length === 1
+                                                        ? "Review"
+                                                        : reviews.length > 1
+                                                        ? "Reviews"
+                                                        : "No Reviews yet"
+                                                })`}
+                                        </span> */}
                                         <p className="price-category">{`${"$".repeat(
                                             price
                                         )} - ${category}`}</p>
