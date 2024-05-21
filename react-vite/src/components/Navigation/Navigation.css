@@ -78,7 +78,6 @@
     margin-right: 20px;
 }
 
-.session-user div:hover {
-    background-color: red;
-    cursor: pointer;
+.session-user div a:hover {
+    color: red;
 }
