@@ -538,3 +538,11 @@ Return business filtered by category
 
 ### Add Query Filters to Search Business by Price
 Return business filtered by price
+
+
+## Friend Features
+* **View Friends List**: GET `/api/friends/<int:user_id>`
+* **View Friends Reviews**: GET `/api/reviews/<int:friend_id>`
+* **View Friend's Images**: GET `/api/images/<int:friend_id>`
+* **Add Friend**: POST `/api/friends/request`
+* **Remove Friend**: DELETE `/api/friends/remove`
