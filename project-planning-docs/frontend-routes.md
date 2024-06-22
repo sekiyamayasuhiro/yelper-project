@@ -60,3 +60,29 @@
     * `PUT /api/reviews/:review_id`
 * Delete the review that belongs to the current user (Using `DeleteReviewModal`)
     * `DELETE /api/reviews/:review_id`
+
+
+## View Friends List
+* **Route**: `/friends`
+* **Component**: FriendsList
+* **Description**: Displays list of the logged-in user's friends
+
+## View Friend's Reviews
+* **Route**: `/friends/:friendId/reviews`
+* **Component**: FriendReviews
+* **Description**: Display all reviews written by a specific friend. The friendId parameter in the URL identifies which friend's reviews are being displayed.
+
+## View Friend's Images
+* **Route**: `/friends/:friendId/images`
+* **Route**: FriendImages
+* **Description**: Show all images uploaded by a specific friend. The friendId parameter in the URL identifies which friend's images are are being displayed.
+
+## Add Friend
+* **Route**: `friends/request`
+* **Component**: FriendRequest
+* **Description**: Form for logged-in user to send a friend request to another user.
+
+## Remove Friend
+* **Route**: `friends`
+* **Component**: Friends
+* **Description**: Functionality to remove a friend within friends list route
