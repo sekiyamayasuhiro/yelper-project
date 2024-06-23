@@ -40,3 +40,5 @@ class User(db.Model, UserMixin):
     businesses = db.relationship('Business', back_populates='owner')
     reviews = db.relationship('Review', back_populates='user')
     images = db.relationship('Image', back_populates='user')
+    friends = db.relationship('Friend', back_populates='user')
+    friend_friends = db.relationship('Friend', back_populates='friend')
