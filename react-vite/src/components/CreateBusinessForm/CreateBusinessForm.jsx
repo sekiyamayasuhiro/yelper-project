@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewBusiness } from "../../redux/business.js";
-import { createImage } from "../../redux/image.js";
 
 const CreateBusinessForm = () => {
     const [name, setName] = useState("");
@@ -11,6 +10,8 @@ const CreateBusinessForm = () => {
     const [state, setState] = useState("");
     const [country, setCountry] = useState("");
     const [postalCode, setPostalCode] = useState("");
+    const [lat, setLat] = useState("");
+    const [lng, setLng] = useState("");
     const [category, setCategory] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [website, setWebsite] = useState("");
@@ -24,6 +25,13 @@ const CreateBusinessForm = () => {
 
     const sessionUser = useSelector((state) => state.session.user);
 
+    // Checking for logged in user.
+    useEffect(() => {
+        if (!sessionUser) {
+            navigate("/");
+        }
+    }, [sessionUser, navigate]);
+
     useEffect(() => {
         const resetForm = () => {
             setValidationErrors({});
@@ -33,6 +41,8 @@ const CreateBusinessForm = () => {
             setState("");
             setCountry("");
             setPostalCode("");
+            setLat("");
+            setLng("");
             setCategory("");
             setPhoneNumber("");
             setWebsite("");
@@ -72,6 +82,12 @@ const CreateBusinessForm = () => {
             errors.postalCode =
                 "Postal code must be exactly 5 digits and all numeric";
         }
+        if (!lat || isNaN(lat) || lat < -90 || lat > 90) {
+            errors.lat = "Lat must be between -90 and 90.";
+        }
+        if (!lng || isNaN(lng) || lng < -180 || lng > 180) {
+            errors.lng = "Lng must be between -180 and 180.";
+        }
         if (!category) {
             errors.category = "Please select a category";
         }
@@ -98,6 +114,8 @@ const CreateBusinessForm = () => {
             state,
             country,
             postal_code: postalCode,
+            lat,
+            lng,
             category,
             phone_number: phoneNumber,
             website,
@@ -124,10 +142,10 @@ const CreateBusinessForm = () => {
                 <h1>Create a New Business</h1>
 
                 <section>
-                    <h2>Please provide the Details of your business.</h2>
+                    <h2>Please provide the details of your business.</h2>
                     <h3>
-                        The more accurate and detailed you are will help future
-                        customers!
+                        Reminder: The more accurate and detailed you are will
+                        help future customers!
                     </h3>
 
                     <div className="label-container">
@@ -175,7 +193,7 @@ const CreateBusinessForm = () => {
                         name="city"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        placeholder="City"
+                        placeholder="City (San Francisco)"
                     />
 
                     <div className="label-container">
@@ -191,7 +209,7 @@ const CreateBusinessForm = () => {
                         name="state"
                         value={state}
                         onChange={(e) => setState(e.target.value)}
-                        placeholder="State"
+                        placeholder="State (CA)"
                     />
 
                     <div className="label-container">
@@ -207,7 +225,7 @@ const CreateBusinessForm = () => {
                         name="country"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
-                        placeholder="Country"
+                        placeholder="Country (USA)"
                     />
 
                     <div className="label-container">
@@ -223,7 +241,39 @@ const CreateBusinessForm = () => {
                         name="postal-code"
                         value={postalCode}
                         onChange={(e) => setPostalCode(e.target.value)}
-                        placeholder="Postal Code"
+                        placeholder="Postal Code (5 digits)"
+                    />
+
+                    <div className="label-container">
+                        <label>Latitude</label>
+                        {validationErrors.lat && (
+                            <span className="errors">
+                                {validationErrors.lat}
+                            </span>
+                        )}
+                    </div>
+                    <input
+                        type="number"
+                        name="latitude"
+                        value={lat}
+                        onChange={(e) => setLat(e.target.value)}
+                        placeholder="Latitude (-90 to 90)"
+                    />
+
+                    <div className="label-container">
+                        <label>Longitude</label>
+                        {validationErrors.lng && (
+                            <span className="errors">
+                                {validationErrors.lng}
+                            </span>
+                        )}
+                    </div>
+                    <input
+                        type="number"
+                        name="longitude"
+                        value={lng}
+                        onChange={(e) => setLng(e.target.value)}
+                        placeholder="Longitude (-180 to 180)"
                     />
 
                     <div className="label-container">
@@ -259,7 +309,7 @@ const CreateBusinessForm = () => {
                         name="phone-number"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
-                        placeholder="Phone Number"
+                        placeholder="Phone Number (10 digits)"
                     />
 
                     <div className="label-container">
@@ -291,7 +341,7 @@ const CreateBusinessForm = () => {
                         rows="5"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Description"
+                        placeholder="Description (Min. 30 characters)"
                     ></textarea>
 
                     <div className="label-container">
