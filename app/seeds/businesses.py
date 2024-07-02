@@ -25,6 +25,8 @@ def seed_businesses():
         state='CA',
         country='USA',
         postal_code='94110',
+        lat=37.78512904795339,
+        lng=-122.43200837465552,
         category='Restaurant',
         phone_number='4151230000',
         website='www.ramennag.com',
