@@ -211,12 +211,13 @@
 
 // export default BusinessDetails;
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBusinessDetailsById } from "../../redux/business.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem.jsx";
 import CreateImageFormModal from "../CreateImageFormModal";
 import ViewAllImagesModal from "../ViewAllImagesModal";
+import MapComponent from "../MapComponent/MapComponent.jsx";
 
 const BusinessDetails = () => {
     const { businessId } = useParams();
@@ -228,10 +229,14 @@ const BusinessDetails = () => {
     const sessionUser = useSelector((state) => state.session.user);
 
     useEffect(() => {
-        dispatch(getBusinessDetailsById(businessId)).then(() =>
-            setIsLoaded(true)
-        );
-    }, [dispatch, businessId]);
+        if (!business) {
+            dispatch(getBusinessDetailsById(businessId)).then(() =>
+                setIsLoaded(true)
+            );
+        } else {
+            setIsLoaded(true);
+        }
+    }, [dispatch, businessId, business]);
 
     const isOwner =
         sessionUser && business.Owner && sessionUser.id === business.Owner.id;
@@ -275,48 +280,58 @@ const BusinessDetails = () => {
                 </button>
             </div>
             <div className="business-details-mid">
-                <div className="business-addition-buttons">
-                    <div className="business-write-a-review-button">
-                        <button>Write a Review</button>
-                        {/* CODE NEEDS TO BE ADDED */}
+                <div className="business-details-mid-left">
+                    <div className="business-addition-buttons">
+                        <div className="business-write-a-review-button">
+                            <button>Write a Review</button>
+                            {/* CODE NEEDS TO BE ADDED */}
+                        </div>
+                        <div className="business-add-photo-button">
+                            <button>
+                                <OpenModalMenuItem
+                                    itemText="Add photo"
+                                    modalComponent={
+                                        <CreateImageFormModal
+                                            businessId={businessId}
+                                        />
+                                    }
+                                />
+                            </button>
+                        </div>
                     </div>
-                    <div className="business-add-photo-button">
-                        <button>
-                            <OpenModalMenuItem
-                                itemText="Add photo"
-                                modalComponent={
-                                    <CreateImageFormModal
-                                        businessId={businessId}
-                                    />
-                                }
-                            />
-                        </button>
+                    <div className="business-location-address">
+                        <div className="business-google-map">
+                            MAP COMPONENT{" "}
+                            {business.lat && business.lng && (
+                                <MapComponent
+                                    lat={business.lat}
+                                    lng={business.lng}
+                                />
+                            )}
+                        </div>
+                        <div className="business-address">
+                            {business.address}
+                            <br />
+                            {business.city}, {business.state}
+                            <br />
+                            {business.postalCode}
+                        </div>
                     </div>
                 </div>
-                <div className="business-location-address">
-                    <div className="business-google-map">
-                        MAP COMPONENT {/* GOOGLE MAPS COMPONENT ADDED HERE */}
-                    </div>
-                    <div className="business-address">
-                        {business.address}
-                        <br />
-                        {business.city}, {business.state}
-                        <br />
-                        {business.postalCode}
-                    </div>
-                </div>
-                <div className="business-additional-information">
-                    <div className="business-url">
-                        <a
-                            href={business.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            {business.website}
-                        </a>
-                    </div>
-                    <div className="business-phone">
-                        {business.phone_number}
+                <div className="business-details-mid-right">
+                    <div className="business-additional-information">
+                        <div className="business-url">
+                            <a
+                                href={business.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {business.website}
+                            </a>
+                        </div>
+                        <div className="business-phone">
+                            {business.phone_number}
+                        </div>
                     </div>
                 </div>
             </div>

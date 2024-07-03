@@ -5,6 +5,7 @@ import { getBusinessDetailsById } from "../../redux/business.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem.jsx";
 import CreateImageFormModal from "../CreateImageFormModal";
 import ViewAllImagesModal from "../ViewAllImagesModal";
+import MapComponent from "../MapComponent/MapComponent.jsx";
 
 const BusinessDetails = () => {
     const { businessId } = useParams();
@@ -16,10 +17,14 @@ const BusinessDetails = () => {
     const sessionUser = useSelector((state) => state.session.user);
 
     useEffect(() => {
-        dispatch(getBusinessDetailsById(businessId)).then(() =>
-            setIsLoaded(true)
-        );
-    }, [dispatch, businessId]);
+        if (!business) {
+            dispatch(getBusinessDetailsById(businessId)).then(() =>
+                setIsLoaded(true)
+            );
+        } else {
+            setIsLoaded(true);
+        }
+    }, [dispatch, businessId, business]);
 
     const isOwner =
         sessionUser && business.Owner && sessionUser.id === business.Owner.id;
@@ -85,7 +90,12 @@ const BusinessDetails = () => {
                     <div className="business-location-address">
                         <div className="business-google-map">
                             MAP COMPONENT{" "}
-                            {/* GOOGLE MAPS COMPONENT ADDED HERE */}
+                            {business.lat && business.lng && (
+                                <MapComponent
+                                    lat={business.lat}
+                                    lng={business.lng}
+                                />
+                            )}
                         </div>
                         <div className="business-address">
                             {business.address}

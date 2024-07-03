@@ -1,18 +1,15 @@
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { useMemo } from "react";
 
 const containerStyle = {
-    width: "500px",
-    height: "500px",
-};
-
-const center = {
-    lat: 37.78549410734739,
-    lng: -122.42971486350845,
+    width: "400px",
+    height: "400px",
 };
 
 const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-const MapComponent = () => {
+const MapComponent = ({ lat, lng }) => {
+    const center = useMemo(() => ({ lat, lng }), [lat, lng]);
     return (
         <LoadScript googleMapsApiKey={apiKey}>
             <GoogleMap
