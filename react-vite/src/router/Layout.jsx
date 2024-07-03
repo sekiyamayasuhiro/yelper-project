@@ -16,21 +16,21 @@ export default function Layout() {
     }, [dispatch]);
 
     return (
-        // <>
-        //   <ModalProvider>
-        //     <Navigation />
-        //     {isLoaded && <Outlet />}
-        //     <Modal />
-        //   </ModalProvider>
-        // </>
-
-        // NOTE: Moved LoadScript to a higher level so the Google Maps API is loaded once and available throughout the app.
-        <LoadScript googleMapsApiKey={apiKey}>
+        <>
             <ModalProvider>
                 <Navigation />
                 {isLoaded && <Outlet />}
                 <Modal />
             </ModalProvider>
-        </LoadScript>
+        </>
+
+        // NOTE: Moved LoadScript to a higher level so the Google Maps API is loaded once and available throughout the app.
+        // <LoadScript googleMapsApiKey={apiKey}>
+        //     <ModalProvider>
+        //         <Navigation />
+        //         {isLoaded && <Outlet />}
+        //         <Modal />
+        //     </ModalProvider>
+        // </LoadScript>
     );
 }

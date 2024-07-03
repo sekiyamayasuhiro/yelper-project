@@ -223,9 +223,7 @@ const BusinessDetails = () => {
     const { businessId } = useParams();
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
-    const business = useSelector((state) =>
-        state.businessState[businessId] ? state.businessState[businessId] : []
-    );
+    const business = useSelector((state) => state.businessState[businessId]);
     const sessionUser = useSelector((state) => state.session.user);
 
     useEffect(() => {
@@ -236,10 +234,7 @@ const BusinessDetails = () => {
         } else {
             setIsLoaded(true);
         }
-    }, [dispatch, businessId, business]);
-
-    const isOwner =
-        sessionUser && business.Owner && sessionUser.id === business.Owner.id;
+    }, [dispatch, businessId]);
 
     const defaultImageUrl =
         "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
