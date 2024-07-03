@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import { ModalProvider, Modal } from "../context/Modal";
 import { thunkAuthenticate } from "../redux/session";
 import Navigation from "../components/Navigation/Navigation";
-import { LoadScript } from "@react-google-maps/api";
+// import { LoadScript } from "@react-google-maps/api";
 
-const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+// const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 export default function Layout() {
     const dispatch = useDispatch();
