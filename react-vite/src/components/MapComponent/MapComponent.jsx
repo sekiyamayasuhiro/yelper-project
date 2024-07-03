@@ -6,20 +6,16 @@ const containerStyle = {
     height: "400px",
 };
 
-const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+// const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const MapComponent = ({ lat, lng }) => {
     const center = useMemo(() => ({ lat, lng }), [lat, lng]);
     return (
-        <LoadScript googleMapsApiKey={apiKey}>
-            <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={center}
-                zoom={15}
-            >
-                <Marker position={center} />
-            </GoogleMap>
-        </LoadScript>
+        // <LoadScript googleMapsApiKey={apiKey}>
+        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={15}>
+            <Marker position={center} />
+        </GoogleMap>
+        // </LoadScript>
     );
 };
 
