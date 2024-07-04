@@ -46,6 +46,10 @@ export const router = createBrowserRouter([
                 ],
             },
             {
+                path: 'reviews/new',
+                element: <CreateReviewFormModal />
+            },
+            {
                 path: "reviews/current",
                 element: <ManageReviews />,
             },

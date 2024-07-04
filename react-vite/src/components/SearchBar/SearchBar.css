@@ -2,3 +2,8 @@
     background-color: red;
     color: white;
 }
+
+.search-bar button:hover {
+    background-color: pink;
+    cursor: pointer;
+}

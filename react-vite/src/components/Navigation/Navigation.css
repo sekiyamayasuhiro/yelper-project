@@ -1,60 +1,84 @@
 .profile-dropdown {
-  position: absolute;
+    position: absolute;
+    right: 28px;
+    top: 80px;
+    z-index: 1000;
+}
+
+.profile-dropdown div {
+    border: 1px solid black;
+    border-bottom: none;
+    padding: 8px 16px;
+}
+
+.profile-dropdown div:last-child {
+    border-bottom: 1px solid black;
+}
+
+.profile-dropdown div:hover {
+    background-color: red;
+    cursor: pointer;
 }
 
 #app-logo {
-  height: 50px;
+    height: 50px;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
 }
 
 .navbar {
-  /* border: 5px solid black; */
-  height: 200px;
-
-
-
+    /* border: 5px solid black; */
+    height: 200px;
 }
 
-
 .session-user {
-  display: flex;
-  justify-content: space-between;
-  width: 250px;
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
 }
 
 .session-user a {
-  text-decoration: none;
-  color: black;
+    text-decoration: none;
+    color: black;
 }
 
 .login-signup {
-  display: flex;
-  justify-content: space-around;
-  width: 200px;
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
 }
 
 .login-signup button {
-  padding: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
 }
 
 .signup button {
-  background-color: red;
+    background-color: red;
 }
 
 .login button {
-  background-color: darkgray
+    background-color: darkgray;
 }
 
 .price .category {
-  list-style: none;
+    list-style: none;
+}
+
+.session-user div:first-child a {
+    margin-right: 20px;
+}
+
+.session-user div:hover {
+    background-color: red;
+    cursor: pointer;
 }

@@ -20,12 +20,23 @@ const BusinessesIndex = () => {
     //
     const [isLoaded, setIsLoaded] = useState(false);
 
+    // const reviews = useSelector((state) =>
+    //     Object.values(state?.reviewState)
+    // ? Object.values(state?.reviewState)
+    //         : []
+    // );
+
     useEffect(() => {
         dispatch(getAllBusinesses()).then(() => setIsLoaded(true));
     }, [dispatch]);
 
     return (
         <div>
+            <h3>
+                Dear Users, much of the white space on the right will be taken
+                care of when Google Maps is integrated. We apologize. - Yelper
+                Team
+            </h3>
             {businesses.length === 0 && <h3>No Result Found</h3>}
             <div className="business-list">
                 {isLoaded &&
