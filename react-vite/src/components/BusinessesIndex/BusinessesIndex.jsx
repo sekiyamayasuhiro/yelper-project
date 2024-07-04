@@ -5,6 +5,7 @@ import { getAllBusinesses } from "../../redux/business.js";
 // import { getImagesByBusinessId } from "../../redux/image.js";
 import "./BusinessIndex.css";
 import { FaStar } from "react-icons/fa";
+import ReviewsSummary from "../Reviews/ReviewsSummary.jsx";
 
 const BusinessesIndex = () => {
     const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const BusinessesIndex = () => {
                             category,
                             BusinessImages,
                             avgRating,
+                            numReviews
                         }) => {
                             const imageUrl =
                                 BusinessImages && BusinessImages.length > 0
@@ -70,7 +72,7 @@ const BusinessesIndex = () => {
                                         <span>
                                             {city}, {state}
                                         </span>
-                                        <div>
+                                        {/* <div>
                                             <FaStar />
                                             {avgRating ? (
                                                 <span>
@@ -79,7 +81,8 @@ const BusinessesIndex = () => {
                                             ) : (
                                                 <span>0.00</span>
                                             )}
-                                        </div>
+                                        </div> */}
+                                        <ReviewsSummary numReviews={numReviews} avgRating={avgRating}/>
                                         {/* <span>
                                                 {" "}
                                                 {`(${reviews.length} ${

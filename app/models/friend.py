@@ -9,7 +9,7 @@ class Friend(db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     friend_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    status = db.Column(db.String, default='pending') # status can be 'pending', 'accepted', 'rejected'
+    status = db.Column(db.String, default='pending') # status can be 'pending', 'accepted', 'unfriend'
     created_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
     updated_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 

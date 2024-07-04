@@ -6,22 +6,24 @@ def seed_friends():
     demoId = users[0].id
     marnieId = users[1].id
     bobbieId = users[2].id
-    print('Hello from Hazel Friends seed')
-
 
     friendship1 = Friend(
         user_id=demoId,
         friend_id=marnieId,
+        status='accepted'
 
     )
     friendship2 = Friend(
         user_id=demoId,
         friend_id=bobbieId,
+        status='accepted'
 
     )
     friendship3 = Friend(
         user_id=marnieId,
-        friend_id=bobbieId    )
+        friend_id=bobbieId,
+        status='accepted'
+    )
 
     friendships = [friendship1, friendship2, friendship3]
     for friendship in friendships:

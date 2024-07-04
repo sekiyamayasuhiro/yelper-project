@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBusinessDetailsById } from "../../redux/business.js";
@@ -10,8 +10,11 @@ import LoadReviews from "../LoadReviews/LoadReviews.jsx";
 import CreateReviewFormModal from "../CreateReviewFormModal/CreateReviewFormModal.jsx";
 // import UpdateReviewFormModal from "../UpdateReviewFormModal/UpdateReviewFormModal.jsx";
 import { FaStar } from "react-icons/fa";
+import ReviewsSummary from "../Reviews/ReviewsSummary.jsx";
+import ReviewForm from "../Reviews/ReviewForm.jsx";
 
 const BusinessDetails = () => {
+    const navigate = useNavigate()
     const { businessId } = useParams();
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false);
@@ -71,7 +74,7 @@ const BusinessDetails = () => {
                             />
                         </div>
                         <h1>{business.name}</h1>
-                        <p>
+                        {/* <p>
                             {business?.avgRating ? (
                                 <span>
                                     <FaStar /> {business.avgRating}
@@ -80,7 +83,8 @@ const BusinessDetails = () => {
                                 ""
                             )}{" "}
                             {`(${numReviews})`}
-                        </p>
+                        </p> */}
+                        <ReviewsSummary numReviews={business.numReviews} avgRating={business?.avgRating}/>
                         <p className="price-category">{`${"$".repeat(
                             business.price
                         )} - ${business.category}`}</p>
@@ -131,8 +135,8 @@ const BusinessDetails = () => {
                                 //         />
                                 //     </button>
                                 // ) : (
-                                <button>
-                                    <OpenModalMenuItem
+                                <button onClick={() => navigate('writeareview')}>
+                                    {/* <OpenModalMenuItem
                                         itemText="Write a review"
                                         modalComponent={
                                             <CreateReviewFormModal
@@ -140,7 +144,8 @@ const BusinessDetails = () => {
                                                 userId={userId}
                                             />
                                         }
-                                    />
+                                    /> */}
+                                    Write a review
                                 </button>
                             )}
                             {/* <button onClick={handleClick}>Add photo</button> */}

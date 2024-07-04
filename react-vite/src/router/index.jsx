@@ -10,6 +10,8 @@ import UpdateBusinessForm from "../components/UpdateBusinessForm";
 import ManageReviews from "../components/ManageReviews";
 // import CreateImageFormModal from "../components/CreateImageFormModal";
 import CreateReviewFormModal from "../components/CreateReviewFormModal";
+import ReviewForm from "../components/Reviews/ReviewForm";
+import ReviewShare from "../components/Reviews/ReviewShare";
 
 export const router = createBrowserRouter([
     {
@@ -18,6 +20,10 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <BusinessesIndex />,
+            },
+            {
+                path: 'review_share',
+                element: <ReviewShare />
             },
             {
                 path: "businesses",
@@ -39,6 +45,11 @@ export const router = createBrowserRouter([
                         path: ":businessId/edit",
                         element: <UpdateBusinessForm />,
                     },
+                    {
+                        path: ':businessId/writeareview',
+                        element: <ReviewForm />
+                    },
+
                     // {
                     //     path: ":businessId/add-image",
                     //     element: <CreateImageFormModal />,

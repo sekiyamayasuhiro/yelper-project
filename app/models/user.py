@@ -4,8 +4,6 @@ from flask_login import UserMixin
 from .friend import Friend
 
 
-
-
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -42,5 +40,5 @@ class User(db.Model, UserMixin):
     businesses = db.relationship('Business', back_populates='owner')
     reviews = db.relationship('Review', back_populates='user')
     images = db.relationship('Image', back_populates='user')
-    user_friends = db.relationship('Friend', back_populates='user', foreign_keys='Friend.user_id')
+    friends = db.relationship('Friend', back_populates='user', foreign_keys='Friend.user_id')
     friend_friends = db.relationship('Friend', back_populates='friend', foreign_keys='Friend.friend_id')

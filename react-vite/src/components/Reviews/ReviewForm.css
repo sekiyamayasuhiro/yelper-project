@@ -1,0 +1,88 @@
+.post-review-button {
+    background-color: red;
+    color: white;
+    font-size: medium;
+    font-weight: bolder;
+    padding: 10px;
+    width: 200px;
+    border-radius: 5px;
+    border: 0;
+    margin: 10px;
+    padding: 10px;
+}
+
+.post-review-button:hover {
+    background-color: rgb(230, 33, 33);
+
+}
+
+.writereview-container {
+    margin-left: 400px;
+}
+
+
+textarea {
+    border: none;
+    resize: none;
+    outline: none;
+    font-size: 18px;
+    width: 80%;
+    height: 80%;
+    margin-top: 20px;
+
+
+}
+
+.review-text-area {
+    margin-bottom: 40px;
+    border-radius: 5px;
+    width: 70%;
+    height: 500px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid rgb(215, 213, 213);
+}
+
+.review-text-area:hover {
+    border: 1px solid rgb(20, 89, 114);
+}
+
+.business-name {
+    margin: 10px;
+    padding: 10px;
+}
+
+.star-icon-writereview {
+    color: white;
+    font-size: 18px;
+    padding: 5px;
+
+}
+
+.star-writereview {
+    background-color: rgb(240, 237, 237);
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.star-rating-writereview {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.star-writereview:hover,
+.star-writereview.filled {
+    background-color: orange;
+}
+
+.writereview-container h3 {
+    font-size: 40px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bolder;
+}
+
+.errors {
+    color: red;
+}
