@@ -53,7 +53,12 @@ class Business(db.Model):
             'updated_at': self.updated_at,
             "BusinessImages": [image.to_dict() for image in self.images],
             "avgRating": self.avg_rating(),
+            'numReviews': self.numReviews()
         }
     def avg_rating(self):
         average = db.session.query(func.avg(Review.rating)).filter(Review.business_id == self.id).scalar()
         return float(average) if average else None
+
+    def numReviews(self):
+        reviews = db.session.query(Review).filter(Review.business_id == self.id).all()
+        return len(reviews)
