@@ -8,8 +8,8 @@ import ManageBusinesses from "../components/ManageBusinesses";
 import BusinessDetails from "../components/BusinessDetails";
 import UpdateBusinessForm from "../components/UpdateBusinessForm";
 import ManageReviews from "../components/ManageReviews";
-// import CreateImageFormModal from "../components/CreateImageFormModal";
-import CreateReviewFormModal from "../components/CreateReviewFormModal";
+import CreateImageFormModal from "../components/CreateImageFormModal";
+import Testing from "../components/Testing";
 
 export const router = createBrowserRouter([
     {
@@ -60,6 +60,10 @@ export const router = createBrowserRouter([
             {
                 path: "signup",
                 element: <SignupFormPage />,
+            },
+            {
+                path: "testing",
+                element: <Testing />,
             },
         ],
     },
