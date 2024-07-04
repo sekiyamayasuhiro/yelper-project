@@ -9,11 +9,11 @@ const BusinessCard = ({ business }) => {
     const { id, name, city, state, price, category, BusinessImages } = business;
 
     // Fetching reviews for the specific business
-    useEffect(() => {
-        dispatch(getReviewsByBusinessId(id));
-    }, [dispatch, id]);
+    // useEffect(() => {
+    //     dispatch(getReviewsByBusinessId(id));
+    // }, [dispatch, id]);
 
-    const reviews = useSelector((state) => state.reviewState[id] || []);
+    // const reviews = useSelector((state) => state.reviewState[id] || []);
 
     const imageUrl =
         BusinessImages && BusinessImages.length > 0
@@ -22,8 +22,8 @@ const BusinessCard = ({ business }) => {
 
     const priceString = "$".repeat(price);
 
-    const mostRecentReview =
-        reviews.length > 0 ? reviews[0].review_text : "No reviews yet.";
+    // const mostRecentReview =
+    //     reviews.length > 0 ? reviews[0].review_text : "No reviews yet.";
 
     return (
         <div className="business-card">
@@ -33,12 +33,10 @@ const BusinessCard = ({ business }) => {
                 </div>
                 <div className="business-info">
                     <h2 className="business-name">{name}</h2>
-                    <p className="stars-reviews">
-                        <h3>INSERT COMPONENT HERE</h3>
-                    </p>
+                    <p className="stars-reviews">INSERT COMPONENT HERE</p>
                     <p className="price-category">{`${priceString} · ${category}`}</p>
                     <p>{`${city}, ${state}`}</p>
-                    <p className="recent-review">{mostRecentReview}</p>
+                    {/* <p className="recent-review">{mostRecentReview}</p> */}
                 </div>
             </Link>
         </div>
