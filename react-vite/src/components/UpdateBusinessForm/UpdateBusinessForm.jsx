@@ -1,18 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBusiness } from "../../redux/business.js";
 
 const UpdateBusinessForm = () => {
     const { businessId } = useParams();
-    const business = useSelector((state) =>
-        state.businessState[businessId] ? state.businessState[businessId] : []
-    );
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const business = useSelector((state) => state.businessState[businessId]);
     const sessionUser = useSelector((state) => state.session.user);
+
+    // Checking for auth and business, initially there was error when logging out while in manage business
+    useEffect(() => {
+        if (!sessionUser || !business || sessionUser.id !== business.owner_id) {
+            navigate("/");
+        }
+    }, [business, sessionUser, navigate]);
 
     const [name, setName] = useState(business.name);
     const [address, setAddress] = useState(business.address);
@@ -20,6 +25,8 @@ const UpdateBusinessForm = () => {
     const [state, setState] = useState(business.state);
     const [country, setCountry] = useState(business.country);
     const [postalCode, setPostalCode] = useState(business.postal_code);
+    const [lat, setLat] = useState(business.lat);
+    const [lng, setLng] = useState(business.lng);
     const [category, setCategory] = useState(business.category);
     const [phoneNumber, setPhoneNumber] = useState(business.phone_number);
     const [website, setWebsite] = useState(business.website);
@@ -55,6 +62,12 @@ const UpdateBusinessForm = () => {
             errors.postalCode =
                 "Postal code must be exactly 5 digits and all numeric";
         }
+        if (!lat || isNaN(lat) || lat < -90 || lat > 90) {
+            errors.lat = "Lat must be between -90 and 90.";
+        }
+        if (!lng || isNaN(lng) || lng < -180 || lng > 180) {
+            errors.lng = "Lng must be between -180 and 180.";
+        }
         if (!category) {
             errors.category = "Please select a category";
         }
@@ -82,6 +95,8 @@ const UpdateBusinessForm = () => {
             state,
             country,
             postal_code: postalCode,
+            lat,
+            lng,
             category,
             phone_number: phoneNumber,
             website,
@@ -107,13 +122,13 @@ const UpdateBusinessForm = () => {
                 onSubmit={handleSubmit}
                 noValidate
             >
-                <h1>Update a New Business</h1>
+                <h1>Update {business.name}</h1>
 
                 <section>
-                    <h2>Please provide the Details of your business.</h2>
+                    <h2>Please change the details of your business.</h2>
                     <h3>
-                        The more accurate and detailed you are will help future
-                        customers!
+                        Reminder: The more accurate and detailed you are will
+                        help future customers!
                     </h3>
 
                     <div className="label-container">
@@ -161,7 +176,7 @@ const UpdateBusinessForm = () => {
                         name="city"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        placeholder="City"
+                        placeholder="City (San Francisco)"
                     />
 
                     <div className="label-container">
@@ -177,7 +192,7 @@ const UpdateBusinessForm = () => {
                         name="state"
                         value={state}
                         onChange={(e) => setState(e.target.value)}
-                        placeholder="State"
+                        placeholder="State (CA)"
                     />
 
                     <div className="label-container">
@@ -193,7 +208,7 @@ const UpdateBusinessForm = () => {
                         name="country"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
-                        placeholder="Country"
+                        placeholder="Country (USA)"
                     />
 
                     <div className="label-container">
@@ -209,7 +224,39 @@ const UpdateBusinessForm = () => {
                         name="postal-code"
                         value={postalCode}
                         onChange={(e) => setPostalCode(e.target.value)}
-                        placeholder="Postal Code"
+                        placeholder="Postal Code (5 digits)"
+                    />
+
+                    <div className="label-container">
+                        <label>Latitude</label>
+                        {validationErrors.lat && (
+                            <span className="errors">
+                                {validationErrors.lat}
+                            </span>
+                        )}
+                    </div>
+                    <input
+                        type="number"
+                        name="latitude"
+                        value={lat}
+                        onChange={(e) => setLat(e.target.value)}
+                        placeholder="Latitude (-90 to 90)"
+                    />
+
+                    <div className="label-container">
+                        <label>Longitude</label>
+                        {validationErrors.lng && (
+                            <span className="errors">
+                                {validationErrors.lng}
+                            </span>
+                        )}
+                    </div>
+                    <input
+                        type="number"
+                        name="longitude"
+                        value={lng}
+                        onChange={(e) => setLng(e.target.value)}
+                        placeholder="Longitude (-180 to 180)"
                     />
 
                     <div className="label-container">
@@ -245,7 +292,7 @@ const UpdateBusinessForm = () => {
                         name="phone-number"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
-                        placeholder="Phone Number"
+                        placeholder="Phone Number (10 digits)"
                     />
 
                     <div className="label-container">
@@ -277,7 +324,7 @@ const UpdateBusinessForm = () => {
                         rows="5"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Description"
+                        placeholder="Description (Min. 30 characters)"
                     ></textarea>
 
                     <div className="label-container">
