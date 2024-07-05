@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBusinessDetailsById } from "../../redux/business.js";
@@ -10,6 +10,7 @@ import MapComponent from "../MapComponent/MapComponent.jsx";
 const BusinessDetails = () => {
     const { businessId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isLoaded, setIsLoaded] = useState(false);
     const business = useSelector((state) => state.businessState[businessId]);
     const sessionUser = useSelector((state) => state.session.user);
@@ -70,7 +71,7 @@ const BusinessDetails = () => {
                             {/* CODE NEEDS TO BE ADDED */}
                         </div>
                         <div className="business-add-photo-button">
-                            <button>
+                            {/* <button>
                                 <OpenModalMenuItem
                                     itemText="Add photo"
                                     modalComponent={
@@ -79,6 +80,15 @@ const BusinessDetails = () => {
                                         />
                                     }
                                 />
+                            </button> */}
+                            <button
+                                onClick={() =>
+                                    navigate(
+                                        `/businesses/${businessId}/upload-image`
+                                    )
+                                }
+                            >
+                                Add Photo
                             </button>
                         </div>
                     </div>

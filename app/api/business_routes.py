@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from app.models import Business, Review, Image, db
 from flask_login import current_user, login_required
-from app.forms import ReviewForm, ImageForm
+from app.forms.image_form import ImageUploadForm
+from app.api.aws_helper import upload_file_to_s3, get_unique_filename, remove_file_from_s3
 
 business_routes = Blueprint('businesses', __name__)
 
@@ -147,32 +148,60 @@ def get_images_by_business(business_id):
     return jsonify([image.to_dict() for image in images]), 200
 
 # Create an image for a business based on the business' id
-@business_routes.route('/<int:business_id>/images', methods=['POST'])
+# @business_routes.route('/<int:business_id>/images', methods=['POST'])
+# @login_required
+# def create_image_for_business(business_id):
+#     """
+#     Creates an image for a business by a logged-in user.
+#     """
+#     business = Business.query.get(business_id)
+#     if not business:
+#         return jsonify({'message': 'Business could not be found'}), 404
+
+#     image_data = request.json
+#     required_fields = ['url']
+#     missing_fields = [field for field in required_fields if field not in image_data]
+
+#     if missing_fields:
+#         error_messages = {field: f'{field} is required' for field in missing_fields}
+#         return jsonify({'errors': error_messages}), 400
+
+#     new_image = Image(
+#         user_id=current_user.id,
+#         business_id=business_id,
+#         url=image_data['url']
+#     )
+#     db.session.add(new_image)
+#     db.session.commit()
+#     return jsonify(new_image.to_dict()), 201
+
+# AWS
+@business_routes.route('/<int:business_id>/images/upload', methods=['POST'])
 @login_required
-def create_image_for_business(business_id):
+def upload_image(business_id):
     """
-    Creates an image for a business by a logged-in user.
+    Uploads an image file to AWS S3 and records the image data in the database.
     """
-    business = Business.query.get(business_id)
-    if not business:
-        return jsonify({'message': 'Business could not be found'}), 404
+    form = ImageUploadForm()
 
-    image_data = request.json
-    required_fields = ['url']
-    missing_fields = [field for field in required_fields if field not in image_data]
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        file = form.image.data
+        file.filename = get_unique_filename(file.filename)
+        upload = upload_file_to_s3(file, file.filename)
 
-    if missing_fields:
-        error_messages = {field: f'{field} is required' for field in missing_fields}
-        return jsonify({'errors': error_messages}), 400
+        if "url" not in upload:
+        # if the dictionary doesn't have a url key
+            return jsonify({"error": "File upload failed", "details": upload}), 400
 
-    new_image = Image(
-        user_id=current_user.id,
-        business_id=business_id,
-        url=image_data['url']
-    )
-    db.session.add(new_image)
-    db.session.commit()
-    return jsonify(new_image.to_dict()), 201
+        url = upload["url"]
+
+        new_image = Image(user_id=current_user.id, business_id=business_id, url=url)
+        db.session.add(new_image)
+        db.session.commit()
+        return jsonify({"message": "Image successfully uploaded.", "imageId": new_image.id}), 201
+
+    return jsonify(form.errors), 400
 
 # Search businesses
 @business_routes.route('/search', methods=['GET'])

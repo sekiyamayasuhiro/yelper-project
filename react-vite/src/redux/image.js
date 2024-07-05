@@ -34,6 +34,38 @@ export const getImagesByBusinessId = (businessId) => async (dispatch) => {
     }
 };
 
+export const uploadImage = (businessId, file) => async (dispatch) => {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const response = await csrfFetch(
+        `/api/businesses/${businessId}/images/upload`,
+        {
+            method: "POST",
+            body: formData,
+        }
+    );
+
+    if (response.ok) {
+        const newImage = await response.json();
+        dispatch(addImage(newImage));
+        return newImage;
+    } else {
+        const error = await response.json();
+        throw new Error(error.error || "Failed to upload image");
+    }
+};
+
+export const deleteImage = (imageId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/business-images/${imageId}`, {
+        method: "DELETE",
+    });
+
+    if (response.ok) {
+        dispatch(removeImage(imageId));
+    }
+};
+
 export const createImage = (formData) => async (dispatch) => {
     const response = await csrfFetch(
         `/api/businesses/${formData.business_id}/images`,
@@ -50,16 +82,6 @@ export const createImage = (formData) => async (dispatch) => {
         const newImage = response.json();
         dispatch(addImage(newImage));
         return newImage;
-    }
-};
-
-export const deleteImage = (imageId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/business-images/${imageId}`, {
-        method: "DELETE",
-    });
-
-    if (response.ok) {
-        dispatch(removeImage(imageId));
     }
 };
 

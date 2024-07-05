@@ -8,8 +8,9 @@ import ManageBusinesses from "../components/ManageBusinesses";
 import BusinessDetails from "../components/BusinessDetails";
 import UpdateBusinessForm from "../components/UpdateBusinessForm";
 import ManageReviews from "../components/ManageReviews";
-import CreateImageFormModal from "../components/CreateImageFormModal";
+// import CreateImageFormModal from "../components/CreateImageFormModal";
 import Testing from "../components/Testing";
+import UploadImage from "../components/UploadImage/UploadImage";
 
 export const router = createBrowserRouter([
     {
@@ -39,16 +40,16 @@ export const router = createBrowserRouter([
                         path: ":businessId/edit",
                         element: <UpdateBusinessForm />,
                     },
-                    // {
-                    //     path: ":businessId/add-image",
-                    //     element: <CreateImageFormModal />,
-                    // },
+                    {
+                        path: ":businessId/upload-image",
+                        element: <UploadImage />,
+                    },
                 ],
             },
-            {
-                path: 'reviews/new',
-                element: <CreateReviewFormModal />
-            },
+            // {
+            //     path: "reviews/new",
+            //     element: <CreateReviewFormModal />,
+            // },
             {
                 path: "reviews/current",
                 element: <ManageReviews />,

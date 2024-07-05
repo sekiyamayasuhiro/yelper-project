@@ -1,3 +1,3 @@
-import CreateImageFormModal from './CreateImageFormModal';
+import CreateImageFormModal from "./CreateImageFormModal";
 
 export default CreateImageFormModal;

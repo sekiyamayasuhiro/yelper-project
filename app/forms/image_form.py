@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, URL
+from flask_wtf.file import FileField, FileAllowed, FileRequired
+from app.api.aws_helper import ALLOWED_EXTENSIONS
 
-class ImageForm(FlaskForm):
-    image_url = StringField('Image URL', validators=[DataRequired(), URL(message='Please enter a valid URL')])
-    submit = SubmitField('Submit Image')
+class ImageUploadForm(FlaskForm):
+    image = FileField('Upload Image', validators=[
+        FileRequired(message='File cannot be empty'),
+        FileAllowed(ALLOWED_EXTENSIONS, 'Only images are allowed!')
+    ])
