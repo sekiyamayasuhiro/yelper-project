@@ -5,33 +5,42 @@ import { getBusinessDetailsById } from "../../redux/business.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem.jsx";
 import CreateImageFormModal from "../CreateImageFormModal";
 import ViewAllImagesModal from "../ViewAllImagesModal";
-
-import LoadReviews from "../LoadReviews/LoadReviews.jsx";
-import CreateReviewFormModal from "../CreateReviewFormModal/CreateReviewFormModal.jsx";
-// import UpdateReviewFormModal from "../UpdateReviewFormModal/UpdateReviewFormModal.jsx";
-import { FaStar } from "react-icons/fa";
-import ReviewsSummary from "../Reviews/ReviewsSummary.jsx";
-import ReviewForm from "../Reviews/ReviewForm.jsx";
 import MapComponent from "../MapComponent/MapComponent.jsx";
-
+import { ReviewSummary } from "../Reviews/index.js";
+import OverallRating from "../Reviews/OverallRating.jsx";
+import ReviewList from "../Reviews/ReviewList.jsx";
 
 const BusinessDetails = () => {
-    const navigate = useNavigate()
     const { businessId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [isLoaded, setIsLoaded] = useState(false);
     const business = useSelector((state) => state.businessState[businessId]);
-    const sessionUser = useSelector((state) => state.session.user);
+    const [reviews, setReviews] = useState([])
+    const userId = useSelector((state) => state.session?.user?.id);
+    const isOwner = business?.owner_id === userId
+    const [hasPostedReview, setHasPostedReview] = useState(false)
 
     useEffect(() => {
         if (!business) {
-            dispatch(getBusinessDetailsById(businessId)).then(() =>
+            dispatch(getBusinessDetailsById(businessId)).then(() => {
                 setIsLoaded(true)
-            );
+            });
         } else {
-            setIsLoaded(true);
+            setIsLoaded(true)
         }
-    }, [dispatch, businessId]);
+    }, [dispatch, businessId, business]);
+
+    useEffect(() => {
+        dispatch(getBusinessDetailsById(businessId)).then((data) => {
+            if (data?.BusinessReviews && data?.BusinessReviews?.length > 0) {
+                setReviews(data?.BusinessReviews)
+                const userReviews = data.BusinessReviews.filter(review => review.user_id === userId)
+                if (userReviews && userReviews.length > 0) setHasPostedReview(true)
+                setIsLoaded(true)
+            }
+        });
+    }, [dispatch, businessId, userId])
 
     const defaultImageUrl =
         "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
@@ -56,9 +65,9 @@ const BusinessDetails = () => {
                 <div className="business-information">
                     <div className="business-name">{business.name}</div>
                     <div className="business-review">
-                        REVIEW STUFF COMPONENT
+                        <ReviewSummary avgRating={business.avgRating} numReviews={business.numReviews}/>
                     </div>
-                    <div>{`${priceString} · ${business.category}`}</div>
+                    <div>{`${priceString} Â· ${business.category}`}</div>
                 </div>
             </div>
             <div className="business-see-more-images-button">
@@ -75,32 +84,15 @@ const BusinessDetails = () => {
                 <div className="business-details-mid-left">
                     <div className="business-addition-buttons">
                         <div className="business-write-a-review-button">
-                            <button>Write a Review</button>
-                            {/* CODE NEEDS TO BE ADDED */}
+                            {!isOwner && (
+                                <button
+                                    onClick={() => navigate('writeareview')}
+                                    className="post-review-button">
+                                    {hasPostedReview ? 'Edit Review' : 'Write a Review'}
+                                </button>
+                            )}
                         </div>
-
-                        <h1>{business.name}</h1>
-                        {/* <p>
-                            {business?.avgRating ? (
-                                <span>
-                                    <FaStar /> {business.avgRating}
-                                </span>
-                            ) : (
-                                ""
-                            )}{" "}
-                            {`(${numReviews})`}
-                        </p> */}
-                        <ReviewsSummary numReviews={business.numReviews} avgRating={business?.avgRating}/>
-                        <p className="price-category">{`${"$".repeat(
-                            business.price
-                        )} - ${business.category}`}</p>
-                        {/* <p>
-                            {business.price} {business.category} {"HELLO"}
-                        </p> */}
-                        <div>
-
                         <div className="business-add-photo-button">
-
                             <button>
                                 <OpenModalMenuItem
                                     itemText="Add photo"
@@ -123,47 +115,12 @@ const BusinessDetails = () => {
                                 />
                             )}
                         </div>
-
-                        <div>
-                            {!isOwner && !hasPostedReview && (
-                                // (hasPostedReview ? (
-                                //     <button>
-                                //         <OpenModalMenuItem
-                                //             itemText="Edit review"
-                                //             modalComponent={
-                                //                 <UpdateReviewFormModal
-                                //                     reviewId={
-                                //                         hasPostedReview?.id
-                                //                     }
-                                //                     userId={userId}
-                                //                     businessId={businessId}
-                                //                 />
-                                //             }
-                                //         />
-                                //     </button>
-                                // ) : (
-                                <button onClick={() => navigate('writeareview')}>
-                                    {/* <OpenModalMenuItem
-                                        itemText="Write a review"
-                                        modalComponent={
-                                            <CreateReviewFormModal
-                                                businessId={businessId}
-                                                userId={userId}
-                                            />
-                                        }
-                                    /> */}
-                                    Write a review
-                                </button>
-                            )}
-                            {/* <button onClick={handleClick}>Add photo</button> */}
-
                         <div className="business-address">
                             {business.address}
                             <br />
                             {business.city}, {business.state}
                             <br />
                             {business.postalCode}
-
                         </div>
                     </div>
                 </div>
@@ -185,7 +142,8 @@ const BusinessDetails = () => {
                 </div>
             </div>
             <div className="business-details-bottom">
-                <h1>REVIEW STUFF</h1>
+                <OverallRating avgRating={business.avgRating} reviews={reviews} />
+                <ReviewList  avgRating={business.avgRating} reviews={reviews}/>
             </div>
         </div>
     );
