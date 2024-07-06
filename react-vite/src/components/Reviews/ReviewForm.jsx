@@ -3,8 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getBusinessDetailsById } from '../../redux/business'
 import { GoStarFill } from "react-icons/go";
-import { createNewReview } from "../../redux/review";
-
+import { createNewReview, getReviewsByCurrentUser, updateReview } from "../../redux/review";
 import './ReviewForm.css'
 
 export default function ReviewForm() {
@@ -15,6 +14,7 @@ export default function ReviewForm() {
     const [hoverRating, setHoverRating] = useState(0);
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState('')
+    const [reviewId, setReviewId] = useState(null)
     const [validatonErrors, setValidationErrors] = useState({})
     const [submitted, setSubmitted] = useState(false)
     const starvalue = ['', 'Not good', "Could've been better", 'OK', 'Good', 'Great']
@@ -22,11 +22,26 @@ export default function ReviewForm() {
         state.businessState[businessId] ? state.businessState[businessId] : []
     );
     const userId = useSelector((state) => state.session?.user?.id);
+    const [isEditing, setIsEditing] = useState(false)
+
+    useEffect(() => {
+        dispatch(getReviewsByCurrentUser()).then(res => {
+            if (res && res.length > 0) {
+                const businessReview = res.filter(review => +review.business_id === +businessId && +review.user_id === +userId)
+                if (businessReview && businessReview.length > 0) {
+                    setRating(businessReview[0].rating)
+                    setReviewText(businessReview[0].review_text)
+                    setReviewId(businessReview[0].id)
+                    setIsEditing(true)
+                }
+            }
+        })
+    }, [userId, businessId, dispatch])
 
     useEffect(() => {
         const errors = {}
         if (rating === 0) errors.rating = 'Please add a star rating to complete your review.'
-        if (reviewText.length < 10) errors.reviewText = 'Your review needs at least 10 characters. Add a few thoughts to post review.'
+        if (reviewText?.length < 10) errors.reviewText = 'Your review needs at least 10 characters. Add a few thoughts to post review.'
         setValidationErrors(errors)
     }, [rating, reviewText])
 
@@ -38,9 +53,7 @@ export default function ReviewForm() {
 
     const handleSubmit = async () => {
         setSubmitted(true)
-        console.log(validatonErrors)
-        if (Object.keys(validatonErrors).length !== 0) return
-
+        if (Object.keys(validatonErrors)?.length !== 0) return
         const newReview = {
             user_id: userId,
             business_id: businessId,
@@ -48,6 +61,20 @@ export default function ReviewForm() {
             review_text: reviewText
         }
         await dispatch(createNewReview(newReview))
+        setIsEditing(false)
+        navigate('/review_share')
+    }
+
+    const handleEdit = async () => {
+        setIsEditing(true)
+        const updatedReview = {
+            id: reviewId,
+            user_id: userId,
+            business_id: businessId,
+            rating,
+            review_text: reviewText
+        }
+        await dispatch(updateReview(updatedReview))
         navigate('/review_share')
     }
 
@@ -78,7 +105,7 @@ export default function ReviewForm() {
                         </div>
                     </div>
                     {submitted && <div className="errors">{validatonErrors.rating || validatonErrors.reviewText}</div>}
-                    <button className="post-review-button" type="submit" onClick={handleSubmit}>Post Review</button>
+                    <button className="post-review-button" type="submit" onClick={isEditing ? handleEdit : handleSubmit}>{isEditing  ? 'Update Review' : 'Post Review'}</button>
                 </div>
             )}
         </>

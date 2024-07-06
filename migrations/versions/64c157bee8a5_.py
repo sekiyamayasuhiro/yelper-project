@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: a71162940c17
+Revision ID: 64c157bee8a5
 Revises: 
-Create Date: 2024-06-25 02:16:25.154652
+Create Date: 2024-07-04 15:41:07.960645
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'a71162940c17'
+revision = '64c157bee8a5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -32,19 +32,19 @@ def upgrade():
     op.create_table('businesses',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=30), nullable=True),
-    sa.Column('address', sa.String(), nullable=True),
-    sa.Column('city', sa.String(), nullable=True),
-    sa.Column('state', sa.String(), nullable=True),
-    sa.Column('country', sa.String(), nullable=True),
-    sa.Column('postal_code', sa.Integer(), nullable=True),
-    sa.Column('lat', sa.Integer(), nullable=True),
-    sa.Column('lng', sa.Integer(), nullable=True),
-    sa.Column('category', sa.String(), nullable=True),
-    sa.Column('phone_number', sa.BigInteger(), nullable=True),
-    sa.Column('website', sa.String(), nullable=True),
-    sa.Column('description', sa.String(), nullable=True),
-    sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=True),
+    sa.Column('name', sa.String(length=30), nullable=False),
+    sa.Column('address', sa.String(), nullable=False),
+    sa.Column('city', sa.String(), nullable=False),
+    sa.Column('state', sa.String(), nullable=False),
+    sa.Column('country', sa.String(), nullable=False),
+    sa.Column('postal_code', sa.Integer(), nullable=False),
+    sa.Column('lat', sa.Float(), nullable=False),
+    sa.Column('lng', sa.Float(), nullable=False),
+    sa.Column('category', sa.String(), nullable=False),
+    sa.Column('phone_number', sa.BigInteger(), nullable=False),
+    sa.Column('website', sa.String(), nullable=False),
+    sa.Column('description', sa.String(), nullable=False),
+    sa.Column('price', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
     sa.Column('updated_at', sa.TIMESTAMP(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),

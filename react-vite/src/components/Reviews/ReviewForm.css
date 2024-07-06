@@ -74,7 +74,7 @@ textarea {
 
 .star-writereview:hover,
 .star-writereview.filled {
-    background-color: orange;
+    background-color: orangered;
 }
 
 .writereview-container h3 {
@@ -85,4 +85,9 @@ textarea {
 
 .errors {
     color: red;
+}
+
+.cistar {
+    font-size: 30px;
+    font-weight: bolder;
 }

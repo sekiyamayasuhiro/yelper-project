@@ -9,7 +9,7 @@
   }
 
   .star {
-    background-color: orange;
+    background-color: orangered;
   }
 
   .star.empty {
@@ -27,9 +27,7 @@
 
 
   .reviews-summary {
-
     text-align: center;
-
     display: flex;
   }
 

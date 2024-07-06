@@ -39,9 +39,10 @@ export const getReviewsByCurrentUser = () => async (dispatch) => {
 
     if (response.ok) {
         const reviewData = await response.json();
-        console.log(reviewData, "line42");
         dispatch(loadReviews(reviewData));
+        return reviewData
     }
+
 };
 
 export const createNewReview = (formData) => async (dispatch) => {

@@ -14,7 +14,6 @@ const BusinessDetails = () => {
     const business = useSelector((state) =>
         state.businessState[businessId] ? state.businessState[businessId] : []
     );
-    const sessionUser = useSelector((state) => state.session.user);
 
     useEffect(() => {
         if (!business) {
@@ -25,9 +24,6 @@ const BusinessDetails = () => {
             setIsLoaded(true);
         }
     }, [dispatch, businessId, business]);
-
-    const isOwner =
-        sessionUser && business.Owner && sessionUser.id === business.Owner.id;
 
     const defaultImageUrl =
         "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
