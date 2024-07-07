@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import db, Image
+from app.api.aws_helpers import remove_file_from_s3
 
 image_routes = Blueprint('business-images', __name__)
 
@@ -16,6 +17,10 @@ def delete_image(image_id):
 
     if image.user_id != current_user.id:
         return jsonify({'message': 'Unauthorized'}), 403
+
+    # Remove file from S3 before deleting the image record
+    if image.url:
+        remove_file_from_s3(image.url)
 
     db.session.delete(image)
     db.session.commit()

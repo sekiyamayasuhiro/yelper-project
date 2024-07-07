@@ -53,6 +53,20 @@ export const createImage = (formData) => async (dispatch) => {
     }
 };
 
+export const uploadImage = (businessId, formData) => async (dispatch) => {
+    const response = await csrfFetch(`/api/businesses/${businessId}/images/upload`, {
+        method: "POST",
+        body: formData,
+    });
+
+    if (response.ok) {
+        const newImage = await response.json();
+        dispatch(addImage(newImage));
+        return newImage;
+    }
+};
+
+
 export const deleteImage = (imageId) => async (dispatch) => {
     const response = await csrfFetch(`/api/business-images/${imageId}`, {
         method: "DELETE",
