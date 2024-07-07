@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, redirect
 from app.models import Business, Review, Image, db
 from flask_login import current_user, login_required
 from app.forms import ReviewForm, ImageForm
+from app.api.aws_helpers import get_unique_filename, upload_file_to_s3
 
 business_routes = Blueprint('businesses', __name__)
 
@@ -209,3 +210,26 @@ def get_businesses_by_current_user():
     current_user_id = current_user.id
     businesses = Business.query.filter(Business.owner_id == current_user_id).all()
     return jsonify([business.to_dict() for business in businesses]), 200
+
+
+# (AWS S3) Upload an image for a business based on the business' id
+@business_routes.route('/<int:business_id>/images/upload', methods=["POST"])
+@login_required
+def upload_image(business_id):
+    image = request.files["image"]
+
+    if image:
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+        print('upload', upload)
+
+        if "url" not in upload:
+            return jsonify({"error": upload}), 400
+
+        url = upload["url"]
+        new_image = Image(url=url, user_id=current_user.id, business_id=business_id)
+        db.session.add(new_image)
+        db.session.commit()
+        return jsonify({"message": "Image uploaded successfully", "url": url}), 200
+
+    return jsonify({"error": "Unexpected error occurred"}), 500

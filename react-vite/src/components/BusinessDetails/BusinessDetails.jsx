@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBusinessDetailsById } from "../../redux/business.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem.jsx";
-import CreateImageFormModal from "../CreateImageFormModal";
+import UploadImage from "../Images/UploadImage.jsx";
 import ViewAllImagesModal from "../ViewAllImagesModal";
 import MapComponent from "../MapComponent/MapComponent.jsx";
 import { ReviewSummary } from "../Reviews/index.js";
@@ -20,6 +20,7 @@ const BusinessDetails = () => {
     const userId = useSelector((state) => state.session?.user?.id);
     const isOwner = business?.owner_id === userId
     const [hasPostedReview, setHasPostedReview] = useState(false)
+    const isLoggedIn = useSelector(state => state.session.user !== null)
 
     useEffect(() => {
         if (!business) {
@@ -84,7 +85,7 @@ const BusinessDetails = () => {
                 <div className="business-details-mid-left">
                     <div className="business-addition-buttons">
                         <div className="business-write-a-review-button">
-                            {!isOwner && (
+                            {!isOwner && isLoggedIn && (
                                 <button
                                     onClick={() => navigate('writeareview')}
                                     className="post-review-button">
@@ -92,18 +93,16 @@ const BusinessDetails = () => {
                                 </button>
                             )}
                         </div>
-                        <div className="business-add-photo-button">
-                            <button>
-                                <OpenModalMenuItem
-                                    itemText="Add photo"
-                                    modalComponent={
-                                        <CreateImageFormModal
-                                            businessId={businessId}
-                                        />
-                                    }
-                                />
-                            </button>
-                        </div>
+                        {isLoggedIn && (
+                            <div className="business-add-photo-button">
+                                <button>
+                                    <OpenModalMenuItem
+                                        itemText="Add photo"
+                                        modalComponent={<UploadImage businessId={businessId} />}
+                                    />
+                                </button>
+                            </div>
+                        )}
                     </div>
                     <div className="business-location-address">
                         <div className="business-google-map">
