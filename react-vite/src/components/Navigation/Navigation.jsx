@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
@@ -53,6 +53,7 @@ function Navigation() {
                     <img id="app-logo" alt="App Logo" src={logo} />
                 </Link>
                 <SearchBar />
+                <h2>Write a Review</h2>
                 {sessionUser && (
                     <div className="session-user">
                         <div>
