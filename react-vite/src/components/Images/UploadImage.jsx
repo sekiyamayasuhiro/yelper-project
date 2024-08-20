@@ -11,6 +11,7 @@ const UploadImage = ({ businessId }) => {
     const [imageLoading, setImageLoading] = useState(false);
     const [validationError, setValidationError] = useState("");
 
+
     const handleFileChange = (e) => {
         const file = e.target.files[0]
         if (file) {

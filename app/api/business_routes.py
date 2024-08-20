@@ -214,7 +214,7 @@ def get_businesses_by_current_user():
 
 # (AWS S3) Upload an image for a business based on the business' id
 @business_routes.route('/<int:business_id>/images/upload', methods=["POST"])
-@login_required
+# @login_required
 def upload_image(business_id):
     image = request.files["image"]
 
