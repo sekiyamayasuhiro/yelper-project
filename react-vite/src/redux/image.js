@@ -54,7 +54,7 @@ export const createImage = (formData) => async (dispatch) => {
 };
 
 export const uploadImage = (businessId, formData) => async (dispatch) => {
-    const response = await csrfFetch(`/api/businesses/${businessId}/images/upload`, {
+    const response = await fetch(`/api/businesses/${businessId}/images/upload`, {
         method: "POST",
         body: formData,
     });
