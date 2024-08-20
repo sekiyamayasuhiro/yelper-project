@@ -16,6 +16,7 @@ const BusinessesIndex = () => {
     const businesses = useMemo(() => {
         return Object.values(originalBusinesses);
     }, [originalBusinesses]);
+    console.log('businesses', businesses)
 
     //
     const [isLoaded, setIsLoaded] = useState(false);

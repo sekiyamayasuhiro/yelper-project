@@ -182,6 +182,7 @@ def search_businesses():
     Search businesses by name, category, and/or price level.
     """
     name = request.args.get('name', type=str)
+    location = request.args.get('location', type=str)
     category = request.args.get('category', type=str)
     price = request.args.get('price', type=int)
 
@@ -189,6 +190,16 @@ def search_businesses():
 
     if name:
         search_filter = search_filter.filter(Business.name.ilike(f'%{name}%'))
+
+    if location:
+        location_filter = (
+            Business.address.ilike(f'%{location}%') |
+            Business.city.ilike(f'%{location}%') |
+            Business.state.ilike(f'%{location}%') |
+            Business.country.ilike(f'%{location}%') |
+            Business.postal_code.ilike(f'%{location}%')
+        )
+        search_filter = search_filter.filter(location_filter)
 
     if category:
         search_filter = search_filter.filter_by(category=category)

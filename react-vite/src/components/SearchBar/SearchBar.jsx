@@ -1,14 +1,15 @@
 import { useState } from "react";
-import "./SearchBar.css";
 import { useDispatch } from "react-redux";
 import { getAllBusinesses } from "../../redux/business";
 import { useNavigate } from "react-router-dom";
+import "./SearchBar.css";
 
 function SearchBar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [name, setName] = useState("");
+    const [location, setLocation] = useState("")
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
 
@@ -29,10 +30,9 @@ function SearchBar() {
     const handleSubmit = (e) => {
         e.preventDefault();
         navigate("/");
-        dispatch(getAllBusinesses({ name, price, category }, navigate));
+        dispatch(getAllBusinesses({ name, location, price, category }, navigate));
     };
 
-    console.log("PRICE FILTAAAAAAAAAA", price);
 
     return (
         <div>
@@ -43,6 +43,13 @@ function SearchBar() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Business Name"
+                        className="name"
+                    />
+                    <input
+                        type="text"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        placeholder="address, city, state or zip"
                         className="name"
                     />
                     <div className="price-category">
