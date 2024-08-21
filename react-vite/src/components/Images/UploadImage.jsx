@@ -9,7 +9,7 @@ const UploadImage = ({ businessId }) => {
 
     const [image, setImage] = useState(null); // State to hold the selected file
     const [imageLoading, setImageLoading] = useState(false);
-    const [validationError, setValidationError] = useState("");
+    // const [validationError, setValidationError] = useState("");
 
 
     const handleFileChange = (e) => {
@@ -44,9 +44,9 @@ const UploadImage = ({ businessId }) => {
                         accept="image/*"
                         onChange={handleFileChange}
                     />
-                    {validationError && (
+                    {/* {validationError && (
                         <div className="errors">{validationError}</div>
-                    )}
+                    )} */}
                 </section>
                 <button type="submit" disabled={!image}>Add Your Image</button>
                 {(imageLoading)&& <p>Loading...</p>}
