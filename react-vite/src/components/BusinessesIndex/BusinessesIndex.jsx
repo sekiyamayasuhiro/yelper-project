@@ -38,6 +38,7 @@ const BusinessesIndex = () => {
                 care of when Google Maps is integrated. We apologize. - Yelper
                 Team
             </h3>
+
             {businesses.length === 0 && <h3>No Result Found</h3>}
             <div className="business-list">
                 {isLoaded &&

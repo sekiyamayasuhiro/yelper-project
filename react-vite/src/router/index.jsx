@@ -3,6 +3,7 @@ import LoginFormModal from "../components/LoginFormModal";
 import SignupFormPage from "../components/SignupFormPage";
 import Layout from "./Layout";
 import BusinessesIndex from "../components/BusinessesIndex";
+import HomePage from '../components/HomePage/HomePage'
 import CreateBusinessForm from "../components/CreateBusinessForm";
 import ManageBusinesses from "../components/ManageBusinesses";
 import BusinessDetails from "../components/BusinessDetails";
@@ -20,7 +21,8 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <BusinessesIndex />,
+                // element: <BusinessesIndex />,
+                element: <HomePage />
             },
             {
                 path: 'review_share',
@@ -30,6 +32,10 @@ export const router = createBrowserRouter([
                 path: "businesses",
                 element: <Outlet />,
                 children: [
+                    {
+                        index: true, // This makes BusinessesIndex the default component
+                        element: <BusinessesIndex />,
+                    },
                     {
                         path: "new",
                         element: <CreateBusinessForm />,

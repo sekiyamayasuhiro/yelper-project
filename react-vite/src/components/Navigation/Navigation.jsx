@@ -1,17 +1,21 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
-import "./Navigation.css";
 import LoginFormModal from "../LoginFormModal";
 import SearchBar from "../SearchBar/SearchBar";
 import SignupFormModal from "../SignupFormModal";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { getAllBusinesses } from "../../redux/business";
-import logo from "../../../public/logo.jpg";
+import { IoIosArrowDown } from "react-icons/io";
+import CyclingImages from "../CyclingImages/CyclingImages";
+import { FaYelp } from "react-icons/fa";
+import "./Navigation.css";
 
 function Navigation() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+    const isHomePage = location.pathname === '/';
     const sessionUser = useSelector((state) => state.session.user);
 
     const handleClick = () => {
@@ -47,33 +51,33 @@ function Navigation() {
     }
 
     return (
-        <div className="navbar">
-            <div className="header">
-                <Link to="/" onClick={handleClick}>
-                    <img id="app-logo" alt="App Logo" src={logo} />
-                </Link>
-                <SearchBar />
-                <h2>Write a Review</h2>
-                {sessionUser && (
-                    <div className="session-user">
+        <div className={isHomePage ? 'navbar home-page' : 'navbar other-page'}>
+            <div className="navbar-content">
+                <h2 id="app-logo" onClick={handleClick}>
+                    yelper <FaYelp className="logo-icon" />
+                </h2>
+                <div className="search-container">
+                    <SearchBar />
+                </div>
+
+                <div className="session-links">
+                    <div className="yelp-business">
                         <div>
-                            <Link to="businesses/new">Create Business</Link>
-                        </div>
-                        <div>
-                            <Link to="businesses/current">
-                                Manage Your Business
+                            <Link to="/businesses/new">
+                                Yelp for Business <span className="arrow"><IoIosArrowDown /></span>
                             </Link>
                         </div>
+                        <div className="dropdown">
+                            <Link to="/businesses/new">Add a Business</Link>
+                        </div>
                     </div>
-                )}
-                <div>{sessionLinks}</div>
+                    <div>
+                        <Link to="/review" className="write-review">Write a Review</Link>
+                    </div>
+                    {sessionLinks}
+                </div>
             </div>
-
-            {/* <div>
-        {isLoaded && sessionUser && <Link to="/businesses/new" className="create-business-link">Create a New Business</Link>}
-        {isLoaded && <ProfileButton className="profile-button" user={sessionUser} />}
-      </div> */}
-            {/* <div>{sessionUser ? <ProfileButton /> : <}</div> */}
+            {isHomePage && <CyclingImages />}
         </div>
     );
 }

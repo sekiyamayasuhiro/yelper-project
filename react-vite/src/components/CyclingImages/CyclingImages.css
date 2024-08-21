@@ -1,8 +1,10 @@
 .carousel {
-    position: relative;
+    position: absolute;
     width: 100%;
-    height: 400px;
-    overflow: hidden;
+    height: 100%;
+    top: -8px;
+    left: -8px;
+    z-index: 1;
 }
 
 .carousel-image {
@@ -13,8 +15,35 @@
     background-position: center;
     opacity: 0;
     transition: opacity 1s ease-in-out;
+
 }
 
 .carousel-image.active {
     opacity: 1;
+}
+
+.title-button-cycling-images {
+    display: flex;
+    flex-direction: column;
+    margin-top: 200px;
+    margin-left: 350px;
+
+}
+
+.title-cycling-images {
+    color: white;
+    font-weight: 700;
+    font-size: 40px;
+}
+
+.search-button-cycling-images {
+    background-color: red;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+    padding: 10px;
+    border-radius: 10px;
+    width: 150px;
+    border: none;
+
 }
