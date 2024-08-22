@@ -3,10 +3,9 @@ import { useDispatch } from "react-redux";
 import { thunkLogin } from "../../redux/session";
 import { useModal } from "../../context/Modal";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import "./LoginForm.css";
-import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import SignupFormModal from "../SignupFormModal";
 import OpenModalButton from '../OpenModalButton/OpenModalButton'
+import "./LoginForm.css";
 
 function LoginFormModal() {
     const dispatch = useDispatch();
@@ -14,13 +13,6 @@ function LoginFormModal() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
-
-    const [modalOpen, setModalOpen] = useState(false);
-
-    const handleClick = () => {
-        closeModal()
-        setModalOpen(true);
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -79,7 +71,7 @@ function LoginFormModal() {
                     </div>
                     <div>
                         <button
-                            type="button" // Use type="button" to avoid form submission
+                            type="button"
                             onClick={demoUser}
                             className="login-modal-login button demo"
                         >
@@ -90,7 +82,6 @@ function LoginFormModal() {
                 <p className="login-modal-footer">
                     New to Yelp? <span className="loginmodal-signuplink"><OpenModalButton buttonText='Sign Up' useButton={false} modalComponent={<SignupFormModal />} /></span>
                 </p>
-
             </div>
         </div>
     );
