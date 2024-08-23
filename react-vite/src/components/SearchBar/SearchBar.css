@@ -7,6 +7,12 @@
     align-items: flex-start;
 }
 
+.search-bar-container.home-page .category-dropdown p {
+    color: white;
+    font-weight: 400;
+}
+
+
 .search-bar {
     display: flex;
     flex-direction: column;
@@ -116,10 +122,16 @@ input.name, input.location {
 .dropdown-item.active {
     background-color: #f0f0f0; /* Light gray background for active item */
 }
+
 .session-links {
 
     margin-top: -50px; /* Adjust this value to move the container up */
     padding-top: 0; /* Ensure padding is not affecting alignment */
+}
+
+.session-links.loggedin {
+    margin-right: 50px;
+
 }
 
 

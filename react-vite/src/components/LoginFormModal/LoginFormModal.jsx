@@ -29,9 +29,20 @@ function LoginFormModal() {
         }
     };
 
-    const demoUser = () => {
-        setEmail("demo@aa.io");
-        setPassword("password");
+    const handleDemoLogin = async (e) => {
+        e.preventDefault();
+        setErrors({});
+        const demoLogin = await dispatch(
+            thunkLogin({
+                email: "demo@aa.io",
+                password: "password",
+            })
+        );
+        if (demoLogin) {
+            setErrors(demoLogin);
+        } else {
+            closeModal();
+        }
     };
 
     return (
@@ -39,7 +50,7 @@ function LoginFormModal() {
             <div className="login-form-modal-content">
                 <span className="close" onClick={closeModal}>&times;</span>
                 <IoPersonCircleOutline className="login-modal-profile-icon" />
-                <h2>Sign in to Yelp</h2>
+                <h2>Sign in to Yelper</h2>
                 <p>Connect with great local businesses</p>
                 <form onSubmit={handleSubmit}>
                     <div>
@@ -72,7 +83,7 @@ function LoginFormModal() {
                     <div>
                         <button
                             type="button"
-                            onClick={demoUser}
+                            onClick={handleDemoLogin}
                             className="login-modal-login button demo"
                         >
                             Demo User
@@ -80,7 +91,7 @@ function LoginFormModal() {
                     </div>
                 </form>
                 <p className="login-modal-footer">
-                    New to Yelp? <span className="loginmodal-signuplink"><OpenModalButton buttonText='Sign Up' useButton={false} modalComponent={<SignupFormModal />} /></span>
+                    New to Yelper? <span className="loginmodal-signuplink"><OpenModalButton buttonText='Sign Up' useButton={false} modalComponent={<SignupFormModal />} /></span>
                 </p>
             </div>
         </div>

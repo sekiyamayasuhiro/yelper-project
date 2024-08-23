@@ -27,7 +27,7 @@ function Navigation() {
 
     if (sessionUser) {
         sessionLinks = (
-            <div>
+            <div className="profile-button">
                 <ProfileButton user={sessionUser} />
             </div>
         );
@@ -60,7 +60,7 @@ function Navigation() {
                     <SearchBar />
                 </div>
 
-                <div className="session-links">
+                <div className={sessionUser ? "session-links loggedin" : "session-links"}>
                     <div className="yelp-business">
                         <div>
                             <Link to="/businesses/new">

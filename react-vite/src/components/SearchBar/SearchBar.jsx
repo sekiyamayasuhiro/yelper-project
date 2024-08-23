@@ -105,6 +105,7 @@
 // }
 
 // export default SearchBar;
+
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getAllBusinesses } from "../../redux/business";
@@ -116,22 +117,18 @@ import "./SearchBar.css";
 function SearchBar() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const urlLocation = useLocation()
-    const isHomePage = urlLocation.pathname === '/'
+    const urlLocation = useLocation();
+    const isHomePage = urlLocation.pathname === '/';
 
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
-    // const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
 
     const categories = ["Restaurant", "Coffee", "Gym", "Salon"];
 
     const handleToggle = (type, value) => {
-        navigate("/");
         if (type === "category") {
-            setCategory((prevCategory) =>
-                prevCategory === value ? "" : value
-            );
+            setCategory((prevCategory) => prevCategory === value ? "" : value);
         }
     };
 
@@ -165,36 +162,23 @@ function SearchBar() {
                     </button>
                 </div>
                 <div className="category-dropdown">
-    <p>Categories <span className="arrow"><IoIosArrowDown /></span></p>
-    <div className="dropdown-content">
-        {categories.map((cat, index) => (
-            <button
-                key={index}
-                value={cat}
-                onClick={() => handleToggle("category", cat)}
-                className={`dropdown-item ${category === cat ? "active" : ""}`}
-            >
-                {cat}
-            </button>
-        ))}
-    </div>
-</div>
+                    <p>
+                        Categories <span className="arrow"><IoIosArrowDown /></span>
+                    </p>
+                    <div className="dropdown-content">
+                        {categories.map((cat, index) => (
+                            <button
+                                key={index}
+                                value={cat}
+                                onClick={() => handleToggle("category", cat)}
+                                className={`dropdown-item ${category === cat ? "active" : ""}`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+                </div>
             </form>
-
-
-            {/* <div className="dropdown-content">
-        {categories.map((cat, index) => (
-            <button
-                key={index}
-                value={cat}
-                onClick={() => handleToggle("category", cat)}
-                className={`dropdown-item ${category === cat ? "active" : ""}`}
-            >
-                {cat}
-            </button>
-        ))}
-    </div> */}
-
         </div>
     );
 }

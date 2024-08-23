@@ -16,7 +16,6 @@ function SignupFormModal() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
-    console.log('errors', errors)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,7 +43,8 @@ function SignupFormModal() {
     return (
         <div className="login-form-modal-container">
             <div className="login-form-modal-content">
-                <h2>Sign up for Yelp</h2>
+                <span className="close" onClick={closeModal}>&times;</span>
+                <h2>Sign up for Yelper</h2>
 
                 <div>
                     {errors.server && <p className="form-error">{errors.server}</p>}
@@ -116,7 +116,7 @@ function SignupFormModal() {
                     </div>
                 </form>
                 <p className="login-modal-footer">
-                    Already on Yelp? <span className="loginmodal-signuplink"><OpenModalButton buttonText='Log in' useButton={false} modalComponent={<LoginFormModal />} /></span>
+                    Already on Yelper? <span className="loginmodal-signuplink"><OpenModalButton buttonText='Log in' useButton={false} modalComponent={<LoginFormModal />} /></span>
                 </p>
             </div>
         </div>
