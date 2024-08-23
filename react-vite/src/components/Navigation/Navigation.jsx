@@ -23,6 +23,20 @@ function Navigation() {
         navigate("/");
     };
 
+    const handleAddBusinessClick = (e) => {
+        if (!sessionUser) {
+            e.preventDefault();
+            alert("You need to log in to create a business.");
+        }
+    };
+
+    const handleWriteReviewClick = (e) => {
+        if (!sessionUser) {
+            e.preventDefault();
+            alert("You need to log in to write a review.");
+        }
+    };
+
     let sessionLinks;
 
     if (sessionUser) {
@@ -68,11 +82,11 @@ function Navigation() {
                             </Link>
                         </div>
                         <div className="dropdown">
-                            <Link to="/businesses/new">Add a Business</Link>
+                            <Link to="/businesses/new" onClick={handleAddBusinessClick}>Add a Business</Link>
                         </div>
                     </div>
                     <div>
-                        <Link to="/review" className="write-review">Write a Review</Link>
+                        <Link to="/writeareview" className="write-review" onClick={handleWriteReviewClick}>Write a Review</Link>
                     </div>
                     {sessionLinks}
                 </div>
