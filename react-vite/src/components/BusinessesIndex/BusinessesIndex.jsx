@@ -2,8 +2,8 @@ import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllBusinesses } from "../../redux/business";
 import BusinessCard from "../BusinessCard";
-import "./BusinessIndex.css";
 import MapBusinessIndex from "../MapBusinessIndex";
+import "./BusinessIndex.css";
 
 const BusinessesIndex = () => {
     const dispatch = useDispatch();
@@ -16,7 +16,6 @@ const BusinessesIndex = () => {
     const businesses = useMemo(() => {
         return Object.values(originalBusinesses);
     }, [originalBusinesses]);
-    console.log('businesses', businesses)
 
     //
     const [isLoaded, setIsLoaded] = useState(false);
@@ -26,10 +25,20 @@ const BusinessesIndex = () => {
     // ? Object.values(state?.reviewState)
     //         : []
     // );
+    const searchParams = new URLSearchParams(location.search);
+
+    const name = searchParams.get('name') || '';
+    const locationParam = searchParams.get('find_loc') || '';
+    const category = searchParams.get('category') || '';
 
     useEffect(() => {
-        dispatch(getAllBusinesses()).then(() => setIsLoaded(true));
-    }, [dispatch]);
+        // Fetch businesses whenever URL parameters change
+        dispatch(getAllBusinesses({ name, location: locationParam, category })).then(() => setIsLoaded(true));
+    }, [dispatch, name, locationParam, category]);
+
+    // useEffect(() => {
+    //     dispatch(getAllBusinesses()).then(() => setIsLoaded(true));
+    // }, [dispatch]);
 
     return (
         <div>

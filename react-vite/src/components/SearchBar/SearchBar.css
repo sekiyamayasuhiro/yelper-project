@@ -73,56 +73,6 @@ input.name, input.location {
 
 }
 
-/* Container for the category dropdown */
-.category-dropdown {
-    position: relative;
-    display: inline-block;
-    margin-top: 10px;
-
-}
-
-
-/* Style for the dropdown content */
-.dropdown-content {
-    display: none; /* Hide dropdown content by default */
-    position: absolute; /* Position relative to .category-dropdown */
-    background-color: #fff; /* White background */
-    border: 1px solid #ccc; /* Light gray border */
-    border-radius: 4px; /* Rounded corners */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
-    z-index: 1000; /* Ensure dropdown is on top */
-    top: 100%; /* Position below the button */
-    left: 0; /* Align with left side of button */
-    width: 100%; /* Full width of the button */
-}
-
-/* Show the dropdown content on hover */
-.category-dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Style for each dropdown item */
-.dropdown-item {
-    display: block; /* Full width items */
-    padding: 10px; /* Padding around text */
-    border-bottom: 1px solid #ccc; /* Separator line */
-    background-color: #fff; /* White background */
-    color: #333; /* Dark text color */
-    text-align: left; /* Align text to the left */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-}
-
-/* Remove border bottom for last item */
-.dropdown-item:last-child {
-    border-bottom: none;
-}
-
-/* Highlight active item */
-.dropdown-item.active {
-    background-color: #f0f0f0; /* Light gray background for active item */
-}
-
 .session-links {
 
     margin-top: -50px; /* Adjust this value to move the container up */
@@ -150,4 +100,56 @@ input.name, input.location {
 .search-bar-container.other-page p {
     font-size: 14px;
     color: #2D2E2F;
+}
+
+
+.category-dropdown {
+    position: relative;
+    width: 300px;
+}
+
+.dropdown-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    background-color: white;
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    display: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category-dropdown:hover .dropdown-content {
+    display: grid;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    width: 150px;
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.dropdown-item.active {
+    background-color: #f0f0f0; /* Light gray background for active item */
+}
+
+.cat-icon {
+    margin-right: 8px;
 }
