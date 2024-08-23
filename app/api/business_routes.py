@@ -189,7 +189,10 @@ def search_businesses():
     search_filter = Business.query
 
     if name:
-        search_filter = search_filter.filter(Business.name.ilike(f'%{name}%'))
+        search_filter = search_filter.filter(
+            (Business.name.ilike(f'%{name}%')) |
+            (Business.category.ilike(f'%{name}%'))
+        )
 
     if location:
         location_filter = (
