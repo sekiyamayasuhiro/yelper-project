@@ -62,14 +62,13 @@
     margin-left: 20px;
 }
 
-.session-links a {
+.session-links a, .yelp-for-business {
     margin-left: 20px;
     text-decoration: none;
     color: white;
     font-weight: 550;
     font-size: 15px;
     text-wrap: nowrap;
-
 }
 
 .yelp-business {
@@ -236,7 +235,7 @@
     color: red;
 }
 
-.navbar.other-page .session-links a {
+.navbar.other-page .session-links a, .yelp-for-business {
     color: black;
     font-weight: normal;
 }
