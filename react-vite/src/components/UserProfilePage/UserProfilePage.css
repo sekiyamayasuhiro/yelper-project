@@ -1,0 +1,218 @@
+/* User Profile Page */
+.user-profile-page {
+  display: flex;
+  padding: 20px;
+}
+
+.user-profile-page h2 {
+  font-size: 28px;
+}
+
+.user-profile-page h3 {
+  font-size: 24px;
+}
+
+.userprofilepage-main-content {
+  margin-top: -20px;
+  width: 1000px;
+  margin-left: 20px;
+}
+
+/* User ProfileCard */
+.profile-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  width: 300px;
+}
+
+.profile-header-icon {
+  font-size: 120px;
+  color: lightgray;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.profile-action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+
+}
+
+.profile-card-icon {
+  font-size: 20px;
+  background-color: lightgray;
+  padding: 10px;
+  border-radius: 50px;
+  margin-bottom: 5px;
+  color: black;
+  cursor: pointer;
+}
+
+.profile-card p {
+  color: #6e7072;
+  font-size: 14px;
+}
+
+
+
+/* Sidebar */
+
+
+.social-stats {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+
+
+/* Sidebar styles */
+.sidebar {
+
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.sidebar p {
+  font-weight: 450;
+  color: #2D2E2F;
+  font-size: 14px;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+/* Specific items with dividers */
+.sidebar .with-divider {
+  border-bottom: 1px solid #ddd;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+
+
+.sidebar-item {
+  background: none;
+  border: none;
+
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+/* Right section contains the Impact and More About Me components */
+.right-section {
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+/*
+
+.impact {
+
+  margin-top: -20px;
+
+  width: 1000px;
+  margin-left: 20px;
+
+
+
+} */
+
+
+
+.impact-stats, .info {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+
+}
+
+.impact, .more-about-me {
+
+  width: 1000px;
+  margin-left: 20px;
+}
+
+.impact .impact-stats {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.stat {
+
+  margin-right: 100px;
+
+}
+
+.impact-divider {
+  border-left: 1px solid #ddd;
+  margin-right: 20px;
+}
+
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+
+
+}
+
+.impact-item strong {
+  font-size: 20px;
+}
+
+
+.impact-icon {
+  font-size: 25px;
+
+}
+
+.more-about-me .info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.more-about-me h3 {
+
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+
+.sidebar div {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 10px;
+
+
+
+}
+
+.sidebar-item:hover {
+  background-color: #EBEBEB;
+  border-radius: 10px;
+
+}
+
+.sidebar-icon {
+  margin-right: 10px;
+  font-size: 20px;
+  margin-top: 15px;
+}

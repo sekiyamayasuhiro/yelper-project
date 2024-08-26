@@ -16,6 +16,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     first_name = db.Column(db.String(10))
     last_name = db.Column(db.String(10))
+    created_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
+    updated_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
 
     @property
@@ -30,10 +32,15 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password, password)
 
     def to_dict(self):
+        # Format the created_at field
+        formatted_created_at = self.created_at.strftime('%B %Y') if self.created_at else None
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'reviews': [review.to_dict() for review in self.reviews],
+            'created_at': formatted_created_at,
+            'name': self.first_name
         }
 
     # Relationships

@@ -3,11 +3,11 @@ import ReviewsSummary from "../Reviews/ReviewsSummary";
 import "./BusinessCard.css";
 
 const BusinessCard = ({ business }) => {
-    const { id, name, city, state, price, category, BusinessImages, avgRating, numReviews } = business;
+    const { id, name, city, state, price, category, images, avgRating, numReviews } = business;
 
     const imageUrl =
-        BusinessImages && BusinessImages.length > 0
-            ? BusinessImages[0].url
+        images && images.length > 0
+            ? images[0].url
             : "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
 
     const priceString = "$".repeat(price);

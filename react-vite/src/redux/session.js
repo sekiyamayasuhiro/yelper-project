@@ -10,6 +10,7 @@ const removeUser = () => ({
   type: REMOVE_USER
 });
 
+
 export const thunkAuthenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/");
 	if (response.ok) {
@@ -68,7 +69,9 @@ const initialState = { user: null };
 function sessionReducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
-      return { ...state, user: action.payload };
+      return { ...state,
+        user: action.payload
+      };
     case REMOVE_USER:
       return { ...state, user: null };
     default:
