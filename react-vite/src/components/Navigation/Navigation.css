@@ -69,8 +69,18 @@
     font-weight: 550;
     font-size: 15px;
     text-wrap: nowrap;
-
 }
+
+.navbar.home-page .yelp-for-business {
+    margin-left: 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: 550;
+    font-size: 15px;
+    text-wrap: nowrap;
+}
+
+
 
 .yelp-business {
     position: relative;
@@ -236,10 +246,12 @@
     color: red;
 }
 
-.navbar.other-page .session-links a {
+.navbar.other-page .session-links a, .yelp-for-business {
     color: black;
     font-weight: normal;
+    text-wrap: nowrap;
 }
+
 
 .navbar.other-page .login button {
     color: black;

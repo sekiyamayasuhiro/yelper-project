@@ -13,11 +13,25 @@ def get_current_user_reviews():
     Fetches all reviews of the logged-in user.
     """
     data = Review.query.filter(Review.user_id == current_user.id).all()
-    # return jsonify([review.to_dict() for review in reviews]), 200
 
-    print(data)
-    reviews = [{**review.to_dict(), 'name': review.business.name, 'category': review.business.category, 'address': review.business.city + " " + review.business.state} for review in data]
-    return jsonify(reviews)
+    review_list = []
+    for review in data:
+        business = review.business
+        business_images = [image.to_dict() for image in business.images]
+
+        image_url = business_images[0]['url'] if business_images else None
+        review_dict = {
+            **review.to_dict(),
+            'business': {
+                'name': business.name,
+                'category': business.category,
+                'address': f"{business.city}, {business.state}",
+                'url': image_url
+            }
+        }
+        review_list.append(review_dict)
+
+    return jsonify(review_list), 200
 
 # Update a review
 @review_routes.route('/<int:review_id>', methods=['PUT'])

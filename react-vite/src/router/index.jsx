@@ -13,6 +13,7 @@ import CreateReviewFormModal from "../components/CreateReviewFormModal";
 import ReviewForm from "../components/Reviews/ReviewForm";
 import ReviewShare from "../components/Reviews/ReviewShare";
 import Testing from "../components/Testing";
+import UserProfilePage from "../components/UserProfilePage/UserProfilePage";
 
 
 export const router = createBrowserRouter([
@@ -27,6 +28,15 @@ export const router = createBrowserRouter([
             {
                 path: 'review_share',
                 element: <ReviewShare />
+            },
+            {
+                path: 'user_details',
+                element: <UserProfilePage />
+            },
+            {
+                path: 'user_details_reviews_self',
+                element: <UserProfilePage />
+
             },
             {
                 path: "businesses",

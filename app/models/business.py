@@ -51,7 +51,7 @@ class Business(db.Model):
             'price': self.price,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-            "BusinessImages": [image.to_dict() for image in self.images],
+            "images": [image.to_dict() for image in self.images],
             "avgRating": self.avg_rating(),
             'numReviews': self.numReviews()
         }

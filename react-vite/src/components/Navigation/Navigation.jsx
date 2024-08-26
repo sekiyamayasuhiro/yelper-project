@@ -77,14 +77,14 @@ function Navigation() {
                 <div className={sessionUser ? "session-links loggedin" : "session-links"}>
                     <div className="yelp-business">
                         <div>
-                            <Link to="/businesses/new">
+                            <span className="yelp-for-business">
                                 Yelp for Business <span className="arrow"><IoIosArrowDown /></span>
-                            </Link>
-                        </div>
+                            </span>
+                    </div>
                         <div className="dropdown">
                             <Link to="/businesses/new" onClick={handleAddBusinessClick}>Add a Business</Link>
                         </div>
-                    </div>
+                </div>
                     <div>
                         <Link to="/writeareview" className="write-review" onClick={handleWriteReviewClick}>Write a Review</Link>
                     </div>
