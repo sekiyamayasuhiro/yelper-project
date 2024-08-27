@@ -1,0 +1,89 @@
+/* Review Card Container */
+.review-card-container {
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+    padding: 16px;
+    margin: 12px 0;
+    max-width: 300px;
+    min-width: 300px;
+}
+
+/* Review Card Content */
+.review-card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Review Card Header */
+.review-card-header {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+
+.review-card-header p {
+    margin: 0;
+    font-weight: 500;
+    color: #2D2E2F;
+
+}
+
+.review-card-header p:last-child, .review-card-body p:nth-last-child(2) {
+    font-size: 12px;
+    color: #777;
+    font-weight: normal;
+}
+
+
+
+/* Review Card Body */
+.review-card-body {
+    padding: 8px 0;
+    font-size: 14px;
+    margin-top: -15px;
+}
+
+/* Business Name */
+.review-card-body > p {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+
+/* Star Rating */
+.review-card-body .star-rating {
+    margin-bottom: 8px;
+}
+
+/* Review Text */
+.review-card-body .review-text {
+    font-size: 14px;
+    color: #555;
+}
+
+.review-card-divider {
+    border: none;
+    border-top: 1px solid #e3e3e3;
+    margin: 12px 0;
+}
+
+
+/* Middle Dot Separator */
+.dot-separator {
+    margin: 0 6px; /* Space between price and category */
+    font-size: 16px; /* Slightly larger to make the dot prominent */
+    color: #999; /* Lighter color for the dot */
+    font-weight: bold;
+}
+
+.review-card-body .review-text {
+    font-size: 14px;
+    color: #2D2E2F;
+    font-weight: 400;
+}
+
+.review-card-business-name:hover {
+    text-decoration: underline;
+}

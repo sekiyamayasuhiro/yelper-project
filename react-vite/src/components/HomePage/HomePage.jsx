@@ -10,9 +10,17 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import './HomePage.css';
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { getAllReviews } from "../../redux/review";
+import { ReviewCard } from "../Reviews";
 
 export default function HomePage() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [reviews, setReviews] = useState([])
+    console.log(reviews)
+
     const categoryIcons = {
         'Restaurant': <FaUtensils />,
         'Shopping': <FaShoppingBag />,
@@ -24,17 +32,27 @@ export default function HomePage() {
         'Salon': <FaCut />,
     };
 
+    useEffect(() => {
+        dispatch(getAllReviews()).then(res => {
+            const sortedReviews = res.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            setReviews(sortedReviews);
+        })
+    }, [dispatch])
+
     const handleClick = (cat) => {
         navigate(`/businesses?category=${cat}`)
-
-
     }
 
     return (
         <div className="homepage-container">
             <div className="homepage-section">
                 <h2>Recent Activity</h2>
-                <div className="recent-activity-container"></div>
+
+                <div className="recent-activity-container">
+                    {reviews.map((review, index) => (
+                        <ReviewCard key={index} review={review}/>
+                    ))}
+                </div>
             </div>
 
             <div className="homepage-section">

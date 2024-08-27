@@ -5,6 +5,15 @@ from app.forms import ReviewForm
 
 review_routes = Blueprint('reviews', __name__)
 
+@review_routes.route('/', methods=['GET'])
+def get_all_reviews():
+    """
+    Fetches all reviews
+    """
+    data = Review.query.all()
+    reviews = [{**review.to_dict(), 'user': f'{review.user.first_name} {review.user.last_name[0]}.', 'business': review.business.name, 'price': review.business.price, 'category': review.business.category} for review in data]
+    return reviews
+
 # Get all reviews of the current user
 @review_routes.route('/current', methods=['GET'])
 @login_required
