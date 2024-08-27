@@ -25,6 +25,16 @@ const removeReview = (id) => {
     };
 };
 
+export const getAllReviews = () => async dispatch => {
+    const response = await fetch('/api/reviews')
+
+    if (response.ok) {
+        const reviews = await response.json()
+        dispatch(loadReviews(reviews))
+        return reviews
+    }
+}
+
 export const getReviewsByBusinessId = (businessId) => async (dispatch) => {
     const response = await fetch(`/api/businesses/${businessId}/reviews`);
 

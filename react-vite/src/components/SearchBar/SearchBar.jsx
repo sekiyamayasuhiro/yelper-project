@@ -32,9 +32,16 @@ function SearchBar() {
     useEffect(() => {
         // Parse the URL search params
         const params = new URLSearchParams(location.search);
-        setName(params.get('name') || '');
-        setLocationSearch(params.get('find_loc') || '');
-        setCategory(params.get('category') || '');
+        const nameParam = params.get('name') || '';
+        const locationParam = params.get('find_loc') || '';
+        const categoryParam = params.get('category') || '';
+
+        // Set search inputs based on URL parameters
+        setName(nameParam || categoryParam);
+        setLocationSearch(locationParam);
+        setCategory(categoryParam);
+
+
     }, [location.search]);
 
     // Update URL search parameters and navigate
