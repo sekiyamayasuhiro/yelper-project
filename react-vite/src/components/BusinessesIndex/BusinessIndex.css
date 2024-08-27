@@ -1,24 +1,93 @@
-.business-card-link {
-    display: block;
-    flex-grow: 1;
-    color: inherit;
-    text-decoration: none;
+.business-index-container {
+    display: flex;
+    height: 100vh;
 }
 
-.business-card {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 10px;
-    border-radius: 8px;
-    background: white;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
-    margin-bottom: 10px;
-}
 
 .business-card img {
     width: 200px;
     height: 200px;
     object-fit: cover;
     border-radius: 8px;
+}
+
+
+.business-list {
+    flex: 1.5;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.business-maps-all {
+    flex: 1.1;
+    display: flex;
+    flex-direction: column;
+}
+
+.map-container {
+    flex: 1;
+    display: flex;
+    width: 100%;
+}
+
+
+.price-filter {
+    flex: .3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+
+.price-filter p {
+    font-weight: 700;
+}
+
+.price-buttons {
+    display: flex;
+    justify-content: flex-start;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.price-buttons button {
+    border-right: 1px solid #ccc;
+    font-size: 12px;
+    font-weight: 540;
+}
+
+.price-buttons button:last-child {
+    border-right: none;
+}
+
+.price-button {
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    border: none;
+    background-color: unset;
+}
+
+.price-button:hover {
+    background-color: #e0e0e0;
+}
+
+.price-button.selected {
+    background-color: #D9F6FD;
+    color: #007692;
+}
+
+
+.clear-all {
+    color: #027A97;
+    font-size: 12px;
+}
+
+.clear-all:hover {
+    text-decoration: underline;
 }
