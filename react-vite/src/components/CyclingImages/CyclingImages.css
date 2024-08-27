@@ -20,6 +20,8 @@
 
 .carousel-image.active {
     opacity: 1;
+
+
 }
 
 .title-button-cycling-images {
@@ -44,5 +46,10 @@
     border-radius: 10px;
     width: 150px;
     border: none;
+    cursor: pointer;
 
+}
+
+.title-button-cycling-images button {
+    width: 200px;
 }
