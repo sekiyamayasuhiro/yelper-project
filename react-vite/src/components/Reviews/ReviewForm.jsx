@@ -62,7 +62,7 @@ export default function ReviewForm() {
         }
         await dispatch(createNewReview(newReview))
         setIsEditing(false)
-        navigate('/review_share')
+        navigate('/review_share', { state: { reviewPosted: true } })
     }
 
     const handleEdit = async () => {
@@ -75,7 +75,7 @@ export default function ReviewForm() {
             review_text: reviewText
         }
         await dispatch(updateReview(updatedReview))
-        navigate('/review_share')
+        navigate('/review_share', { state: { reviewPosted: true } })
     }
 
 
