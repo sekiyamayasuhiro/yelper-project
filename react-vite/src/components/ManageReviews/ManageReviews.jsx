@@ -36,7 +36,7 @@ const ManageReviews = () => {
             <h3>Reviews</h3>
 
             {reviews.map((review) => (
-                <div key={review.id} className="review-container">
+                <div key={review.id} className="manage-review-container">
                     <div className="review-container-right">
                         <div className="review-header">
                             <img src={review.business?.url} alt="" />
