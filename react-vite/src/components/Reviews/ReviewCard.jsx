@@ -28,7 +28,7 @@ function ReviewCard ({ review }) {
                     <p>
                         {renderPrice(review.price)} <span className="dot-separator">•</span> {review.category}
                     </p>
-                    <p className="review-text">{review.review_text}</p>
+                    <p className="reviewcard-text">{review.review_text}</p>
                 </div>
             </div>
         </div>

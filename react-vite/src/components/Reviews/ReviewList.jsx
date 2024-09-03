@@ -1,11 +1,14 @@
 import StarRating from "./StarRating"
 import { useEffect, useState } from "react";
 import SortFilterControls from "../Reviews/SortFilterControls";
+import { BsPersonCircle } from "react-icons/bs";
+import './ReviewList.css'
 
 export default function ReviewList ({ avgRating, reviews }) {
     const [filteredReviews, setFilteredReviews] = useState(reviews)
     const [sort, setSort] = useState('')
     const [rating, setRating] = useState(0)
+    console.log(reviews)
 
     useEffect(() => {
         let sortedReviews = [...reviews]
@@ -35,11 +38,14 @@ export default function ReviewList ({ avgRating, reviews }) {
     }
 
     return (
-        <div className="reviews-container">
+        <div className="reviewlist-container">
             {avgRating > 0 && <SortFilterControls rating={rating} setRating={setRating} sort={sort} setSort={setSort}/>}
             {avgRating > 0 && filteredReviews.length < 1 ? 'No results found' : filteredReviews.map(({id, rating, created_at, review_text, yelper_name}) => (
                 <div key={id} className="review-container">
-                    <h4>{yelper_name}</h4>
+                    <div className="review-header">
+                        <BsPersonCircle className="user-icon"/>
+                        <h4>{yelper_name}</h4>
+                    </div>
                     <div className="rating-date"><StarRating rating={rating}/><p className="review-date">{formatDate(created_at)}</p></div>
                     <p className="review-text">{review_text}</p>
                 </div>

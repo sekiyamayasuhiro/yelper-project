@@ -15,6 +15,7 @@ class Review(db.Model):
     updated_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
     def to_dict(self):
+
         return {
             "id": self.id,
             "user_id": self.user_id,
@@ -22,7 +23,8 @@ class Review(db.Model):
             "rating": self.rating,
             "review_text": self.review_text,
             "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "updated_at": self.updated_at.isoformat(),
+            "yelper_name": f"{self.user.first_name} {self.user.last_name[0]}."
         }
 
     # Relationships
@@ -30,13 +32,13 @@ class Review(db.Model):
     business = db.relationship('Business', back_populates='reviews')
 
 
-    def to_dict(self):
-        return  {
-            'id': self.id,
-            'user_id': self.user_id,
-            'business_id': self.business_id,
-            'rating': self.rating,
-            'review_text': self.review_text,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
-        }
+    # def to_dict(self):
+    #     return  {
+    #         'id': self.id,
+    #         'user_id': self.user_id,
+    #         'business_id': self.business_id,
+    #         'rating': self.rating,
+    #         'review_text': self.review_text,
+    #         'created_at': self.created_at,
+    #         'updated_at': self.updated_at
+    #     }
