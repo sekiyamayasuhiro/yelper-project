@@ -31,6 +31,11 @@ export const router = createBrowserRouter([
                 element: <ReviewOverview />
             },
             {
+                path: '/writeareview/biz/:businessId',
+                element: <ReviewForm />
+
+            },
+            {
                 path: 'review_share',
                 element: <ReviewShare />
             },

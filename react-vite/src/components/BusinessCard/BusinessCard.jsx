@@ -1,10 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ReviewsSummary from "../Reviews/ReviewsSummary";
 import "./BusinessCard.css";
 
 const BusinessCard = ({ business }) => {
     const navigate = useNavigate()
-    const { id, name, city, state, price, category, images, avgRating, numReviews } = business;
+    const { id, name, city, price, category, images, avgRating, numReviews } = business;
+    const location = useLocation()
 
     const imageUrl =
         images && images.length > 0
@@ -14,12 +15,16 @@ const BusinessCard = ({ business }) => {
     const priceString = "$".repeat(price);
 
     const handleClick = () => {
-        navigate(`/businesses/${id}`)
+        if (location.pathname === '/writeareview') {
+            navigate(`/writeareview/biz/${id}`);
+        } else {
+            navigate(`/businesses/${id}`)
+        }
     }
 
+
     return (
-        <div className="business-card">
-            <Link to={`/businesses/${id}`}>
+        <div className="business-card" onClick={handleClick}>
                 <div className="business-card-content">
                     <div className="business-image">
                         <img src={imageUrl} alt={name} />
@@ -31,7 +36,6 @@ const BusinessCard = ({ business }) => {
                         {business.firstReviewText && <p>"{business.firstReviewText}" <span className="more" onClick={handleClick}>more</span></p>}
                     </div>
                 </div>
-            </Link>
         </div>
     );
 };
