@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
                         element: <CreateBusinessForm />,
                     },
                     {
-                        path: "current",
+                        path: "manage",
                         element: <ManageBusinesses />,
                     },
                     {
