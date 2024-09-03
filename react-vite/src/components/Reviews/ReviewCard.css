@@ -87,3 +87,8 @@
 .review-card-business-name:hover {
     text-decoration: underline;
 }
+
+.reviewcard-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
