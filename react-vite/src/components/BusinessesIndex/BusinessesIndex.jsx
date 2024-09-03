@@ -7,9 +7,6 @@ import "./BusinessIndex.css";
 
 const BusinessesIndex = () => {
     const dispatch = useDispatch();
-    // const businesses = useSelector(
-    //     (state) => Object.values(state.businessState) || []
-    // );
 
     // fixing the memo bug
     const originalBusinesses = useSelector((state) => state.businessState);
@@ -17,14 +14,10 @@ const BusinessesIndex = () => {
         return Object.values(originalBusinesses);
     }, [originalBusinesses]);
 
-    //
     const [isLoaded, setIsLoaded] = useState(false);
 
-    // const reviews = useSelector((state) =>
-    //     Object.values(state?.reviewState)
-    // ? Object.values(state?.reviewState)
-    //         : []
-    // );
+    const [selectedPrice, setSelectedPrice] = useState(null);
+
     const searchParams = new URLSearchParams(location.search);
 
     const name = searchParams.get('name') || '';
@@ -33,20 +26,42 @@ const BusinessesIndex = () => {
 
     useEffect(() => {
         // Fetch businesses whenever URL parameters change
-        dispatch(getAllBusinesses({ name, location: locationParam, category })).then(() => setIsLoaded(true));
-    }, [dispatch, name, locationParam, category]);
+        dispatch(getAllBusinesses({ name, location: locationParam, category, price: selectedPrice })).then(() => setIsLoaded(true));
+    }, [dispatch, name, locationParam, category, selectedPrice]);
 
-    // useEffect(() => {
-    //     dispatch(getAllBusinesses()).then(() => setIsLoaded(true));
-    // }, [dispatch]);
+    const prices = [1, 2, 3, 4]
+
+    const handlePriceClick = (priceLevel) => {
+        setSelectedPrice(priceLevel);
+    };
+
+    const clear = () => {
+        setSelectedPrice(null)
+    }
 
     return (
-        <div>
-            <h3>
+        <div className="business-index-container">
+            {/* <h3>
                 Dear Users, much of the white space on the right will be taken
                 care of when Google Maps is integrated. We apologize. - Yelper
                 Team
-            </h3>
+            </h3> */}
+            <div className="price-filter">
+            {selectedPrice ? <div><p>1 filter</p> {'$'.repeat(selectedPrice)} <p className="clear-all" onClick={clear}>Clear all</p></div> : <p>Filters</p>}
+            <p>Price</p>
+            <div className="price-buttons">
+            {prices.map((level) => (
+                <button
+                    key={level}
+                    className={`price-button ${selectedPrice === level ? 'selected' : ''}`}
+                    onClick={() => handlePriceClick(level)}
+                >
+                    {'$'.repeat(level)}
+                </button>
+            ))}
+            </div>
+
+            </div>
 
             {businesses.length === 0 && <h3>No Result Found</h3>}
             <div className="business-list">
@@ -57,7 +72,9 @@ const BusinessesIndex = () => {
             </div>
             <div className="business-maps-all">
                 {isLoaded && businesses.length > 0 && (
-                    <MapBusinessIndex businesses={businesses} />
+                    <div className="map-container">
+                        <MapBusinessIndex businesses={businesses} />
+                    </div>
                 )}
             </div>
         </div>

@@ -62,7 +62,7 @@ export default function ReviewForm() {
         }
         await dispatch(createNewReview(newReview))
         setIsEditing(false)
-        navigate('/review_share')
+        navigate('/review_share', { state: { reviewPosted: true } })
     }
 
     const handleEdit = async () => {
@@ -75,7 +75,7 @@ export default function ReviewForm() {
             review_text: reviewText
         }
         await dispatch(updateReview(updatedReview))
-        navigate('/review_share')
+        navigate('/review_share', { state: { reviewPosted: true } })
     }
 
 
@@ -101,10 +101,11 @@ export default function ReviewForm() {
                         <div>{rating === 0 && hoverRating === 0 ? 'Select your rating' : starvalue[rating] || starvalue[hoverRating]}</div>
                         </div>
                         <div className="reviewText-container">
-                            <textarea name="reviewText" id="" value={reviewText} onChange={(e) => setReviewText(e.target.value)} rows={15} cols={15}></textarea>
+                            <textarea name="reviewText" id="" value={reviewText} onChange={(e) => setReviewText(e.target.value)} rows={15} cols={15} maxLength={200}></textarea>
                         </div>
                     </div>
                     {submitted && <div className="errors">{validatonErrors.rating || validatonErrors.reviewText}</div>}
+                    {reviewText.length >= 200 && <p style={{ color: 'gray' }}>You have reached the maximum of 200 characters for the review text.</p>}
                     <button className="post-review-button" type="submit" onClick={isEditing ? handleEdit : handleSubmit}>{isEditing  ? 'Update Review' : 'Post Review'}</button>
                 </div>
             )}

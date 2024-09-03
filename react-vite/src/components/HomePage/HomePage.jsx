@@ -19,7 +19,6 @@ export default function HomePage() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [reviews, setReviews] = useState([])
-    console.log(reviews)
 
     const categoryIcons = {
         'Restaurant': <FaUtensils />,

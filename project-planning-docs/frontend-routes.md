@@ -41,7 +41,7 @@
 
 
 ㅤ
-## `/businesses/current`
+## `/businesses/manage`
 ### Manage Business
 * Display all the businesses that belong to the current user
     * `GET /api/businesses/current`

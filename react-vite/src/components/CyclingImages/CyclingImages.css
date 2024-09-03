@@ -4,8 +4,9 @@
     height: 100%;
     top: -8px;
     left: -8px;
-    z-index: 1;
+    z-index: 0;
 }
+
 
 .carousel-image {
     position: absolute;

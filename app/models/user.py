@@ -40,7 +40,8 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'reviews': [review.to_dict() for review in self.reviews],
             'created_at': formatted_created_at,
-            'name': self.first_name
+            'first_name': self.first_name,
+            'last_name': self.last_name
         }
 
     # Relationships

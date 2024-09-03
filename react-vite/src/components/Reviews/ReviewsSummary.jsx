@@ -12,10 +12,7 @@ export default function ReviewsSummary ({ avgRating, numReviews}) {
     return (
         <div className="reviews-summary">
             <StarRating rating={avgRating}/>
-            <p className='average-rating'>{avgRating?.toFixed(1)}</p>
-            <div className="rating-info">
-                <p className="num-reviews">{reviews()}</p>
-            </div>
+            <p className='average-rating'>{avgRating?.toFixed(1)} <span className='review-summary-num-reviews'>{reviews()}</span></p>
         </div>
     )
 }

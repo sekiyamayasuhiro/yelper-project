@@ -14,6 +14,7 @@ import ReviewForm from "../components/Reviews/ReviewForm";
 import ReviewShare from "../components/Reviews/ReviewShare";
 import Testing from "../components/Testing";
 import UserProfilePage from "../components/UserProfilePage/UserProfilePage";
+import { ReviewOverview } from "../components/Reviews";
 
 
 export const router = createBrowserRouter([
@@ -24,6 +25,15 @@ export const router = createBrowserRouter([
                 path: "/",
                 // element: <BusinessesIndex />,
                 element: <HomePage />
+            },
+            {
+                path: '/writeareview',
+                element: <ReviewOverview />
+            },
+            {
+                path: '/writeareview/biz/:businessId',
+                element: <ReviewForm />
+
             },
             {
                 path: 'review_share',
@@ -51,7 +61,7 @@ export const router = createBrowserRouter([
                         element: <CreateBusinessForm />,
                     },
                     {
-                        path: "current",
+                        path: "manage",
                         element: <ManageBusinesses />,
                     },
                     {

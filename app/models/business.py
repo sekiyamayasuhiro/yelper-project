@@ -33,6 +33,13 @@ class Business(db.Model):
     images = db.relationship('Image', back_populates='business', cascade='all, delete-orphan')
 
     def to_dict(self):
+        first_review_text = None
+        reviews = self.reviews
+
+        if reviews:
+            first_review = reviews[0]
+            first_review_text = first_review.review_text
+
         return {
             'id': self.id,
             'owner_id': self.owner_id,
@@ -52,8 +59,10 @@ class Business(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             "images": [image.to_dict() for image in self.images],
+            "reviews": [review.to_dict() for review in self.reviews],
             "avgRating": self.avg_rating(),
-            'numReviews': self.numReviews()
+            'numReviews': self.numReviews(),
+            'firstReviewText': first_review_text
         }
     def avg_rating(self):
         average = db.session.query(func.avg(Review.rating)).filter(Review.business_id == self.id).scalar()

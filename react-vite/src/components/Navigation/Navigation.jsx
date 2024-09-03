@@ -9,6 +9,8 @@ import { getAllBusinesses } from "../../redux/business";
 import { IoIosArrowDown } from "react-icons/io";
 import CyclingImages from "../CyclingImages/CyclingImages";
 import { FaYelp } from "react-icons/fa";
+import { MdOutlineAddBusiness } from "react-icons/md";
+import { FaGear } from "react-icons/fa6";
 import "./Navigation.css";
 
 function Navigation() {
@@ -82,7 +84,16 @@ function Navigation() {
                             </span>
                     </div>
                         <div className="dropdown">
-                            <Link to="/businesses/new" onClick={handleAddBusinessClick}>Add a Business</Link>
+                            <Link to="/businesses/new" onClick={handleAddBusinessClick}>
+                                <MdOutlineAddBusiness />
+                                Add a Business
+                            </Link>
+                            {sessionUser && (
+                                <Link to="/businesses/manage" >
+                                    <FaGear />
+                                    Manage your business
+                                </Link>
+                            )}
                         </div>
                 </div>
                     <div>
