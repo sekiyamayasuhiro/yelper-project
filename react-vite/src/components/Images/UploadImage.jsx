@@ -2,6 +2,7 @@ import { useModal } from "../../context/Modal.jsx";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { uploadImage } from "../../redux/image.js";
+import './UploadImage.css'
 
 const UploadImage = ({ businessId }) => {
     const { closeModal } = useModal();
@@ -35,8 +36,10 @@ const UploadImage = ({ businessId }) => {
 
 
     return (
-        <div className="create-image-form-modal">
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <div className="upload-image-modal">
+
+            <form onSubmit={handleSubmit} encType="multipart/form-data" className="upload-image-content">
+                <span className="close" onClick={closeModal}>&times;</span>
                 <section>
                     <h2>Add more photos for the business</h2>
                     <input
