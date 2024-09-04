@@ -77,6 +77,16 @@ export const deleteImage = (imageId) => async (dispatch) => {
     }
 };
 
+export const getUserImages = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/users/${userId}/images`);
+
+    if (response.ok) {
+        const imagesData = await response.json();
+        dispatch(loadImages(imagesData));
+        return imagesData
+    }
+};
+
 const initialState = {};
 
 const imageReducer = (state = initialState, action) => {

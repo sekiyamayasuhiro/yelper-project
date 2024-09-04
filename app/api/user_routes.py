@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
-from flask_login import login_required
-from app.models import User
+from flask_login import login_required, current_user
+from app.models import User, Image
 
 user_routes = Blueprint('users', __name__)
 
@@ -24,3 +24,17 @@ def user(id):
     user = User.query.get(id)
     return user.to_dict()
     # return jsonify(user.to_dict())
+
+
+@user_routes.route('/<int:userid>/images', methods=['GET'])
+@login_required
+def get_user_images(userid):
+    """
+    Get all images uploaded by a specific user.
+    """
+    if userid != current_user.id:
+        return jsonify({'message': 'Unauthorized'}), 403
+
+    images = Image.query.filter_by(user_id=userid).all()
+    images_data = [image.to_dict() for image in images]
+    return jsonify(images_data)

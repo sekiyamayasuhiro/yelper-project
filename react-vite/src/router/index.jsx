@@ -15,6 +15,7 @@ import ReviewShare from "../components/Reviews/ReviewShare";
 import Testing from "../components/Testing";
 import UserProfilePage from "../components/UserProfilePage/UserProfilePage";
 import { ReviewOverview } from "../components/Reviews";
+import UserUploadedPhotos from "../components/Images/UserUploadedPhotos";
 
 
 export const router = createBrowserRouter([
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
                 path: 'user_details_reviews_self',
                 element: <UserProfilePage />
 
+            },
+            {
+                path: 'user_local_photos',
+                element: <UserUploadedPhotos />
             },
             {
                 path: "businesses",
