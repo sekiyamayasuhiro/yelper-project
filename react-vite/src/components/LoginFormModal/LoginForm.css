@@ -52,10 +52,21 @@
     font-size: 16px;
     height: 45px;
     margin-bottom: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.login-modal-login.button:hover {
+    background-color: #c8102e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .login-modal-login.button.demo {
     background-color: gray;
+}
+
+.login-modal-login.button.demo:hover {
+    background-color: #5a5a5a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 
