@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewBusiness } from "../../redux/business.js";
+import './CreateBusinessForm.css'
 
 const CreateBusinessForm = () => {
     const [name, setName] = useState("");
@@ -141,15 +142,16 @@ const CreateBusinessForm = () => {
             >
                 <h1>Create a New Business</h1>
 
-                <section>
+
                     <h2>Please provide the details of your business.</h2>
                     <h3>
                         Reminder: The more accurate and detailed you are will
                         help future customers!
                     </h3>
+                    <div className="form-fields">
 
                     <div className="label-container">
-                        <label>Business Name</label>
+
                         {validationErrors.name && (
                             <span className="errors">
                                 {validationErrors.name}
@@ -165,7 +167,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>Address</label>
+
                         {validationErrors.address && (
                             <span className="errors">
                                 {validationErrors.address}
@@ -181,7 +183,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>City</label>
+
                         {validationErrors.city && (
                             <span className="errors">
                                 {validationErrors.city}
@@ -197,7 +199,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>State</label>
+
                         {validationErrors.state && (
                             <span className="errors">
                                 {validationErrors.state}
@@ -213,7 +215,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>Country</label>
+
                         {validationErrors.country && (
                             <span className="errors">
                                 {validationErrors.country}
@@ -229,7 +231,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>Postal Code</label>
+
                         {validationErrors.postalCode && (
                             <span className="errors">
                                 {validationErrors.postalCode}
@@ -241,11 +243,11 @@ const CreateBusinessForm = () => {
                         name="postal-code"
                         value={postalCode}
                         onChange={(e) => setPostalCode(e.target.value)}
-                        placeholder="Postal Code (5 digits)"
+                        placeholder="Zip Code (5 digits)"
                     />
 
                     <div className="label-container">
-                        <label>Latitude</label>
+
                         {validationErrors.lat && (
                             <span className="errors">
                                 {validationErrors.lat}
@@ -261,7 +263,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>Longitude</label>
+
                         {validationErrors.lng && (
                             <span className="errors">
                                 {validationErrors.lng}
@@ -277,7 +279,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>Category</label>
+
                         {validationErrors.category && (
                             <span className="errors">
                                 {validationErrors.category}
@@ -297,7 +299,7 @@ const CreateBusinessForm = () => {
                     </select>
 
                     <div className="label-container">
-                        <label>Phone Number</label>
+
                         {validationErrors.phoneNumber && (
                             <span className="errors">
                                 {validationErrors.phoneNumber}
@@ -313,7 +315,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>Website</label>
+
                         {validationErrors.website && (
                             <span className="errors">
                                 {validationErrors.website}
@@ -329,7 +331,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>Description</label>
+
                         {validationErrors.description && (
                             <div className="errors">
                                 {validationErrors.description}
@@ -345,7 +347,7 @@ const CreateBusinessForm = () => {
                     ></textarea>
 
                     <div className="label-container">
-                        <label>Price</label>
+
                         {validationErrors.price && (
                             <div className="errors">
                                 {validationErrors.price}
@@ -363,11 +365,12 @@ const CreateBusinessForm = () => {
                         <option value="3">$$$</option>
                         <option value="4">$$$$</option>
                     </select>
-                </section>
-
-                <div>
+                    <div>
                     <button type="submit">Create Business</button>
                 </div>
+                    </div>
+
+
             </form>
         </div>
     );
