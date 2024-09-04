@@ -84,12 +84,21 @@ const BusinessDetails = () => {
                         {`${priceString} · ${business.category}`}
                     </div>
                     <div className="business-see-more-images-button">
-                        <button>
-                            <OpenModalMenuItem
-                                itemText="See all photos"
-                                modalComponent={<ViewAllImagesModal businessId={businessId} />}
-                            />
-                        </button>
+                        {business.images && business.images.length > 0 && (
+                                                    <button>
+                                                    <OpenModalMenuItem
+                                                        itemText="See all photos"
+                                                        modalComponent={<ViewAllImagesModal businessId={businessId} />}
+                                                    />
+                                                </button>
+                        )}
+                        {isLoggedIn && business.images && business.images.length === 0 &&                                     <button>
+                                        <OpenModalMenuItem
+                                            itemText='Add Photo'
+                                            modalComponent={<UploadImage businessId={businessId} />}
+                                        />
+                                    </button>}
+
                     </div>
                 </div>
             </div>

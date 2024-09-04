@@ -13,13 +13,13 @@ const DeleteReviewModal = ({ reviewId }) => {
     };
 
     return (
-        <div className='delete-review-modal-container'>
-            <div className='delete-review-modal-content'>
+        <div className="login-form-modal-container">
+            <div className="login-form-modal-content">
                 <span className="close" onClick={closeModal}>&times;</span>
                 <h2>Remove Review</h2>
                 <div className='delete-review-buttons'>
-                    <button type="button" onClick={closeModal}>Keep Review</button>
-                    <button type="button" onClick={handleDelete}>Remove Review</button>
+                    <button type="button" onClick={closeModal} className="login-modal-login button">Keep Review</button>
+                    <button type="button" onClick={handleDelete} className="login-modal-login button demo">Remove Review</button>
                 </div>
             </div>
         </div>
