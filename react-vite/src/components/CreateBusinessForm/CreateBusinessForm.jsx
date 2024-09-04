@@ -9,7 +9,6 @@ const CreateBusinessForm = () => {
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
     const [postalCode, setPostalCode] = useState("");
     const [lat, setLat] = useState("");
     const [lng, setLng] = useState("");
@@ -18,6 +17,7 @@ const CreateBusinessForm = () => {
     const [website, setWebsite] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
+    const country = 'USA'
 
     const [validationErrors, setValidationErrors] = useState({});
 
@@ -40,7 +40,6 @@ const CreateBusinessForm = () => {
             setAddress("");
             setCity("");
             setState("");
-            setCountry("");
             setPostalCode("");
             setLat("");
             setLng("");
@@ -56,14 +55,22 @@ const CreateBusinessForm = () => {
         };
     }, []);
 
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const errors = {};
 
+        // Regex for validating business name: allows a-z, A-Z, 0-9, and '
+        const nameRegex = /^[a-zA-Z0-9' ]+$/;
+
         if (!name) {
             errors.name = "Name is required";
+        } else if (!nameRegex.test(name)) {
+            errors.name = "Name can only contain letters (a-z), numbers (0-9), and apostrophes (')";
         }
+
         if (!address) {
             errors.address = "Address is required";
         }
@@ -73,16 +80,14 @@ const CreateBusinessForm = () => {
         if (!state) {
             errors.state = "State is required";
         }
-        if (!country) {
-            errors.country = "Country is required";
-        }
+
         if (description.length < 30) {
             errors.description = "Description needs a minimum of 30 characters";
         }
-        if (!postalCode || !/^\d{5}$/.test(postalCode)) {
-            errors.postalCode =
-                "Postal code must be exactly 5 digits and all numeric";
-        }
+        if (postalCode.length > 5) errors.postalCode = 'Please enter up to 5 digits only'
+
+
+
         if (!lat || isNaN(lat) || lat < -90 || lat > 90) {
             errors.lat = "Lat must be between -90 and 90.";
         }
@@ -92,9 +97,10 @@ const CreateBusinessForm = () => {
         if (!category) {
             errors.category = "Please select a category";
         }
-        if (!phoneNumber || !/^\d{10}$/.test(phoneNumber)) {
-            errors.phoneNumber = "Phone number must be exactly 10 digits";
+        if (!phoneNumber) {
+            errors.phoneNumber = "Phone number is required";
         }
+        if (phoneNumber.length > 10) errors.phoneNumber = 'Phone number must be exactly 10 digits.'
         if (!website) {
             errors.website = "Please provide a URL to your business.";
         }
@@ -133,6 +139,41 @@ const CreateBusinessForm = () => {
         }
     };
 
+    const toTitleCase = (str) => {
+        return str
+            .toLowerCase()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    };
+    console.log('country', country)
+
+    const handleNameChange = (e) => {
+        const value = e.target.value;
+        // Format the value and limit to 30 characters
+        if (value.length <= 30) {
+            setName(toTitleCase(value));
+        }
+    };
+
+       // Handler for address change
+       const handleAddressChange = (e) => {
+        const value = e.target.value;
+        // Format the value and limit to 50 characters
+        if (value.length <= 50) {
+            setAddress(toTitleCase(value));
+        }
+    };
+
+    // Handler for city change
+    const handleCityChange = (e) => {
+        const value = e.target.value;
+        // Format the value and limit to 45 characters
+        if (value.length <= 45) {
+            setCity(toTitleCase(value));
+        }
+    };
+
     return (
         <div className="create-businesss-page">
             <form
@@ -157,13 +198,15 @@ const CreateBusinessForm = () => {
                                 {validationErrors.name}
                             </span>
                         )}
+                        {name.length >= 30 && <p style={{ color: 'gray'}}>You have reached the max length of 30 characters</p>}
                     </div>
                     <input
                         type="text"
                         name="business-name"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={handleNameChange}
                         placeholder="Business Name"
+                        maxLength={30}
                     />
 
                     <div className="label-container">
@@ -173,13 +216,15 @@ const CreateBusinessForm = () => {
                                 {validationErrors.address}
                             </span>
                         )}
+                        {address.length >= 50 && <p style={{ color: 'gray'}}>You have reached the max length of 50 characters</p>}
                     </div>
                     <input
                         type="text"
                         name="address"
                         value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        onChange={handleAddressChange}
                         placeholder="Address"
+                        maxLength={50}
                     />
 
                     <div className="label-container">
@@ -189,13 +234,16 @@ const CreateBusinessForm = () => {
                                 {validationErrors.city}
                             </span>
                         )}
+                        {city.length >= 45 && <p style={{ color: 'gray'}}>You have reached the max length of 45 characters</p>}
+
                     </div>
                     <input
                         type="text"
                         name="city"
                         value={city}
-                        onChange={(e) => setCity(e.target.value)}
+                        onChange={handleCityChange}
                         placeholder="City (San Francisco)"
+                        maxLength={45}
                     />
 
                     <div className="label-container">
@@ -210,8 +258,9 @@ const CreateBusinessForm = () => {
                         type="text"
                         name="state"
                         value={state}
-                        onChange={(e) => setState(e.target.value)}
+                        onChange={(e) => setState(e.target.value.toUpperCase())}
                         placeholder="State (CA)"
+                        maxLength={2}
                     />
 
                     <div className="label-container">
@@ -226,7 +275,8 @@ const CreateBusinessForm = () => {
                         type="text"
                         name="country"
                         value={country}
-                        onChange={(e) => setCountry(e.target.value)}
+                        disabled
+
                         placeholder="Country (USA)"
                     />
 
@@ -244,6 +294,8 @@ const CreateBusinessForm = () => {
                         value={postalCode}
                         onChange={(e) => setPostalCode(e.target.value)}
                         placeholder="Zip Code (5 digits)"
+                        maxLength={5}
+
                     />
 
                     <div className="label-container">
@@ -307,7 +359,7 @@ const CreateBusinessForm = () => {
                         )}
                     </div>
                     <input
-                        type="text"
+                        type="number"
                         name="phone-number"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
@@ -322,12 +374,14 @@ const CreateBusinessForm = () => {
                             </span>
                         )}
                     </div>
+                    {website.length > 50 && <p>You have reached the max of 50 characters</p>}
                     <input
                         type="text"
                         name="website"
                         value={website}
                         onChange={(e) => setWebsite(e.target.value)}
                         placeholder="Website URL"
+                        maxLength={50}
                     />
 
                     <div className="label-container">
@@ -338,12 +392,14 @@ const CreateBusinessForm = () => {
                             </div>
                         )}
                     </div>
+                    {website.length > 450 && <p>You have reached the max of 450 characters</p>}
                     <textarea
                         name="description"
                         rows="5"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Description (Min. 30 characters)"
+                        maxLength={450}
                     ></textarea>
 
                     <div className="label-container">

@@ -1,7 +1,6 @@
-/* Container for the form */
 .create-businesss-page {
     display: flex;
-    justify-content: center; /* Center the form horizontally */
+    justify-content: center;
     padding: 20px;
 
 }
@@ -14,12 +13,12 @@
 
 .create-business-form {
     width: 100%;
-    max-width: 800px; /* Adjust as needed */
+    max-width: 800px;
     box-sizing: border-box;
 
 }
 
-/* Flexbox container for fields */
+
 .field-group {
     display: flex;
     flex-wrap: wrap;
@@ -49,7 +48,7 @@
 
 /* Larger textarea height */
 .create-business-form textarea {
-    height: 100px;
+    height: 200px;
 }
 
 /* Button styling */
@@ -62,7 +61,7 @@
     font-size: 16px;
     height: 45px;
     margin-top: 10px;
-    cursor: pointer; /* Indicates a clickable button */
+    cursor: pointer;
 
 }
 
