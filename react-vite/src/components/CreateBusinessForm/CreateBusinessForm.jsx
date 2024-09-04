@@ -146,7 +146,6 @@ const CreateBusinessForm = () => {
             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
             .join(' ');
     };
-    console.log('country', country)
 
     const handleNameChange = (e) => {
         const value = e.target.value;
@@ -276,8 +275,6 @@ const CreateBusinessForm = () => {
                         name="country"
                         value={country}
                         disabled
-
-                        placeholder="Country (USA)"
                     />
 
                     <div className="label-container">

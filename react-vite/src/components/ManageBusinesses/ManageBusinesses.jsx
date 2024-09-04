@@ -136,7 +136,7 @@ const ManageBusinesses = () => {
                 {businesses.map(
                     ({
                         id,
-                        BusinessImages,
+                        images,
                         name,
                         city,
                         state,
@@ -145,8 +145,8 @@ const ManageBusinesses = () => {
                         avgRating,
                     }) => {
                         const imageUrl =
-                            BusinessImages && BusinessImages.length > 0
-                                ? BusinessImages[0].url
+                        images && images.length > 0
+                                ? images[0].url
                                 : defaultimage;
 
                         return (
