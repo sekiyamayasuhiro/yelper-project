@@ -371,7 +371,7 @@ const CreateBusinessForm = () => {
                             </span>
                         )}
                     </div>
-                    {website.length > 50 && <p>You have reached the max of 50 characters</p>}
+                    {website.length > 49 && <p>You have reached the max of 50 characters</p>}
                     <input
                         type="text"
                         name="website"
@@ -389,7 +389,7 @@ const CreateBusinessForm = () => {
                             </div>
                         )}
                     </div>
-                    {website.length > 450 && <p>You have reached the max of 450 characters</p>}
+                    {description.length > 449 && <p>You have reached the max of 450 characters</p>}
                     <textarea
                         name="description"
                         rows="5"

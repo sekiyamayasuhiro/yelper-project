@@ -1,20 +1,30 @@
 import { FaStar } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessesByCurrentUser } from "../../redux/business.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteBusinessModal from "../DeleteBusinessModal";
 import "./ManageBusinesses.css";
+import BusinessCard from "../BusinessCard/BusinessCard.jsx";
+import { useState } from "react";
+import '../ManageReviews/ManageReviews.css'
 
 const ManageBusinesses = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     // const sessionUser = useSelector((state) => state.session.user);
     const businesses = useSelector((state) =>
         Object.values(state.businessState)
             ? Object.values(state.businessState)
             : []
     );
+
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
     // const reviews = useSelector((state) =>
     //     Object.values(state?.reviewState)
     //         ? Object.values(state?.reviewState)
@@ -30,7 +40,7 @@ const ManageBusinesses = () => {
     const defaultimage =
         "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
 
-    console.log("LOOK HERE =>>>>:", businesses);
+
 
     return (
         // <div>
@@ -124,15 +134,50 @@ const ManageBusinesses = () => {
         //         )}
         //     </div>
         // </div>
-        <div>
-            <div className="manage-businesses-header">
-                <h1>Manage Your Businesses</h1>
-                <Link to="/businesses/new">
-                    <button>Create a New Business</button>
+        <div className="manage-business-container">
+                            <Link to="/businesses/new">
+                    <button className="manage-business-create-business">Create a New Business</button>
                 </Link>
+            <div className="manage-businesses-header">
+
+                <h1>Manage Your Businesses</h1>
+
+            </div>
+            <div className="business-list">
+                {businesses.map((business) => (
+                    <div className="manage-business-item" >
+
+
+
+                    <div ><BusinessCard key={business.id} business={business}/></div>
+
+<div className="review-footer">
+                        <div className="menu-container">
+                            <button className="menu-button" onClick={toggleMenu}>...</button>
+                            {menuOpen && (
+                                <div className="menu-dropdown">
+                                    <button onClick={() => navigate(`/businesses/${business.id}/edit`)}>
+                                     Update Business
+                                    </button>
+                                    <button>
+                                        <OpenModalMenuItem
+                                            itemText="Delete Business"
+                                            modalComponent={<DeleteBusinessModal businessId={business.id} />}
+                                        />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    </div>
+
+
+                ))}
+
             </div>
 
-            <div className="business-container-manage-businesses">
+
+            {/* <div className="business-container-manage-businesses">
                 {businesses.map(
                     ({
                         id,
@@ -174,6 +219,10 @@ const ManageBusinesses = () => {
                                         price
                                     )} - ${category}`}</div>
                                 </Link>
+
+
+
+
                                 <div>
                                     <Link to={`/businesses/${id}/edit`}>
                                         <button>Update</button>
@@ -190,10 +239,11 @@ const ManageBusinesses = () => {
                                     </button>
                                 </div>
                             </div>
+
                         );
                     }
                 )}
-            </div>
+            </div> */}
         </div>
     );
 };

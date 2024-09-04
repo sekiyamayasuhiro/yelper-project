@@ -24,7 +24,7 @@ const BusinessCard = ({ business }) => {
 
 
     return (
-        <div className="business-card" onClick={handleClick}>
+        <div className="business-card no-hover" onClick={handleClick}>
                 <div className="business-card-content">
                     <div className="business-image">
                         <img src={imageUrl} alt={name} />
