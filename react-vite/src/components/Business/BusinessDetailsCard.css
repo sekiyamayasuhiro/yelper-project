@@ -1,8 +1,7 @@
 /* Container for the card */
 .businessdetails-card-container {
     width: 100%;
-    max-width: 350px;
-    min-width: 350px;
+    max-width: 550px;
     margin: 20px auto;
     border-radius: 8px;
     padding: 20px;
@@ -110,6 +109,7 @@
 .icon {
     margin-left: 10px;
     color: #6c757d; /* Icon color */
+    font-size: large;
 }
 
 .business-info-item .icon {
