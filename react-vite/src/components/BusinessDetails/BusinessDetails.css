@@ -198,6 +198,23 @@
     margin-bottom: 50px;
 }
 
+.about-details-card {
+    display: flex;
+    gap: 1rem;
+    max-width: 100%; /* Ensure it doesn't overflow horizontally */
+    box-sizing: border-box; /* Include padding and borders in the width */
+    padding: 1rem;
+
+}
+
+.business-details-desc {
+    max-width: 50%;
+    overflow-wrap: break-word; /* Wrap long text inside the description */
+    word-wrap: break-word;
+    white-space: pre-line; /* Preserve line breaks in the description */
+    box-sizing: border-box;
+}
+
 
 
 /* Media Queries */

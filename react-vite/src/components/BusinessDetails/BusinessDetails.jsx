@@ -127,9 +127,9 @@ const BusinessDetails = () => {
                 </div>
 
                 <div className="about-details-card">
-                    <div>
+                    <div className="business-details-desc">
                         <h2>About the Business</h2>
-                        <p className="business-details-desc">{business.description}</p>
+                        <p >{business.description}</p>
                     </div>
                     <BusinessDetailsCard business={business} />
                 </div>
