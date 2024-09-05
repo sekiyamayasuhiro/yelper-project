@@ -29,7 +29,7 @@ const BusinessDetails = () => {
 
     useEffect(() => {
         dispatch(getBusinessDetailsById(businessId)).then((data) => {
-            const userReviews = data.reviews.filter(review => review.user_id === userId);
+            const userReviews = data?.reviews.filter(review => review.user_id === userId);
             if (userReviews && userReviews.length > 0) setHasPostedReview(true);
         });
         setIsLoaded(true);
