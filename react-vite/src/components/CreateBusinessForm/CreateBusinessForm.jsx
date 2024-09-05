@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewBusiness } from "../../redux/business.js";
+import './CreateBusinessForm.css'
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.jsx";
 
 const CreateBusinessForm = () => {
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
     const [postalCode, setPostalCode] = useState("");
     const [lat, setLat] = useState("");
     const [lng, setLng] = useState("");
@@ -17,6 +18,8 @@ const CreateBusinessForm = () => {
     const [website, setWebsite] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
+    const country = 'USA'
+    const [loading, setLoading] = useState(false);
 
     const [validationErrors, setValidationErrors] = useState({});
 
@@ -39,7 +42,6 @@ const CreateBusinessForm = () => {
             setAddress("");
             setCity("");
             setState("");
-            setCountry("");
             setPostalCode("");
             setLat("");
             setLng("");
@@ -55,14 +57,24 @@ const CreateBusinessForm = () => {
         };
     }, []);
 
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setLoading(true); // Start loading
+
         const errors = {};
+
+        // Regex for validating business name: allows a-z, A-Z, 0-9, and '
+        const nameRegex = /^[a-zA-Z0-9' ]+$/;
 
         if (!name) {
             errors.name = "Name is required";
+        } else if (!nameRegex.test(name)) {
+            errors.name = "Name can only contain letters (a-z), numbers (0-9), and apostrophes (')";
         }
+
         if (!address) {
             errors.address = "Address is required";
         }
@@ -72,16 +84,14 @@ const CreateBusinessForm = () => {
         if (!state) {
             errors.state = "State is required";
         }
-        if (!country) {
-            errors.country = "Country is required";
-        }
+
         if (description.length < 30) {
             errors.description = "Description needs a minimum of 30 characters";
         }
-        if (!postalCode || !/^\d{5}$/.test(postalCode)) {
-            errors.postalCode =
-                "Postal code must be exactly 5 digits and all numeric";
-        }
+        if (postalCode.length > 5) errors.postalCode = 'Please enter up to 5 digits only'
+
+
+
         if (!lat || isNaN(lat) || lat < -90 || lat > 90) {
             errors.lat = "Lat must be between -90 and 90.";
         }
@@ -91,9 +101,10 @@ const CreateBusinessForm = () => {
         if (!category) {
             errors.category = "Please select a category";
         }
-        if (!phoneNumber || !/^\d{10}$/.test(phoneNumber)) {
-            errors.phoneNumber = "Phone number must be exactly 10 digits";
+        if (!phoneNumber) {
+            errors.phoneNumber = "Phone number is required";
         }
+        if (phoneNumber.length > 10) errors.phoneNumber = 'Phone number must be exactly 10 digits.'
         if (!website) {
             errors.website = "Please provide a URL to your business.";
         }
@@ -103,6 +114,7 @@ const CreateBusinessForm = () => {
 
         if (Object.values(errors).length) {
             setValidationErrors(errors);
+            setLoading(false);
             return;
         }
 
@@ -128,9 +140,46 @@ const CreateBusinessForm = () => {
         );
 
         if (newBusiness) {
+            setLoading(false);
             navigate(`/businesses/${newBusiness.id}`);
         }
     };
+
+    const toTitleCase = (str) => {
+        return str
+            .toLowerCase()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    };
+
+    const handleNameChange = (e) => {
+        const value = e.target.value;
+        // Format the value and limit to 30 characters
+        if (value.length <= 30) {
+            setName(toTitleCase(value));
+        }
+    };
+
+       // Handler for address change
+       const handleAddressChange = (e) => {
+        const value = e.target.value;
+        // Format the value and limit to 50 characters
+        if (value.length <= 50) {
+            setAddress(toTitleCase(value));
+        }
+    };
+
+    // Handler for city change
+    const handleCityChange = (e) => {
+        const value = e.target.value;
+        // Format the value and limit to 45 characters
+        if (value.length <= 45) {
+            setCity(toTitleCase(value));
+        }
+    };
+
+    if (loading) return <LoadingSpinner />
 
     return (
         <div className="create-businesss-page">
@@ -141,63 +190,71 @@ const CreateBusinessForm = () => {
             >
                 <h1>Create a New Business</h1>
 
-                <section>
+
                     <h2>Please provide the details of your business.</h2>
                     <h3>
                         Reminder: The more accurate and detailed you are will
                         help future customers!
                     </h3>
+                    <div className="form-fields">
 
                     <div className="label-container">
-                        <label>Business Name</label>
+
                         {validationErrors.name && (
                             <span className="errors">
                                 {validationErrors.name}
                             </span>
                         )}
+                        {name.length >= 30 && <p style={{ color: 'gray'}}>You have reached the max length of 30 characters</p>}
                     </div>
                     <input
                         type="text"
                         name="business-name"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={handleNameChange}
                         placeholder="Business Name"
+                        maxLength={30}
                     />
 
                     <div className="label-container">
-                        <label>Address</label>
+
                         {validationErrors.address && (
                             <span className="errors">
                                 {validationErrors.address}
                             </span>
                         )}
+                        {address.length >= 50 && <p style={{ color: 'gray'}}>You have reached the max length of 50 characters</p>}
                     </div>
                     <input
                         type="text"
                         name="address"
                         value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        onChange={handleAddressChange}
                         placeholder="Address"
+                        maxLength={50}
                     />
 
                     <div className="label-container">
-                        <label>City</label>
+
                         {validationErrors.city && (
                             <span className="errors">
                                 {validationErrors.city}
                             </span>
                         )}
+                        {city.length >= 45 && <p style={{ color: 'gray'}}>You have reached the max length of 45 characters</p>}
+
                     </div>
                     <input
                         type="text"
                         name="city"
                         value={city}
-                        onChange={(e) => setCity(e.target.value)}
+                        onChange={handleCityChange}
                         placeholder="City (San Francisco)"
+                        maxLength={45}
                     />
 
                     <div className="label-container">
-                        <label>State</label>
+
                         {validationErrors.state && (
                             <span className="errors">
                                 {validationErrors.state}
@@ -208,12 +265,13 @@ const CreateBusinessForm = () => {
                         type="text"
                         name="state"
                         value={state}
-                        onChange={(e) => setState(e.target.value)}
+                        onChange={(e) => setState(e.target.value.toUpperCase())}
                         placeholder="State (CA)"
+                        maxLength={2}
                     />
 
                     <div className="label-container">
-                        <label>Country</label>
+
                         {validationErrors.country && (
                             <span className="errors">
                                 {validationErrors.country}
@@ -224,12 +282,11 @@ const CreateBusinessForm = () => {
                         type="text"
                         name="country"
                         value={country}
-                        onChange={(e) => setCountry(e.target.value)}
-                        placeholder="Country (USA)"
+                        disabled
                     />
 
                     <div className="label-container">
-                        <label>Postal Code</label>
+
                         {validationErrors.postalCode && (
                             <span className="errors">
                                 {validationErrors.postalCode}
@@ -241,11 +298,13 @@ const CreateBusinessForm = () => {
                         name="postal-code"
                         value={postalCode}
                         onChange={(e) => setPostalCode(e.target.value)}
-                        placeholder="Postal Code (5 digits)"
+                        placeholder="Zip Code (5 digits)"
+                        maxLength={5}
+
                     />
 
                     <div className="label-container">
-                        <label>Latitude</label>
+
                         {validationErrors.lat && (
                             <span className="errors">
                                 {validationErrors.lat}
@@ -261,7 +320,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>Longitude</label>
+
                         {validationErrors.lng && (
                             <span className="errors">
                                 {validationErrors.lng}
@@ -277,7 +336,7 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>Category</label>
+
                         {validationErrors.category && (
                             <span className="errors">
                                 {validationErrors.category}
@@ -297,7 +356,7 @@ const CreateBusinessForm = () => {
                     </select>
 
                     <div className="label-container">
-                        <label>Phone Number</label>
+
                         {validationErrors.phoneNumber && (
                             <span className="errors">
                                 {validationErrors.phoneNumber}
@@ -305,7 +364,7 @@ const CreateBusinessForm = () => {
                         )}
                     </div>
                     <input
-                        type="text"
+                        type="number"
                         name="phone-number"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
@@ -313,39 +372,43 @@ const CreateBusinessForm = () => {
                     />
 
                     <div className="label-container">
-                        <label>Website</label>
+
                         {validationErrors.website && (
                             <span className="errors">
                                 {validationErrors.website}
                             </span>
                         )}
                     </div>
+                    {website.length > 49 && <p>You have reached the max of 50 characters</p>}
                     <input
                         type="text"
                         name="website"
                         value={website}
                         onChange={(e) => setWebsite(e.target.value)}
                         placeholder="Website URL"
+                        maxLength={50}
                     />
 
                     <div className="label-container">
-                        <label>Description</label>
+
                         {validationErrors.description && (
                             <div className="errors">
                                 {validationErrors.description}
                             </div>
                         )}
                     </div>
+                    {description.length > 449 && <p>You have reached the max of 450 characters</p>}
                     <textarea
                         name="description"
                         rows="5"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Description (Min. 30 characters)"
+                        maxLength={450}
                     ></textarea>
 
                     <div className="label-container">
-                        <label>Price</label>
+
                         {validationErrors.price && (
                             <div className="errors">
                                 {validationErrors.price}
@@ -363,11 +426,12 @@ const CreateBusinessForm = () => {
                         <option value="3">$$$</option>
                         <option value="4">$$$$</option>
                     </select>
-                </section>
-
-                <div>
+                    <div>
                     <button type="submit">Create Business</button>
                 </div>
+                    </div>
+
+
             </form>
         </div>
     );

@@ -5,6 +5,7 @@ import { getBusinessDetailsById } from '../../redux/business'
 import { GoStarFill } from "react-icons/go";
 import { createNewReview, getReviewsByCurrentUser, updateReview } from "../../redux/review";
 import './ReviewForm.css'
+import { LoadingSpinner } from "../LoadingSpinner";
 
 export default function ReviewForm() {
     const { businessId } = useParams()
@@ -54,6 +55,9 @@ export default function ReviewForm() {
     const handleSubmit = async () => {
         setSubmitted(true)
         if (Object.keys(validatonErrors)?.length !== 0) return
+
+        setIsLoaded(true);
+
         const newReview = {
             user_id: userId,
             business_id: businessId,
@@ -61,6 +65,7 @@ export default function ReviewForm() {
             review_text: reviewText
         }
         await dispatch(createNewReview(newReview))
+        setIsLoaded(false);
         setIsEditing(false)
         navigate('/review_share', { state: { reviewPosted: true } })
     }
@@ -75,8 +80,11 @@ export default function ReviewForm() {
             review_text: reviewText
         }
         await dispatch(updateReview(updatedReview))
+        setIsLoaded(false);
         navigate('/review_share', { state: { reviewPosted: true } })
     }
+
+    if (!isLoaded) return <LoadingSpinner />
 
 
     return (

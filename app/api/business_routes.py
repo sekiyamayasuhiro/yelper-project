@@ -16,14 +16,13 @@ def get_all_businesses():
 
 @business_routes.route('/<int:business_id>')
 def get_business(business_id):
-    data = db.session.query(Business).join(Review).join(Image).filter(Business.id == business_id == Review.business_id == Image.business_id).all()
 
-    if not data:
+    business = Business.query.get(business_id)
+
+    if not business:
         return jsonify({'message': 'Business not found'}), 404
 
-    business = [{**business.to_dict()} for business in data]
-
-    return business[0]
+    return jsonify(business.to_dict())
 
 
 # Delete business by id

@@ -22,9 +22,13 @@ const BusinessDetailsCard = ({ business }) => {
                 <div className="business-info-item">
                      <div>
                         <p className='get-direction' onClick={() => alert('Feature coming soon')}>Get Direction</p>
-                        <p>{`${address} ${city}, ${state}, ${postal_code}`}</p>
+                        <p className='business-details-card-address'>
+                        {address} <br />
+                        {`${city}, ${state}`} <br />
+                            {postal_code}
+                            </p>
                      </div>
-                     <MdDirections style={{ fontSize: '30px' }} />
+                     <MdDirections style={{ fontSize: '26px' }} />
                 </div>
                 <button className="edit-button" onClick={() => alert('Feature coming soon')}>
                     <FaEdit className="icon" />

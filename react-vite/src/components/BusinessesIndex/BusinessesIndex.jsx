@@ -4,6 +4,7 @@ import { getAllBusinesses } from "../../redux/business";
 import BusinessCard from "../BusinessCard";
 import MapBusinessIndex from "../MapBusinessIndex";
 import "./BusinessIndex.css";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 const BusinessesIndex = () => {
     const dispatch = useDispatch();
@@ -38,6 +39,8 @@ const BusinessesIndex = () => {
     const clear = () => {
         setSelectedPrice(null)
     }
+
+    if (!isLoaded) return <LoadingSpinner />
 
     return (
         <div className="business-index-container">

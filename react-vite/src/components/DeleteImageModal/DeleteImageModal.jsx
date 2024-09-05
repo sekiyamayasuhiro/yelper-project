@@ -14,11 +14,17 @@ const DeleteImageModal = ({ imageId }) => {
     };
 
     return (
-        <div className="delete-image-modal">
-            <h1>Confirm Delete</h1>
-            <p>Are you sure you want to delete this image?</p>
-            <button type="button" className="delete-image" onClick={handleDelete}>Yes (Delete Image)</button>
-            <button type="button" className="keep-image">No (Keep Image)</button>
+        <div className="login-form-modal-container">
+            <div className="login-form-modal-content">
+                <span className="close" onClick={closeModal}>&times;</span>
+                <h2>Delete Image</h2>
+                <p>Are you sure you want to delete this image?</p>
+                <div className='delete-review-buttons'>
+                <button type="button" className="login-modal-login button" onClick={handleDelete}>Yes (Delete Image)</button>
+                <button type="button" className="login-modal-login button demo" onClick={closeModal}>No (Keep Image)</button>
+            </div>
+            </div>
+
         </div>
     );
 };

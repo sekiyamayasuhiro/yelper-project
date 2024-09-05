@@ -7,11 +7,13 @@ import StarRating from "../Reviews/StarRating.jsx";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import './ManageReviews.css';
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.jsx";
 
 const ManageReviews = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false)
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -23,6 +25,7 @@ const ManageReviews = () => {
 
     useEffect(() => {
         dispatch(getReviewsByCurrentUser());
+        setIsLoaded(true)
     }, [dispatch]);
 
     const formatDate = (dateString) => {
@@ -30,6 +33,8 @@ const ManageReviews = () => {
         const options = { year: "numeric", month: "long", day: 'numeric' };
         return date.toLocaleDateString("en-US", options);
     };
+
+    if (!isLoaded) return <LoadingSpinner />
 
     return (
         <div className="manage-reviews-container">

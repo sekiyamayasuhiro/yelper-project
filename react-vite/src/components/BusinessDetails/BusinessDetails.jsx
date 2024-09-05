@@ -11,7 +11,9 @@ import OverallRating from "../Reviews/OverallRating.jsx";
 import ReviewList from "../Reviews/ReviewList.jsx";
 import { FaRegStar } from "react-icons/fa6";
 import BusinessDetailsCard from "../Business/BusinessDetailsCard.jsx";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.jsx";
 import './BusinessDetails.css';
+
 
 const BusinessDetails = () => {
     const { businessId } = useParams();
@@ -29,14 +31,15 @@ const BusinessDetails = () => {
 
     useEffect(() => {
         dispatch(getBusinessDetailsById(businessId)).then((data) => {
-            const userReviews = data.reviews.filter(review => review.user_id === userId);
+
+            const userReviews = data?.reviews.filter(review => review.user_id === userId);
             if (userReviews && userReviews.length > 0) setHasPostedReview(true);
         });
         setIsLoaded(true);
     }, [dispatch, businessId, userId]);
 
     if (!isLoaded || !business) {
-        return <div>Loading...</div>;
+        return <LoadingSpinner />
     }
 
     const priceString = "$".repeat(business.price);
@@ -84,12 +87,21 @@ const BusinessDetails = () => {
                         {`${priceString} · ${business.category}`}
                     </div>
                     <div className="business-see-more-images-button">
-                        <button>
-                            <OpenModalMenuItem
-                                itemText="See all photos"
-                                modalComponent={<ViewAllImagesModal businessId={businessId} />}
-                            />
-                        </button>
+                        {business.images && business.images.length > 0 && (
+                                                    <button>
+                                                    <OpenModalMenuItem
+                                                        itemText="See all photos"
+                                                        modalComponent={<ViewAllImagesModal businessId={businessId} />}
+                                                    />
+                                                </button>
+                        )}
+                        {isLoggedIn && business.images && business.images.length === 0 &&                                     <button>
+                                        <OpenModalMenuItem
+                                            itemText='Add Photo'
+                                            modalComponent={<UploadImage businessId={businessId} />}
+                                        />
+                                    </button>}
+
                     </div>
                 </div>
             </div>
@@ -127,9 +139,9 @@ const BusinessDetails = () => {
                 </div>
 
                 <div className="about-details-card">
-                    <div>
+                    <div className="business-details-desc">
                         <h2>About the Business</h2>
-                        <p className="business-details-desc">{business.description}</p>
+                        <p >{business.description}</p>
                     </div>
                     <BusinessDetailsCard business={business} />
                 </div>

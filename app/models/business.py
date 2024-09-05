@@ -12,17 +12,17 @@ class Business(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     name = db.Column(db.String(30), nullable=False)
-    address = db.Column(db.String, nullable=False)
-    city = db.Column(db.String, nullable=False)
-    state = db.Column(db.String, nullable=False)
+    address = db.Column(db.String(50), nullable=False)
+    city = db.Column(db.String(45), nullable=False)
+    state = db.Column(db.String(2), nullable=False)
     country = db.Column(db.String, nullable=False)
     postal_code = db.Column(db.Integer, nullable=False)
     lat = db.Column(db.Float, nullable=False)
     lng = db.Column(db.Float, nullable=False)
     category = db.Column(db.String, nullable=False)
     phone_number = db.Column(db.BigInteger, nullable=False)
-    website = db.Column(db.String, nullable=False)
-    description = db.Column(db.String, nullable=False)
+    website = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.String(450), nullable=False)
     price = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp())
     updated_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
@@ -58,8 +58,8 @@ class Business(db.Model):
             'price': self.price,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-            "images": [image.to_dict() for image in self.images],
-            "reviews": [review.to_dict() for review in self.reviews],
+            "images": [image.to_dict() for image in self.images] if self.images else [],
+            "reviews": [review.to_dict() for review in self.reviews] if self.reviews else [],
             "avgRating": self.avg_rating(),
             'numReviews': self.numReviews(),
             'firstReviewText': first_review_text
