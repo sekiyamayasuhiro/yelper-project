@@ -21,7 +21,7 @@ export default function ReviewShare() {
     return (
         <div>
             <h2>Your review is now live! 🎉</h2>
-            <p>Thank you for sharing your thoughts. In the meantime, spread the word and share your review with others!</p>
+            <h3>Thank you for sharing your thoughts.</h3>
         </div>
     )
 }

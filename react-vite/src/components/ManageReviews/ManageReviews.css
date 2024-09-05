@@ -2,6 +2,20 @@
   padding: 20px;
 }
 
+.manage-review-container .review-container-right {
+  width: 80%;
+
+}
+
+.review-container-right {
+  overflow: hidden;
+}
+
+.review-container-right p {
+  word-wrap: break-word;
+
+}
+
 .manage-review-container {
   display: flex;
   justify-content: space-between;
