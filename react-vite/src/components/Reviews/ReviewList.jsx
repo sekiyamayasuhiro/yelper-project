@@ -8,7 +8,6 @@ export default function ReviewList ({ avgRating, reviews }) {
     const [filteredReviews, setFilteredReviews] = useState(reviews)
     const [sort, setSort] = useState('')
     const [rating, setRating] = useState(0)
-    console.log(reviews)
 
     useEffect(() => {
         let sortedReviews = [...reviews]
