@@ -14,11 +14,13 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllReviews } from "../../redux/review";
 import { ReviewCard } from "../Reviews";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 export default function HomePage() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [reviews, setReviews] = useState([])
+    const [loading, setLoading] = useState(true);
 
     const categoryIcons = {
         'Restaurant': <FaUtensils />,
@@ -35,12 +37,15 @@ export default function HomePage() {
         dispatch(getAllReviews()).then(res => {
             const sortedReviews = res.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
             setReviews(sortedReviews);
+            setLoading(false)
         })
     }, [dispatch])
 
     const handleClick = (cat) => {
         navigate(`/businesses?category=${cat}`)
     }
+
+    if (loading) return <LoadingSpinner />
 
     return (
         <div className="homepage-container">

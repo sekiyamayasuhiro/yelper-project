@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewBusiness } from "../../redux/business.js";
 import './CreateBusinessForm.css'
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.jsx";
 
 const CreateBusinessForm = () => {
     const [name, setName] = useState("");
@@ -18,6 +19,7 @@ const CreateBusinessForm = () => {
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
     const country = 'USA'
+    const [loading, setLoading] = useState(false);
 
     const [validationErrors, setValidationErrors] = useState({});
 
@@ -59,6 +61,8 @@ const CreateBusinessForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setLoading(true); // Start loading
 
         const errors = {};
 
@@ -110,6 +114,7 @@ const CreateBusinessForm = () => {
 
         if (Object.values(errors).length) {
             setValidationErrors(errors);
+            setLoading(false);
             return;
         }
 
@@ -135,6 +140,7 @@ const CreateBusinessForm = () => {
         );
 
         if (newBusiness) {
+            setLoading(false);
             navigate(`/businesses/${newBusiness.id}`);
         }
     };
@@ -172,6 +178,8 @@ const CreateBusinessForm = () => {
             setCity(toTitleCase(value));
         }
     };
+
+    if (loading) return <LoadingSpinner />
 
     return (
         <div className="create-businesss-page">
