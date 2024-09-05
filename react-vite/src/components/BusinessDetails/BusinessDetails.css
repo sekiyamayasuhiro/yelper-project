@@ -122,6 +122,15 @@
     font-weight: 400;
     width: 200px;
     border: 1px solid lightgray;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.business-addition-buttons .business-details-review-button:hover {
+    background-color: red; /* Changes background color to red on hover */
+    border-color: red; /* Optional: match border color to background */
+    color: white; /* Changes text color to white on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add shadow effect */
 }
 
 
@@ -237,6 +246,43 @@
 
 .business-details-mid-left {
     margin-top:50px;
+}
+
+/* business-add-photo-button */
+.business-details-add-photo-button {
+    margin-right: 10px;
+}
+
+
+.add-phot-button {
+    background-color: white;
+    border: 1px solid lightgray;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: center;
+    font-weight: 550;
+
+}
+
+.add-phot-button:hover {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+}
+
+.add-phot-button .business-details-add-photo-button {
+    font-size: 20px;
+
+}
+
+.button-content {
+    display: flex;
+    align-items: center;
 }
 
 

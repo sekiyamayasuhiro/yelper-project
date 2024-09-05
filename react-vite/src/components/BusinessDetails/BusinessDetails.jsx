@@ -12,6 +12,7 @@ import ReviewList from "../Reviews/ReviewList.jsx";
 import { FaRegStar } from "react-icons/fa6";
 import BusinessDetailsCard from "../Business/BusinessDetailsCard.jsx";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.jsx";
+import { FiCamera } from "react-icons/fi";
 import './BusinessDetails.css';
 
 
@@ -108,35 +109,51 @@ const BusinessDetails = () => {
 
             <div className="business-details-mid">
                 <div className="business-details-mid-left">
-                    {!isOwner && (
-                        <div className="business-addition-buttons">
-                            <div className="business-write-a-review-button">
-                                <button
-                                    onClick={handleWriteReviewClick}
-                                    className="business-details-review-button">
-                                    {hasPostedReview ? (
-                                        <p><FaRegStar className="business-details-star-icon" /> Edit Review</p>
-                                    ) : (
-                                        <p><FaRegStar /> Write a Review</p>
-                                    )}
-                                </button>
-                            </div>
-
-                            <div className="business-add-photo-button">
-                                {!isLoggedIn ? (
-                                    <button onClick={handlePhotoUploadClick}>Add Photo</button>
-                                ) : (
-                                    <button>
-                                        <OpenModalMenuItem
-                                            itemText='Add Photo'
-                                            modalComponent={<UploadImage businessId={businessId} />}
-                                        />
-                                    </button>
-                                )}
-                            </div>
-                        </div>
+    {isOwner ? (
+        <div className="business-add-photo-button">
+            {!isLoggedIn ? (
+                <button onClick={handlePhotoUploadClick} >Add Photo</button>
+            ) : (
+                <button className="add-phot-button">
+                    <OpenModalMenuItem
+                        itemText={            <span className="button-content">
+                            <FiCamera className="business-details-add-photo-button" />
+                            <span>Add Photo</span>
+                        </span>}
+                        modalComponent={<UploadImage businessId={businessId} />}
+                    />
+                </button>
+            )}
+        </div>
+    ) : (
+        <div className="business-addition-buttons">
+            <div className="business-write-a-review-button">
+                <button
+                    onClick={handleWriteReviewClick}
+                    className="business-details-review-button">
+                    {hasPostedReview ? (
+                        <p><FaRegStar className="business-details-star-icon" /> Edit Review</p>
+                    ) : (
+                        <p><FaRegStar /> Write a Review</p>
                     )}
-                </div>
+                </button>
+            </div>
+
+            <div className="business-add-photo-button">
+                {!isLoggedIn ? (
+                    <button onClick={handlePhotoUploadClick} className="add-phot-button"> <FiCamera className="business-details-add-photo-button"/> Add Photo</button>
+                ) : (
+                    <button className="add-phot-button">
+                        <OpenModalMenuItem
+                            itemText='Add Photo'
+                            modalComponent={<UploadImage businessId={businessId} />}
+                        />
+                    </button>
+                )}
+            </div>
+        </div>
+    )}
+</div>
 
                 <div className="about-details-card">
                     <div className="business-details-desc">
