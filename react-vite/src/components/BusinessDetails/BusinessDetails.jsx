@@ -11,7 +11,9 @@ import OverallRating from "../Reviews/OverallRating.jsx";
 import ReviewList from "../Reviews/ReviewList.jsx";
 import { FaRegStar } from "react-icons/fa6";
 import BusinessDetailsCard from "../Business/BusinessDetailsCard.jsx";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.jsx";
 import './BusinessDetails.css';
+
 
 const BusinessDetails = () => {
     const { businessId } = useParams();
@@ -37,7 +39,7 @@ const BusinessDetails = () => {
     }, [dispatch, businessId, userId]);
 
     if (!isLoaded || !business) {
-        return <div>Loading...</div>;
+        return <LoadingSpinner />
     }
 
     const priceString = "$".repeat(business.price);
