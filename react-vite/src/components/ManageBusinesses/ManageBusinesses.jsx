@@ -1,14 +1,13 @@
-import { FaStar } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessesByCurrentUser } from "../../redux/business.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteBusinessModal from "../DeleteBusinessModal";
-import "./ManageBusinesses.css";
 import BusinessCard from "../BusinessCard/BusinessCard.jsx";
 import { useState } from "react";
 import '../ManageReviews/ManageReviews.css'
+import "./ManageBusinesses.css";
 
 const ManageBusinesses = () => {
     const dispatch = useDispatch();
@@ -37,8 +36,8 @@ const ManageBusinesses = () => {
         //ADD REVIEW DISPATCH
     }, [dispatch]);
 
-    const defaultimage =
-        "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
+    // const defaultimage =
+    //     "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
 
 
 
@@ -145,7 +144,7 @@ const ManageBusinesses = () => {
             </div>
             <div className="business-list">
                 {businesses.map((business) => (
-                    <div className="manage-business-item" >
+                    <div className="manage-business-item" key={business.id}>
 
 
 

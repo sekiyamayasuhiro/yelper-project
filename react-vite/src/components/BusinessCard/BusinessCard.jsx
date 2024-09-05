@@ -33,7 +33,7 @@ const BusinessCard = ({ business }) => {
                         <h2>{name}</h2>
                         <ReviewsSummary avgRating={avgRating} numReviews={numReviews}/>
                         <p className="price-category"><span className="business-card-cat">{category}</span> <span>{priceString}</span><span>•</span> {city}</p>
-                        {business.firstReviewText && <p>"{business.firstReviewText}" <span className="more" onClick={handleClick}>more</span></p>}
+                        {business.firstReviewText && <p>${`"${business.firstReviewText}"`} <span className="more" onClick={handleClick}>more</span></p>}
                     </div>
                 </div>
         </div>
