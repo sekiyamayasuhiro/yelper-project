@@ -21,6 +21,7 @@ export default function HomePage() {
     const dispatch = useDispatch()
     const [reviews, setReviews] = useState([])
     const [loading, setLoading] = useState(true);
+    console.log('reviews', reviews.length === 0)
 
     const categoryIcons = {
         'Restaurant': <FaUtensils />,
@@ -49,7 +50,7 @@ export default function HomePage() {
 
     return (
         <div className="homepage-container">
-            <div className="homepage-section">
+            {reviews.length > 0 && <div className="homepage-section">
                 <h2>Recent Activity</h2>
 
                 <div className="recent-activity-container">
@@ -57,8 +58,7 @@ export default function HomePage() {
                         <ReviewCard key={index} review={review}/>
                     ))}
                 </div>
-            </div>
-
+            </div>}
             <div className="homepage-section">
                 <h2>Categories</h2>
                 <div className="categories-container">
