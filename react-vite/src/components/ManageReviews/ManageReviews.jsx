@@ -40,7 +40,7 @@ const ManageReviews = () => {
         <div className="manage-reviews-container">
             <h3>Reviews</h3>
 
-            {reviews.map((review) => (
+            {reviews.length > 0 ? reviews.map((review) => (
                 <div key={review.id} className="manage-review-container">
                     <div className="review-container-right">
                         <div className="review-header">
@@ -81,7 +81,8 @@ const ManageReviews = () => {
                         </div>
                     </div>
                 </div>
-            ))}
+            )) : <div className="no-reviews-message"><h4>No reviews posted yet</h4></div>}
+
         </div>
     );
 };
