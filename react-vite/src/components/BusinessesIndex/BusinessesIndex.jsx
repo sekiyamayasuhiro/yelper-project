@@ -8,12 +8,16 @@ import { LoadingSpinner } from "../LoadingSpinner";
 
 const BusinessesIndex = () => {
     const dispatch = useDispatch();
+    const currentUserId = useSelector((state) => state.session.user?.id);
 
     // fixing the memo bug
     const originalBusinesses = useSelector((state) => state.businessState);
     const businesses = useMemo(() => {
-        return Object.values(originalBusinesses);
-    }, [originalBusinesses]);
+        // Filter businesses owned by someone other than the current user
+        return Object.values(originalBusinesses).filter(business =>
+            currentUserId === undefined || business.owner_id !== currentUserId
+        );
+    }, [originalBusinesses, currentUserId]);
 
     const [isLoaded, setIsLoaded] = useState(false);
 

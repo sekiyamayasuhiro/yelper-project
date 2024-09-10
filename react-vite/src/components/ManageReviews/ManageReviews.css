@@ -150,3 +150,13 @@
 .menu-dropdown button:hover {
   background-color: #ddd;
 }
+
+
+.no-reviews-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  color: gray;
+  text-align: center;
+}
