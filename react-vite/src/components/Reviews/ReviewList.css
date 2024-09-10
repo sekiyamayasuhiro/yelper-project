@@ -1,0 +1,98 @@
+.rating-date {
+    display: flex;
+    text-align: center;
+    gap: 10px;
+}
+
+.review-date {
+    color: grey;
+}
+
+.review-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.review-text {
+    color: rgb(46, 45, 45);
+}
+
+.review-header {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.review-header h4 {
+    font-size: 16px;
+    color: #2D2E2F;
+    font-weight: 600;
+}
+
+.review-header .user-icon {
+    font-size: 36px;
+    color: lightgray;
+}
+
+
+
+
+
+
+.sort-filter-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.sort-filter-container select {
+    appearance: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sort-filter-container select[name="Filter by rating"], select[name="Yelp Sort"] {
+    background-color: white; /* Default background color */
+    color: #2D2E2F;
+    font-size: 14px;
+}
+
+.sort-filter-container select[name="Filter by rating"]:focus {
+    background-color: #D9F6FD;
+    color: #007692;
+    border: #007692;
+    outline: none;
+}
+
+.sort-filter-container select[name="Yelp Sort"]:focus {
+    background-color: #D9F6FD;
+    color: #007692;
+    border: #007692;
+    outline: none;
+}
+
+.sort-filter-container select option {
+    background-color: white; /* Default background color */
+    color: #2D2E2F;
+    font-size: 14px;
+}
+
+/* Hover effect for options */
+.sort-filter-container select option:hover {
+    background-color: #f0f0f0; /* Light gray on hover */
+}
+
+
+
+.sort-filter-container select[name="Filter by rating"] option:hover {
+    background-color: #f0f0f0; /* Light gray on hover */
+}
+
+
+
+.sort-filter-container select[name="Yelp Sort"] option:hover {
+    background-color: #e0e0e0; /* Light gray on hover */
+}

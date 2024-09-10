@@ -1,0 +1,117 @@
+/* Container for the card */
+.businessdetails-card-container {
+    width: 100%;
+    max-width: 550px;
+    margin: 20px auto;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fff;
+    color: #2D2E2F;
+}
+
+
+/* Business Info Section */
+.business-info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid #e5e5e5;
+    padding: 20px;
+    padding-top: 60px;
+    border-radius: 8px;
+    color: #6E7072;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+.business-info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #e5e5e5;
+    padding-top: 10px;
+    overflow: hidden;
+}
+
+.business-info-item.top {
+    border-top: none;
+    margin-top: -50px;
+}
+
+.business-info-item.top a, .get-direction {
+    color: #027A97;
+    font-size: 0.95rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.business-info-item.top a:hover {
+    text-decoration: underline;
+}
+
+.get-direction:hover {
+    text-decoration: underline;
+
+}
+
+
+
+
+
+
+
+
+.business-info {
+    display: flex;
+    justify-content: space-between;
+
+
+}
+
+.business-directions {
+    display: flex;
+    flex-direction: column;
+}
+
+.business-info a,
+.business-directions a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.business-info a:hover,
+.business-directions a:hover {
+    text-decoration: underline;
+}
+
+/* Edit button */
+.edit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.edit-button .icon {
+    margin-right: 8px;
+}
+
+/* Icon Styles */
+.icon {
+    margin-left: 10px;
+    color: #6c757d; /* Icon color */
+    font-size: large;
+}
+
+.business-info-item .icon {
+    margin-left: 40px;
+}

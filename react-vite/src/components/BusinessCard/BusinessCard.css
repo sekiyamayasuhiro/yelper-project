@@ -1,0 +1,71 @@
+.business-card {
+    border-bottom: 1px solid #ddd;
+    padding: 16px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.business-card a {
+    text-decoration: none;
+}
+
+.business-card-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    border-radius: 10px;
+    color: #000;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+
+
+.business-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+
+.business-info {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: -30px;
+    align-items: flex-start;
+}
+
+
+
+.price-category {
+    font-size: 1rem;
+    color: #666;
+}
+
+.price-category span {
+    margin: 0 4px;
+}
+
+.business-card-cat {
+    background-color: #E0E0E0;
+    font-weight: bolder;
+    border-radius: 5px;
+    padding: 2px;
+    color: #6E7072;
+}
+
+.business-info p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #444;
+}
+
+
+.more {
+    color: #027A97;
+    font-weight: bolder;
+}
+
+.more:hover {
+    text-decoration: underline;
+}

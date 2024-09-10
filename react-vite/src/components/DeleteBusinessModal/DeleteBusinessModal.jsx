@@ -4,6 +4,7 @@ import {
     deleteBusiness,
     getBusinessesByCurrentUser,
 } from "../../redux/business.js";
+import '../LoginFormModal/LoginForm.css'
 
 const DeleteBusinessModal = ({ businessId }) => {
     const { closeModal } = useModal();
@@ -17,15 +18,18 @@ const DeleteBusinessModal = ({ businessId }) => {
     };
 
     return (
-        <div className="delete-business-modal">
-            <h1>Confirm Delete</h1>
-            <p>Are you sure you want to remove this business?</p>
-            <button className="delete-business" onClick={handleDelete}>
-                Yes (Delete Business)
-            </button>
-            <button className="keep-business" onClick={closeModal}>
-                No (Keep Business)
-            </button>
+        <div className="login-form-modal-container">
+            <div className="login-form-modal-content">
+                <span className="close" onClick={closeModal}>&times;</span>
+                <h1>Confirm Delete</h1>
+                <p>Are you sure you want to delete this business?</p>
+                <button className="login-modal-login button" onClick={handleDelete}>
+                    Yes (Delete Business)
+                </button>
+                <button className="login-modal-login button demo" onClick={closeModal}>
+                    No (Keep Business)
+                </button>
+            </div>
         </div>
     );
 };

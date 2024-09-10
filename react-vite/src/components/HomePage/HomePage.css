@@ -1,0 +1,55 @@
+.homepage-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+
+.categories-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 30px;
+
+}
+
+
+.category-card {
+    flex-basis: calc(25% - 10px);
+    text-align: center;
+    box-sizing: border-box;
+    width: 118px;
+    height: 180px;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+    transition: box-shadow 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+
+.category-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-color: #c0c0c0;
+  }
+
+.category-card .icon {
+    font-size: 30px;
+
+}
+
+.recent-activity-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Adjust the gap between cards */
+    width: 1000px;
+}
+
+.recent-activity-container > .review-card-container {
+    flex: 1 1 calc(33.333% - 16px); /* 3 cards per row, accounting for the gap */
+    box-sizing: border-box;
+}

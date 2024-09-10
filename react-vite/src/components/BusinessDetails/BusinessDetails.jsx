@@ -1,172 +1,198 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getBusinessDetailsById } from "../../redux/business.js";
-import { getReviewsByBusinessId } from "../../redux/review.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem.jsx";
-import CreateImageFormModal from "../CreateImageFormModal";
+import UploadImage from "../Images/UploadImage.jsx";
 import ViewAllImagesModal from "../ViewAllImagesModal";
-import LoadReviews from "../LoadReviews/LoadReviews.jsx";
-import CreateReviewFormModal from "../CreateReviewFormModal/CreateReviewFormModal.jsx";
-// import UpdateReviewFormModal from "../UpdateReviewFormModal/UpdateReviewFormModal.jsx";
-import { FaStar } from "react-icons/fa";
+import MapComponent from "../MapComponent/MapComponent.jsx";
+import { ReviewSummary } from "../Reviews/index.js";
+import OverallRating from "../Reviews/OverallRating.jsx";
+import ReviewList from "../Reviews/ReviewList.jsx";
+import { FaRegStar } from "react-icons/fa6";
+import BusinessDetailsCard from "../Business/BusinessDetailsCard.jsx";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.jsx";
+import { FiCamera } from "react-icons/fi";
+import './BusinessDetails.css';
+
 
 const BusinessDetails = () => {
     const { businessId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isLoaded, setIsLoaded] = useState(false);
+    const business = useSelector((state) => state.businessState[businessId]);
+
     const userId = useSelector((state) => state.session?.user?.id);
-    const reviews = useSelector((state) =>
-        Object.values(state?.reviewState)
-            ? Object.values(state?.reviewState)
-            : []
-    );
-    let numReviews;
-    const reviewCount = reviews?.length;
-    if (reviewCount === 0) {
-        numReviews = "No Reviews yet";
-    } else if (reviewCount === 1) {
-        numReviews = "1 Review";
-    } else {
-        numReviews = `${reviewCount} Reviews`;
-    }
+    const isOwner = business?.owner_id === userId;
+    const [hasPostedReview, setHasPostedReview] = useState(false);
+    const isLoggedIn = useSelector((state) => state.session.user !== null);
 
-    const business = useSelector((state) =>
-        state.businessState[businessId] ? state.businessState[businessId] : []
-    );
-    const isOwner = +userId === +businessId;
-    const hasPostedReview = reviews.find((review) => review.user_id === userId);
-
-    const defaultImage =
-        "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
-
-    // const handleClick = () => {
-    //     alert("Feature coming soon");
-    // };
+    const defaultImg = 'https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small';
 
     useEffect(() => {
-        dispatch(getBusinessDetailsById(businessId)).then(() =>
-            setIsLoaded(true)
-        );
-        dispatch(getReviewsByBusinessId(businessId)).then(() =>
-            setIsLoaded(true)
-        );
-    }, [dispatch, businessId]);
+        dispatch(getBusinessDetailsById(businessId)).then((data) => {
+
+            const userReviews = data?.reviews.filter(review => review.user_id === userId);
+            if (userReviews && userReviews.length > 0) setHasPostedReview(true);
+        });
+        setIsLoaded(true);
+    }, [dispatch, businessId, userId]);
+
+    if (!isLoaded || !business) {
+        return <LoadingSpinner />
+    }
+
+    const priceString = "$".repeat(business.price);
+
+    const images = business.images && business.images.length > 0
+        ? business.images.slice(0, 6)
+        : [];
+
+    const repeatedImages = Array.from({ length: 6 }, (_, index) =>
+        images[index] ? images[index] : defaultImg
+    );
+
+    const handleWriteReviewClick = () => {
+        if (isLoggedIn) {
+            navigate('writeareview');
+        } else {
+            alert('Please login to write a review');
+        }
+    };
+
+    const handlePhotoUploadClick = () => {
+        if (!isLoggedIn) {
+            alert('Please login to upload a photo');
+        }
+    };
 
     return (
-        <div className="business-details-page">
-            {isLoaded && (
-                <div className="business-details-section">
-                    <div id="details">
-                        <div className="business-image-container">
-                            <img
-                                className="business-image"
-                                src={
-                                    business.BusinessImages &&
-                                    business.BusinessImages.length > 0
-                                        ? business.BusinessImages[0].url
-                                        : defaultImage
-                                }
-                                alt="Big Picture"
-                            />
+        <div className="business-details-container">
+            <div className="business-details-top">
+                <div className="business-images-grid">
+                    {repeatedImages.map((image, index) => (
+                        <div key={index} className="business-image-item">
+                            <img src={image.url || image} alt={`Business ${index}`} />
                         </div>
-                        <h1>{business.name}</h1>
-                        <p>
-                            {business?.avgRating ? (
-                                <span>
-                                    <FaStar /> {business.avgRating}
-                                </span>
-                            ) : (
-                                ""
-                            )}{" "}
-                            {`(${numReviews})`}
-                        </p>
-                        <p className="price-category">{`${"$".repeat(
-                            business.price
-                        )} - ${business.category}`}</p>
-                        {/* <p>
-                            {business.price} {business.category} {"HELLO"}
-                        </p> */}
-                        <div>
-                            <button>
-                                <OpenModalMenuItem
-                                    itemText="View all Images"
-                                    modalComponent={
-                                        <ViewAllImagesModal
-                                            businessId={businessId}
+                    ))}
+                </div>
+
+                <div className="business-information">
+                    <h1>{business.name}</h1>
+
+                    <div className="business-review">
+                        <ReviewSummary avgRating={business.avgRating} numReviews={business.numReviews} />
+                    </div>
+                    <div className="price-and-category">
+                        {`${priceString} · ${business.category}`}
+                    </div>
+                    <div className="business-see-more-images-button">
+                        {business.images && business.images.length > 0 && (
+                                                    <button>
+                                                    <OpenModalMenuItem
+                                                        itemText="See all photos"
+                                                        modalComponent={<ViewAllImagesModal businessId={businessId} />}
+                                                    />
+                                                </button>
+                        )}
+                        {isLoggedIn && business.images && business.images.length === 0 &&                                     <button>
+                                        <OpenModalMenuItem
+                                            itemText='Add Photo'
+                                            modalComponent={<UploadImage businessId={businessId} />}
                                         />
-                                    }
-                                />
-                            </button>
-                        </div>
-                        <div>
-                            {userId && (
-                                <button>
-                                    <OpenModalMenuItem
-                                        itemText="Add more images"
-                                        modalComponent={
-                                            <CreateImageFormModal
-                                                businessId={businessId}
-                                            />
-                                        }
-                                    />
-                                </button>
+                                    </button>}
+
+                    </div>
+                </div>
+            </div>
+
+            <div className="business-details-mid">
+                <div className="business-details-mid-left">
+    {isOwner ? (
+        <div className="business-add-photo-button">
+            {!isLoggedIn ? (
+                <button onClick={handlePhotoUploadClick} >Add Photo</button>
+            ) : (
+                <button className="add-phot-button">
+                    <OpenModalMenuItem
+                        itemText={            <span className="button-content">
+                            <FiCamera className="business-details-add-photo-button" />
+                            <span>Add Photo</span>
+                        </span>}
+                        modalComponent={<UploadImage businessId={businessId} />}
+                    />
+                </button>
+            )}
+        </div>
+    ) : (
+        <div className="business-addition-buttons">
+            <div className="business-write-a-review-button">
+                <button
+                    onClick={handleWriteReviewClick}
+                    className="business-details-review-button">
+                    {hasPostedReview ? (
+                        <p><FaRegStar className="business-details-star-icon" /> Edit Review</p>
+                    ) : (
+                        <p><FaRegStar /> Write a Review</p>
+                    )}
+                </button>
+            </div>
+
+            <div className="business-add-photo-button">
+                {!isLoggedIn ? (
+                    <button onClick={handlePhotoUploadClick} className="add-phot-button"> <FiCamera className="business-details-add-photo-button"/> Add Photo</button>
+                ) : (
+                    <button className="add-phot-button">
+                        <OpenModalMenuItem
+                            itemText='Add Photo'
+                            modalComponent={<UploadImage businessId={businessId} />}
+                        />
+                    </button>
+                )}
+            </div>
+        </div>
+    )}
+</div>
+
+                <div className="about-details-card">
+                    <div className="business-details-desc">
+                        <h2>About the Business</h2>
+                        <p >{business.description}</p>
+                    </div>
+                    <BusinessDetailsCard business={business} />
+                </div>
+
+                <div className="business-location-address">
+                    <h2>Location</h2>
+                    <div className="business-location-details">
+                        <div className="location-map">
+                            {business.lat && business.lng && (
+                                <MapComponent lat={business.lat} lng={business.lng} />
                             )}
-                        </div>
-                        <div>
-                            {!isOwner && !hasPostedReview && (
-                                // (hasPostedReview ? (
-                                //     <button>
-                                //         <OpenModalMenuItem
-                                //             itemText="Edit review"
-                                //             modalComponent={
-                                //                 <UpdateReviewFormModal
-                                //                     reviewId={
-                                //                         hasPostedReview?.id
-                                //                     }
-                                //                     userId={userId}
-                                //                     businessId={businessId}
-                                //                 />
-                                //             }
-                                //         />
-                                //     </button>
-                                // ) : (
-                                <button>
-                                    <OpenModalMenuItem
-                                        itemText="Write a review"
-                                        modalComponent={
-                                            <CreateReviewFormModal
-                                                businessId={businessId}
-                                                userId={userId}
-                                            />
-                                        }
-                                    />
-                                </button>
-                            )}
-                            {/* <button onClick={handleClick}>Add photo</button> */}
-                        </div>
-                        <div className="business-details">
-                            <div>{business.website}</div>
-                            <div>{business.phone_number}</div>
-                            <div>
-                                {business.address} {business.city}{" "}
-                                {business.state} {business.postal_code}
-                            </div>
-                        </div>
-                        <h3>About the Business</h3>
-                        <div className="description">
-                            <pre className="description-content">
-                                {business.description}
-                            </pre>
                         </div>
                     </div>
-                    <h4>Overall rating</h4>
+
+                    <div className="business-location-info">
+                        <div>
+                            {business.address}
+                            <br />
+                            {business.city}, {business.state}
+                            {business.postal_code}
+                            <br />
+                        </div>
+
+                        <button className="get-directions-btn" onClick={() => alert('Feature coming soon')}>
+                            Get directions
+                        </button>
+                    </div>
                 </div>
-            )}
 
-            <LoadReviews businessId={business.id} userId={userId} />
-
-            <hr />
+                <div className="business-details-bottom">
+                    <OverallRating avgRating={business.avgRating} reviews={business.reviews} />
+                    <ReviewList avgRating={business.avgRating} reviews={business.reviews} />
+                </div>
+            </div>
         </div>
     );
 };

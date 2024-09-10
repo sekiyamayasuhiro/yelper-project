@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, redirect
 from app.models import Business, Review, Image, db
 from flask_login import current_user, login_required
 from app.forms import ReviewForm, ImageForm
+from app.api.aws_helpers import get_unique_filename, upload_file_to_s3
 
 business_routes = Blueprint('businesses', __name__)
 
@@ -15,15 +16,13 @@ def get_all_businesses():
 
 @business_routes.route('/<int:business_id>')
 def get_business(business_id):
-    data = db.session.query(Business).join(Review).join(Image).filter(Business.id == business_id == Review.business_id == Image.business_id).all()
 
-    if not data:
+    business = Business.query.get(business_id)
+
+    if not business:
         return jsonify({'message': 'Business not found'}), 404
 
-    numReviews = db.session.query(Review).filter(Review.business_id == business_id).count()
-    business = [{**business.to_dict(), 'BusinessReviews': [review.to_dict() for review in business.reviews], 'BusinessImages': [image.to_dict() for image in business.images], 'numReviews': numReviews} for business in data]
-
-    return business[0]
+    return jsonify(business.to_dict())
 
 
 # Delete business by id
@@ -181,13 +180,27 @@ def search_businesses():
     Search businesses by name, category, and/or price level.
     """
     name = request.args.get('name', type=str)
+    location = request.args.get('location', type=str)
     category = request.args.get('category', type=str)
     price = request.args.get('price', type=int)
 
     search_filter = Business.query
 
     if name:
-        search_filter = search_filter.filter(Business.name.ilike(f'%{name}%'))
+        search_filter = search_filter.filter(
+            (Business.name.ilike(f'%{name}%')) |
+            (Business.category.ilike(f'%{name}%'))
+        )
+
+    if location:
+        location_filter = (
+            Business.address.ilike(f'%{location}%') |
+            Business.city.ilike(f'%{location}%') |
+            Business.state.ilike(f'%{location}%') |
+            Business.country.ilike(f'%{location}%') |
+            Business.postal_code.ilike(f'%{location}%')
+        )
+        search_filter = search_filter.filter(location_filter)
 
     if category:
         search_filter = search_filter.filter_by(category=category)
@@ -209,3 +222,26 @@ def get_businesses_by_current_user():
     current_user_id = current_user.id
     businesses = Business.query.filter(Business.owner_id == current_user_id).all()
     return jsonify([business.to_dict() for business in businesses]), 200
+
+
+# (AWS S3) Upload an image for a business based on the business' id
+@business_routes.route('/<int:business_id>/images/upload', methods=["POST"])
+# @login_required
+def upload_image(business_id):
+    image = request.files["image"]
+
+    if image:
+        image.filename = get_unique_filename(image.filename)
+        upload = upload_file_to_s3(image)
+        print('upload', upload)
+
+        if "url" not in upload:
+            return jsonify({"error": upload}), 400
+
+        url = upload["url"]
+        new_image = Image(url=url, user_id=current_user.id, business_id=business_id)
+        db.session.add(new_image)
+        db.session.commit()
+        return jsonify({"message": "Image uploaded successfully", "url": url}), 200
+
+    return jsonify({"error": "Unexpected error occurred"}), 500

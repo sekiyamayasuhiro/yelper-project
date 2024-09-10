@@ -14,10 +14,12 @@ class Image(db.Model):
     updated_at = db.Column(db.TIMESTAMP, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
     def to_dict(self):
+        business_name = self.business.name if self.business else None
         return {
             "id": self.id,
             "user_id": self.user_id,
             "business_id": self.business_id,
+            "business_name": business_name,
             "url": self.url,
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat()
@@ -28,12 +30,12 @@ class Image(db.Model):
     business = db.relationship('Business', back_populates='images')
 
 
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'user_id': self.user_id,
-            'business_id': self.business_id,
-            'url': self.url,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
-        }
+    # def to_dict(self):
+    #     return {
+    #         'id': self.id,
+    #         'user_id': self.user_id,
+    #         'business_id': self.business_id,
+    #         'url': self.url,
+    #         'created_at': self.created_at,
+    #         'updated_at': self.updated_at
+    #     }

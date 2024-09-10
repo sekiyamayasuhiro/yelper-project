@@ -1,104 +1,88 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllBusinesses } from "../../redux/business.js";
-// import { getImagesByBusinessId } from "../../redux/image.js";
+import { getAllBusinesses } from "../../redux/business";
+import BusinessCard from "../BusinessCard";
+import MapBusinessIndex from "../MapBusinessIndex";
 import "./BusinessIndex.css";
-import { FaStar } from "react-icons/fa";
+import { LoadingSpinner } from "../LoadingSpinner";
 
 const BusinessesIndex = () => {
     const dispatch = useDispatch();
-    const [isLoaded, setIsLoaded] = useState(false);
-    const businesses = useSelector((state) =>
-        Object.values(state.businessState)
-            ? Object.values(state.businessState)
-            : []
-    );
+    const currentUserId = useSelector((state) => state.session.user?.id);
 
-    // const reviews = useSelector((state) =>
-    //     Object.values(state?.reviewState)
-    // ? Object.values(state?.reviewState)
-    //         : []
-    // );
+    // fixing the memo bug
+    const originalBusinesses = useSelector((state) => state.businessState);
+    const businesses = useMemo(() => {
+        // Filter businesses owned by someone other than the current user
+        return Object.values(originalBusinesses).filter(business =>
+            currentUserId === undefined || business.owner_id !== currentUserId
+        );
+    }, [originalBusinesses, currentUserId]);
+
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    const [selectedPrice, setSelectedPrice] = useState(null);
+
+    const searchParams = new URLSearchParams(location.search);
+
+    const name = searchParams.get('name') || '';
+    const locationParam = searchParams.get('find_loc') || '';
+    const category = searchParams.get('category') || '';
 
     useEffect(() => {
-        dispatch(getAllBusinesses()).then(() => setIsLoaded(true));
-    }, [dispatch]);
+        // Fetch businesses whenever URL parameters change
+        dispatch(getAllBusinesses({ name, location: locationParam, category, price: selectedPrice })).then(() => setIsLoaded(true));
+    }, [dispatch, name, locationParam, category, selectedPrice]);
 
-    const defaultimage =
-        "https://pbs.twimg.com/media/FgfRWcSVsAEi6y2?format=jpg&name=small";
+    const prices = [1, 2, 3, 4]
+
+    const handlePriceClick = (priceLevel) => {
+        setSelectedPrice(priceLevel);
+    };
+
+    const clear = () => {
+        setSelectedPrice(null)
+    }
+
+    if (!isLoaded) return <LoadingSpinner />
 
     return (
-        <div>
-            <h3>
+        <div className="business-index-container">
+            {/* <h3>
                 Dear Users, much of the white space on the right will be taken
                 care of when Google Maps is integrated. We apologize. - Yelper
                 Team
-            </h3>
+            </h3> */}
+            <div className="price-filter">
+            {selectedPrice ? <div><p>1 filter</p> {'$'.repeat(selectedPrice)} <p className="clear-all" onClick={clear}>Clear all</p></div> : <p>Filters</p>}
+            <p>Price</p>
+            <div className="price-buttons">
+            {prices.map((level) => (
+                <button
+                    key={level}
+                    className={`price-button ${selectedPrice === level ? 'selected' : ''}`}
+                    onClick={() => handlePriceClick(level)}
+                >
+                    {'$'.repeat(level)}
+                </button>
+            ))}
+            </div>
+
+            </div>
+
             {businesses.length === 0 && <h3>No Result Found</h3>}
             <div className="business-list">
                 {isLoaded &&
-                    businesses.map(
-                        ({
-                            id,
-                            name,
-                            city,
-                            state,
-                            price,
-                            category,
-                            BusinessImages,
-                            avgRating,
-                        }) => {
-                            const imageUrl =
-                                BusinessImages && BusinessImages.length > 0
-                                    ? BusinessImages[0].url
-                                    : defaultimage;
-                            return (
-                                <div
-                                    key={id}
-                                    className="business-card"
-                                    title={`This is the tooltip: ${name}`}
-                                >
-                                    <img src={imageUrl} alt={name} />
-                                    <Link
-                                        to={`/businesses/${id}`}
-                                        className="business-card-link"
-                                    >
-                                        <h2 className="business-name">
-                                            {name}
-                                        </h2>
-                                        <span>
-                                            {city}, {state}
-                                        </span>
-                                        <div>
-                                            <FaStar />
-                                            {avgRating ? (
-                                                <span>
-                                                    {avgRating.toFixed(2)}
-                                                </span>
-                                            ) : (
-                                                <span>0.00</span>
-                                            )}
-                                        </div>
-                                        {/* <span>
-                                                {" "}
-                                                {`(${reviews.length} ${
-                                                    reviews.length !== 0 &&
-                                                    reviews.length === 1
-                                                        ? "Review"
-                                                        : reviews.length > 1
-                                                        ? "Reviews"
-                                                        : "No Reviews yet"
-                                                })`}
-                                        </span> */}
-                                        <p className="price-category">{`${"$".repeat(
-                                            price
-                                        )} - ${category}`}</p>
-                                    </Link>
-                                </div>
-                            );
-                        }
-                    )}
+                    businesses.map((business) => (
+                        <BusinessCard key={business.id} business={business} />
+                    ))}
+            </div>
+            <div className="business-maps-all">
+                {isLoaded && businesses.length > 0 && (
+                    <div className="map-container">
+                        <MapBusinessIndex businesses={businesses} />
+                    </div>
+                )}
             </div>
         </div>
     );

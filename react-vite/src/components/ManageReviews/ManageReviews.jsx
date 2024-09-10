@@ -1,84 +1,88 @@
-import { FaStar } from "react-icons/fa";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { getReviewsByCurrentUser } from "../../redux/review.js";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
-import UpdateReviewFormModal from "../UpdateReviewFormModal";
 import DeleteReviewModal from "../DeleteReviewModal";
-// import LoadReviews from "../LoadReviews/LoadReviews.jsx";
+import StarRating from "../Reviews/StarRating.jsx";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import './ManageReviews.css';
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.jsx";
 
 const ManageReviews = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false)
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    };
+
     const reviews = useSelector((state) =>
         Object.values(state.reviewState) ? Object.values(state.reviewState) : []
     );
 
     useEffect(() => {
         dispatch(getReviewsByCurrentUser());
+        setIsLoaded(true)
     }, [dispatch]);
 
-    return (
-        <div>
-            <div className="manage-reviews-header">
-                <h1>Manage Your Reviews</h1>
-            </div>
-            <div className="review-container-manage-reviews">
-                {/* {reviews.map(({ id, business_id}) => (
-                    <div key={id}>
-                        <LoadReviews businessId={business_id} />
-                    </div>
-                ))} */}
-                {reviews.map(
-                    ({
-                        id,
-                        rating,
-                        review_text,
-                        user_id,
-                        business_id,
-                        name,
-                        category,
-                        address,
-                    }) => (
-                        <div key={id}>
-                            <p>{name}</p>
-                            <p>{category}</p>
-                            <p>{address}</p>
-                            <span>
-                                {rating} <FaStar />
-                            </span>
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { year: "numeric", month: "long", day: 'numeric' };
+        return date.toLocaleDateString("en-US", options);
+    };
 
-                            <div>{review_text}</div>
-                            <div>
-                                <button>
-                                    <OpenModalMenuItem
-                                        itemText="Update"
-                                        modalComponent={
-                                            <UpdateReviewFormModal
-                                                reviewId={id}
-                                                userId={user_id}
-                                                businessId={business_id}
-                                                initialReviewText={review_text}
-                                                initialRating={rating}
-                                            />
-                                        }
-                                    />
-                                </button>
-                            </div>
-                            <div>
-                                <button>
-                                    <OpenModalMenuItem
-                                        itemText="Delete"
-                                        modalComponent={
-                                            <DeleteReviewModal reviewId={id} />
-                                        }
-                                    />
-                                </button>
+    if (!isLoaded) return <LoadingSpinner />
+
+    return (
+        <div className="manage-reviews-container">
+            <h3>Reviews</h3>
+
+            {reviews.length > 0 ? reviews.map((review) => (
+                <div key={review.id} className="manage-review-container">
+                    <div className="review-container-right">
+                        <div className="review-header">
+                            <img src={review.business?.url} alt="" />
+                            <div className="review-details">
+                                <h3>{review.business.name}</h3>
+                                <p>
+                                    {review.business.category}
+                                    <br />
+                                    {review.business.address}
+                                </p>
                             </div>
                         </div>
-                    )
-                )}
-            </div>
+                        <div className="review-body">
+                            <div className="review-rating">
+                                <StarRating rating={review.rating} />
+                            </div>
+                            <div className="review-date">{formatDate(review.created_at)}</div>
+                        </div>
+                        <p>{review.review_text}</p>
+                    </div>
+                    <div className="review-footer">
+                        <div className="menu-container">
+                            <button className="menu-button" onClick={toggleMenu}>...</button>
+                            {menuOpen && (
+                                <div className="menu-dropdown">
+                                    <button onClick={() => navigate(`/businesses/${review.business_id}/writeareview`)}>
+                                        Write an update
+                                    </button>
+                                    <button>
+                                        <OpenModalMenuItem
+                                            itemText="Remove Review"
+                                            modalComponent={<DeleteReviewModal reviewId={review.id} />}
+                                        />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )) : <div className="no-reviews-message"><h4>No reviews posted yet</h4></div>}
+
         </div>
     );
 };

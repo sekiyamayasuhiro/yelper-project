@@ -1,0 +1,162 @@
+.manage-reviews-container {
+  padding: 20px;
+}
+
+.manage-review-container .review-container-right {
+  width: 80%;
+
+}
+
+.review-container-right {
+  overflow: hidden;
+}
+
+.review-container-right p {
+  word-wrap: break-word;
+
+}
+
+.manage-review-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items at the start of the cross axis */
+  border-bottom: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 20px;
+  width: 1200px;
+}
+
+.review-header {
+  display: flex;
+  margin-bottom: 10px;
+
+}
+
+.review-details {
+  margin-left: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.review-header img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.review-details h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.review-details p {
+  font-size: 14px;
+  color: #555;
+  margin: 4px 0;
+}
+
+.review-body {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+
+}
+
+.review-rating {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #444;
+}
+
+.review-date {
+  font-size: 12px;
+  color: #888;
+  margin-left: 16px;
+}
+
+.review-body p {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+}
+
+.review-footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-end; /* Align footer items to the right */
+  align-items: center;
+  gap: 10px;
+}
+
+.review-footer button {
+  padding: 8px 12px;
+  border: none;
+  color: black;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.review-footer button:hover {
+  background-color: #EBEBEB;
+}
+
+.menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+.menu-dropdown {
+  display: none; /* Hidden by default */
+  position: absolute;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 10px;
+  z-index: 10;
+  width: 150px;
+  right: 0;
+  top: 100%;
+}
+
+.menu-container:hover .menu-dropdown {
+  display: block; /* Show dropdown on hover */
+}
+
+.menu-dropdown button {
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  color: #2D2E2F;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.menu-dropdown button:hover {
+  background-color: #ddd;
+}
+
+
+.no-reviews-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  color: gray;
+  text-align: center;
+}

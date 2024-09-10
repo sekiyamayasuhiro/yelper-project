@@ -54,6 +54,7 @@ export const getBusinessDetailsById = (businessId) => async (dispatch) => {
     if (response.ok) {
         const businessData = await response.json();
         dispatch(addBusiness(businessData));
+        return businessData
     }
 };
 

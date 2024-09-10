@@ -1,14 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
+import { FiLogOut } from "react-icons/fi";
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { useNavigate } from "react-router-dom";
+import './ProfileButton.css'
 
 function ProfileButton() {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [showMenu, setShowMenu] = useState(false);
     const user = useSelector((store) => store.session.user);
     const ulRef = useRef();
@@ -38,32 +41,21 @@ function ProfileButton() {
         e.preventDefault();
         dispatch(thunkLogout());
         closeMenu();
+        navigate('/')
     };
 
     return (
         <>
-            <button onClick={toggleMenu}>
-                <FaUserCircle />
+            <button onClick={toggleMenu} className="profile-button-icon">
+                <FaUserCircle  />
             </button>
             {showMenu && (
                 <ul className={"profile-dropdown"} ref={ulRef}>
                     {user ? (
                         <>
-                            <div>{user.username}</div>
-                            <div>{user.email}</div>
+                            <button className="about-me-button" onClick={() => navigate('/user_details')}><FaUserCircle className="aboutme-icon"/> About Me</button>
+                            <button onClick={logout}><FiLogOut className="logout-icon"/> Log Out</button>
 
-                            <div>
-                                <Link to="/businesses/current">
-                                    Manage Businesses
-                                </Link>
-                            </div>
-                            <div>
-                                <Link to="/reviews/current">Reviews</Link>
-                            </div>
-
-                            <div>
-                                <button onClick={logout}>Log Out</button>
-                            </div>
                         </>
                     ) : (
                         <>

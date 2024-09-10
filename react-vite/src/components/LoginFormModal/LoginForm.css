@@ -1,3 +1,96 @@
+/* Modal styles */
+.login-form-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.login-form-modal-content {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Highest z-index to ensure it appears on top */
+    background-color: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.login-modal-profile-icon {
+    font-size: 40px;
+    border-radius: 50px;
+}
+
+
+.login-form-modal-content input {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #E8F0FE;
+    border: 1px solid #bfbfbf;
+    border-radius: 5px;
+    width: 300px;
+    height: 30px;
+}
+
+.login-modal-login.button {
+    background-color: red;
+    color: white;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+    height: 45px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.login-modal-login.button:hover {
+    background-color: #c8102e;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-modal-login.button.demo {
+    background-color: gray;
+}
+
+.login-modal-login.button.demo:hover {
+    background-color: #5a5a5a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.login-modal-footer {
+    margin-top: 50px;
+    font-weight: 600;
+}
+
+/* Error message styles */
 .form-error {
-    color: red;
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.close {
+    margin-left: 280px;
+}
+
+.loginmodal-signuplink {
+    color: #027a97;
+    transition: text-decoration 0.3s ease;
+}
+
+.loginmodal-signuplink:hover {
+    text-decoration: underline;
 }
