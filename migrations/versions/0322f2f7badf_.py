@@ -1,16 +1,20 @@
 """empty message
 
-Revision ID: 64c157bee8a5
+Revision ID: 0322f2f7badf
 Revises: 
-Create Date: 2024-07-04 15:41:07.960645
+Create Date: 2024-09-09 22:51:05.832164
 
 """
 from alembic import op
 import sqlalchemy as sa
 
+import os
+environment = os.getenv("FLASK_ENV")
+SCHEMA = os.environ.get("SCHEMA")
+
 
 # revision identifiers, used by Alembic.
-revision = '64c157bee8a5'
+revision = '0322f2f7badf'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,33 +27,44 @@ def upgrade():
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
-    sa.Column('first_name', sa.String(), nullable=True),
-    sa.Column('last_name', sa.String(), nullable=True),
+    sa.Column('first_name', sa.String(length=10), nullable=True),
+    sa.Column('last_name', sa.String(length=10), nullable=True),
+    sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
+    sa.Column('updated_at', sa.TIMESTAMP(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+
     op.create_table('businesses',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=30), nullable=False),
-    sa.Column('address', sa.String(), nullable=False),
-    sa.Column('city', sa.String(), nullable=False),
-    sa.Column('state', sa.String(), nullable=False),
+    sa.Column('address', sa.String(length=50), nullable=False),
+    sa.Column('city', sa.String(length=45), nullable=False),
+    sa.Column('state', sa.String(length=2), nullable=False),
     sa.Column('country', sa.String(), nullable=False),
     sa.Column('postal_code', sa.Integer(), nullable=False),
     sa.Column('lat', sa.Float(), nullable=False),
     sa.Column('lng', sa.Float(), nullable=False),
     sa.Column('category', sa.String(), nullable=False),
     sa.Column('phone_number', sa.BigInteger(), nullable=False),
-    sa.Column('website', sa.String(), nullable=False),
-    sa.Column('description', sa.String(), nullable=False),
+    sa.Column('website', sa.String(length=50), nullable=False),
+    sa.Column('description', sa.String(length=450), nullable=False),
     sa.Column('price', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
     sa.Column('updated_at', sa.TIMESTAMP(), nullable=True),
     sa.ForeignKeyConstraint(['owner_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE businesses SET SCHEMA {SCHEMA};")
+
     op.create_table('friends',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -61,6 +76,12 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE friends SET SCHEMA {SCHEMA};")
+
     op.create_table('images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -72,18 +93,27 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
+
     op.create_table('reviews',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('business_id', sa.Integer(), nullable=False),
     sa.Column('rating', sa.Integer(), nullable=True),
-    sa.Column('review_text', sa.String(length=100), nullable=True),
+    sa.Column('review_text', sa.String(length=200), nullable=True),
     sa.Column('created_at', sa.TIMESTAMP(), nullable=True),
     sa.Column('updated_at', sa.TIMESTAMP(), nullable=True),
     sa.ForeignKeyConstraint(['business_id'], ['businesses.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+
+
+    if environment == "production":
+        op.execute(f"ALTER TABLE reviews SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
