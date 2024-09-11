@@ -1,131 +1,110 @@
-# Flask React Project
+# Yelper
 
-This is the starter for the Flask React project.
+Yelper is a clone of the popular Yelp platform, developed as a group project. It replicates core functionalities, including user authentication, business listings, and review systems. Built with Flask, React, and SQLAlchemy, Yelper offers a comprehensive solution for discovering and reviewing local businesses, demonstrating our proficiency in creating feature-rich, interactive applications.
 
-## Getting started
+## Live Site
 
-1. Clone this repository (only this branch).
+- [Visit Yelper](https://little-trio-yumspot-project.onrender.com/)
 
-2. Install dependencies.
+## Screenshots
 
-   ```bash
-   pipenv install -r requirements.txt
+#### Home Page
+
+![image](https://github.com/user-attachments/assets/9b6d9b17-f0a5-484d-9dff-b5e1b5c9583e)
+
+#### Listing Page
+![image](https://github.com/user-attachments/assets/c5697271-a8de-480d-bd82-44e43b7e91bb)
+
+## Technologies Used
+
+- **Front-End:** React, CSS
+- **State Management:** Redux
+- **Back-End:** Flask
+- **Database:** SQLAlchemy
+- **Cloud Storage:** AWS S3
+- **Maps Integration:** Google Maps
+
+## Installation
+
+To get a local copy up and running, follow these steps:
+
+1. **Clone the Repository:**
+
+   ```sh
+   git clone https://github.com/sekiyamayasuhiro/yelper-project.git
    ```
 
-3. Create a __.env__ file based on the example with proper settings for your
-   development environment.
+2. **Navigate to the Project Directory:**
 
-4. Make sure the SQLite3 database connection URL is in the __.env__ file.
+   ```sh
+   cd yelper-project
+   ```
 
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention.**
+3. **Activate the virtual environment:**
 
-6. Get into your pipenv, migrate your database, seed your database, and run your
-   Flask app:
-
-   ```bash
+   ```sh
    pipenv shell
    ```
+4. **Install Dependencies:**
 
-   ```bash
+    ```sh
+   pipenv install -r requirements.txt
+   ```
+5. **Set Up Environment Variables:**
+   - Create `.env` file in the root directory of the project and add the following environment variables:
+
+      ```sh
+      # Secret key for Flask
+      SECRET_KEY=your-secret-key
+
+      # Database connection details
+      DATABASE_URL=sqlite:///dev.db
+      DATABASE_SCHEMA=your-database-schema
+
+      # AWS S3 credentials
+      AWS_ACCESS_KEY_ID=your-access-key-id
+      AWS_SECRET_ACCESS_KEY=your-secret-access-key
+      S3_BUCKET_NAME=your-s3-bucket-name
+      ```
+
+   - Create a `.flaskenv` file in the root directory of the project and add the following environment variables:
+
+      ```sh
+      FLASK_APP=app
+      FLASK_DEBUG=true
+      FLASK_RUN_PORT=8000
+      ```
+6. **Run Migrations:**
+
+   ```sh
    flask db upgrade
    ```
 
-   ```bash
+7. **Seed the database:**
+
+   ```sh
    flask seed all
    ```
 
-   ```bash
-   flask run
-   ```
+8. **Set Up React Front-end:**
+   - Navigate to the React front-end directory and install dependancies:
 
-7. The React frontend has no styling applied. Copy the __.css__ files from your
-   Authenticate Me project into the corresponding locations in the
-   __react-vite__ folder to give your project a unique look.
+      ```sh
+      cd react-vite
+      npm install
+      ```
 
-8. To run the React frontend in development, `cd` into the __react-vite__
-   directory and run `npm i` to install dependencies. Next, run `npm run build`
-   to create the `dist` folder. The starter has modified the `npm run build`
-   command to include the `--watch` flag. This flag will rebuild the __dist__
-   folder whenever you change your code, keeping the production version up to
-   date.
+   - Start the React development server:
 
-## Deployment through Render.com
+      ```sh
+      npm run dev
+      ```
+9. **Start the Development Server:**
+   - Open a new terminal, navigate to the root directory, and run:
 
-First, recall that Vite is a development dependency, so it will not be used in
-production. This means that you must already have the __dist__ folder located in
-the root of your __react-vite__ folder when you push to GitHub. This __dist__
-folder contains your React code and all necessary dependencies minified and
-bundled into a smaller footprint, ready to be served from your Python API.
+      ```sh
+      flask run
+      ```
 
-Begin deployment by running `npm run build` in your __react-vite__ folder and
-pushing any changes to GitHub.
-
-Refer to your Render.com deployment articles for more detailed instructions
-about getting started with [Render.com], creating a production database, and
-deployment debugging tips.
-
-From the Render [Dashboard], click on the "New +" button in the navigation bar,
-and click on "Web Service" to create the application that will be deployed.
-
-Select that you want to "Build and deploy from a Git repository" and click
-"Next". On the next page, find the name of the application repo you want to
-deploy and click the "Connect" button to the right of the name.
-
-Now you need to fill out the form to configure your app. Most of the setup will
-be handled by the __Dockerfile__, but you do need to fill in a few fields.
-
-Start by giving your application a name.
-
-Make sure the Region is set to the location closest to you, the Branch is set to
-"main", and Runtime is set to "Docker". You can leave the Root Directory field
-blank. (By default, Render will run commands from the root directory.)
-
-Select "Free" as your Instance Type.
-
-### Add environment variables
-
-In the development environment, you have been securing your environment
-variables in a __.env__ file, which has been removed from source control (i.e.,
-the file is gitignored). In this step, you will need to input the keys and
-values for the environment variables you need for production into the Render
-GUI.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from the **External Database URL** field)
-
-**Note:** Add any other keys and values that may be present in your local
-__.env__ file. As you work to further develop your project, you may need to add
-more environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment.
-
-### Deploy
-
-Now you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your Dockerfile
-commands being executed and any errors that occur.
-
-When deployment is complete, open your deployed site and check to see that you
-have successfully deployed your Flask application to Render! You can find the
-URL for your site just below the name of the Web Service at the top of the page.
-
-**Note:** By default, Render will set Auto-Deploy for your project to true. This
-setting will cause Render to re-deploy your application every time you push to
-main, always keeping it up to date.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+10. **Access the Application:**
+    - Open your browser and go to `http://127.0.0.1:8000` for the Flask backend and `http://localhost:5173/` for the React front-end.
