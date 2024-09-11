@@ -108,3 +108,14 @@ To get a local copy up and running, follow these steps:
 
 10. **Access the Application:**
     - Open your browser and go to `http://127.0.0.1:8000` for the Flask backend and `http://localhost:5173/` for the React front-end.
+   
+## Yelper Team
+
+- **Yasuhiro Sekiyama** - Full Stack Developer   
+  [GitHub Profile](https://github.com/sekiyamayasuhiro)
+
+- **Hazel Caling** - Full Stack Developer  
+  [GitHub Profile](https://github.com/hazelcaling)
+
+
+
