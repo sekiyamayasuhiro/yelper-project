@@ -37,7 +37,7 @@ def seed_businesses():
     )
     coffee = Business(
         owner_id=users[2].id,
-        name='Blue Bottle Coffee - Pacific Heights',
+        name='Blue Bottle Coffee',
         address='2453 Fillmore St.',
         city='San Francisco',
         state='CA',
